@@ -11,7 +11,14 @@
         <div class="col-7 col-md-6 my-auto">
             <h1 class="display-4 logo-font text-black">
                 Citizen Tree
-            </h1>    
+            </h1>
+            {% if user.is_authenticated %}
+                Hi {{ user.email }}!
+                <p><a href="{% url 'logout' %}">Log Out</a></p>
+            {% else %}
+                <p>You are not logged in</p>
+                <a href="{% url 'login' %}">Log In</a>
+            {% endif %}    
         </div>
     </div>
 </div>
