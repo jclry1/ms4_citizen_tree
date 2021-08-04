@@ -143,3 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use CustomUser
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Non-default login/logout redirects (based on Django for Professionals)
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
