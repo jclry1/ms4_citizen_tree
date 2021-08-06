@@ -37,10 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # MS4 Apps
     'accounts',
     'home',
+
+    # Other apps
+    'crispy_forms',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -144,6 +150,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Use CustomUser
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# Non-default login/logout redirects (based on Django for Professionals)
+# Additional Requirements and Configuration
+CRISPY_TEMPLATE_PACK = 'bootstrap4' # Bootstrap add-in for crispy forms
+
+# Settings for allauth
 LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+ACCOUNT_LOGOUT_REDIRECT = 'index' 
+SITE_ID = 1 # For allauth/django sites
+ACCOUNT_SESSION_REMEMBER = True # Remove the default allauth 'remember me' checkbox
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', #Default django
+    'allauth.account.auth_backends.AuthenticationBackend', # Allauth
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use console temporarily to output emails
