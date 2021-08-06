@@ -129,8 +129,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # Static setup based on Django for Professionals
-STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),) #Development location
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) #Production location
 STATICFILES_FINDERS = [ 
 "django.contrib.staticfiles.finders.FileSystemFinder",
 "django.contrib.staticfiles.finders.AppDirectoriesFinder",
