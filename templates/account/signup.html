@@ -1,6 +1,7 @@
 <!-- Based on Django for Professionals and https://learndjango.com/tutorials/django-signup-tutorial -->
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 
 {% block title %}Sign Up{% endblock title %}
 {% block content %}
@@ -10,4 +11,10 @@
 {{ form|crispy }}
 <button class="btn btn-success" type="submit">Sign Up</button>
 </form>
+<hr />
+<div>
+<p>Alternatively, if you have a GitHub account, you can sign up using that. Your username in Citizen Tree will match your GitHub username:</p>
+<a href="{% provider_login_url 'github' %}"><i class="fab fa-github fa-3x"></i></a>
+</div>
+
 {% endblock content %}

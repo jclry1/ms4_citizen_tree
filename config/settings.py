@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'allauth',
     'allauth.account',
+    # Enable sign up with social accounts
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -158,6 +161,12 @@ LOGIN_REDIRECT_URL = 'index'
 ACCOUNT_LOGOUT_REDIRECT = 'index' 
 SITE_ID = 1 # For allauth/django sites
 ACCOUNT_SESSION_REMEMBER = True # Remove the default allauth 'remember me' checkbox
+ACCOUNT_USERNAME_REQUIRED = True #Make the username a required field for signup
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # Make email the path for authenticating sign up
+ACCOUNT_EMAIL_REQUIRED = True # Make email a required field for sign up
+ACCOUNT_UNIQUE_EMAIL = True #Email cannot be used for more than one account
+
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', #Default django
