@@ -12,7 +12,11 @@
             <h1 class="display-4 logo-font text-black">
                 Citizen Tree
             </h1>
+            <h2>{{ heading }}</h2>
+            
             {% if user.is_authenticated %}
+                <h3>User: {{ username }}</h3>
+                <hr />
                 Hi {{ user.email }}!
                 <p><a href="{% url 'account_logout' %}">Log Out</a></p>
             {% else %}
