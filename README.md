@@ -34,6 +34,16 @@ The command that seems to work is to remove the docker-compose element and just 
 pipenv install django-crispy-forms
 ```
 
+## Class-based generic views
+I'm using some class-based generic views
+Info tfor this has come from:
+* Django for professionals
+* Very Academy - Learn Django Class-Based View series - https://www.youtube.com/watch?v=GxA2I-n8NR8
+
+For some issues passing context data (breaking if no user is logged in):
+https://stackoverflow.com/questions/54444196/get-context-data-breaking-breaking-django-listview
+https://stackoverflow.com/questions/51632952/get-the-user-id-class-based-view
+https://stackoverflow.com/questions/65685752/getting-django-db-models-query-utils-deferredattribute-object-at-0x7fca8f1d3d50
 
 
 
