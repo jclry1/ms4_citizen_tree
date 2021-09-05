@@ -24,3 +24,8 @@
       ),
       url("/static/images/jacek-dylag-cars-night-smog.jpg")
 }
+/* For table caption on calculator page */
+caption {
+  color: white;
+  font-style: italic;
+}

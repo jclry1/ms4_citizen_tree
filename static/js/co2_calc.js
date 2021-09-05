@@ -162,7 +162,7 @@ function tellEstimate(){
     <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(3)'>Who owns the planted trees?</button>
     <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(4)'>Can I sponsor a specific project?</button>
     <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(5)'>As a landowner, how do I get involved?</button>
-    <!-- <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(0)'>Clear</button> -->
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(0)'>Clear</button>
     </div>
     <div id="query_answer"></div>
   </div>
@@ -172,14 +172,19 @@ function tellEstimate(){
 
 function answerFaq(sel){
     faqurl = 'faq/faqs/'+sel
-    divfaq = document.getElementById("query_answer");
+    divfaq = document.getElementById("query_answer").innerHTML;
+    if (sel == 0){
+      document.getElementById("query_answer").innerHTML = ``;
+    }else{
     //document.getElementById("spin").style.display = "block";
     fetch (faqurl) //fetch data from endpoint
     .then(response => response.json())                    // convert to json  
     .then(data => {
     //document.getElementById("spin").style.display = "none";
-    document.getElementById("query_answer").innerHTML = `<p>${data.question_answer}<p>`
-    console.log(data);
+    document.getElementById("query_answer").innerHTML = `
+    <strong>${data.question_answer}</strong>`;
+    //console.log(data);
 }
 )
+}
 }
