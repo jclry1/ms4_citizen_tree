@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div
+  class="jumbotron bg-cover text-white"
+  style="
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      ),
+      url(photos/jacek-dylag-cars-night-smog.jpg);
+  "
+>
+  <!-- Source of opacity styling for bg image: https://codepen.io/JacobLett/pen/vPQKWd -->
+  <h1 class ="jumbo-header-neutral">Weekly Emissions from Transport Fuel</h1>
+  <p class="jumbotron-para-reg">We added a simple calculator to help give you an idea about just one element of your overall lifestyle emissions.</p>
+    <p>This is based on cost data from the AA and emissions data from several sources, including TCD.</p> 
+            <h3 class="jumbo-header-neutral">How much do you typically spend on fuel per week?</h3>
+            <input id='week_spend' type='number' min="0" placeholder='Euros per week' required/>
+            <hr>
+            <h3 class="jumbo-header-neutral">Do you use petrol or diesel?</h3>
+            <label class="jumbo-header-neutral">
+              <input type="radio" id="fuel_diesel" name="fuel_type" value="diesel" required>
+              Diesel
+            </label><br>
+            <label class="jumbo-header-neutral">
+              <input type="radio" id="fuel_petrol" name="fuel_type" value="petrol">
+              Petrol
+            </label><br>
+          <br/>
+          <hr>
+            <button class='btn-warning rounded-sm mb-3' onclick='fuelFootprint()'>What are my transport emissions?</button>
+            <br/>
+            <div id="emission-results">
+          </div>
+        </div>
+        <div id="offset-potential"></div>
+        <div id="tell-estimate"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
