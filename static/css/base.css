@@ -1,3 +1,18 @@
-h1{
-    color: blue;
+
+/* CSS to control dynamic divs on calculator page */
+.offset{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("/static/images/katya-azi-trees-woodland-green.jpg")
+}
+.estimate{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("/static/images/vitor-monthay-seedling.jpg")
 }
