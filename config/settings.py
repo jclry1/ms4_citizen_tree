@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'allauth',
     'allauth.account',
+    'rest_framework',
+    
     # Enable sign up with social accounts
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
