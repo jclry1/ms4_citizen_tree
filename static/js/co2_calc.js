@@ -157,11 +157,12 @@ function tellEstimate(){
     <br>
     <br>
     <div class="text-center">
-    <button class='btn-success rounded-sm mb-3 text-center' onclick='tellCertificate()'>Do I get a certificate?</button>
-    <button class='btn-success rounded-sm mb-3 text-center' onclick='tellCorporate()'>Do you have corporate support options?</button>
-    <button class='btn-success rounded-sm mb-3 text-center' onclick='tellOwnership()'>Who owns the planted trees?</button>
-    <button class='btn-success rounded-sm mb-3 text-center' onclick='tellSpecificProject()'>Can I sponsor a specific project?</button>
-    <button class='btn-success rounded-sm mb-3 text-center' onclick='tellSpecificProject()'>As a landowner, how do I get involved?</button>
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(1)'>Do I get a certificate?</button>
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(2)'>Do you have corporate support options?</button>
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(3)'>Who owns the planted trees?</button>
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(4)'>Can I sponsor a specific project?</button>
+    <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(5)'>As a landowner, how do I get involved?</button>
+    <!-- <button class='btn-success rounded-sm mb-3 text-center' onclick='answerFaq(0)'>Clear</button> -->
     </div>
     <div id="query_answer"></div>
   </div>
@@ -169,3 +170,16 @@ function tellEstimate(){
   estimateView.scrollIntoView(alignToTop=true);
 }
 
+function answerFaq(sel){
+    faqurl = 'faq/faqs/'+sel
+    divfaq = document.getElementById("query_answer");
+    //document.getElementById("spin").style.display = "block";
+    fetch (faqurl) //fetch data from endpoint
+    .then(response => response.json())                    // convert to json  
+    .then(data => {
+    //document.getElementById("spin").style.display = "none";
+    document.getElementById("query_answer").innerHTML = `<p>${data.question_answer}<p>`
+    console.log(data);
+}
+)
+}
