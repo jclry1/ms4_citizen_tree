@@ -16,3 +16,11 @@
     ),
     url("/static/images/vitor-monthay-seedling.jpg")
 }
+.emissions{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      ),
+      url("/static/images/jacek-dylag-cars-night-smog.jpg")
+}
