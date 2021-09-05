@@ -10,7 +10,7 @@
         rgba(0, 0, 0, 0.6) 0%,
         rgba(0, 0, 0, 0.6) 100%
       ),
-      url(photos/jacek-dylag-cars-night-smog.jpg);
+      url({% static 'images/jacek-dylag-cars-night-smog.jpg' %});
   "
 >
   <!-- Source of opacity styling for bg image: https://codepen.io/JacobLett/pen/vPQKWd -->
@@ -41,4 +41,8 @@
     </div>
   </div>
 </div>
+<!--
+Page-specific JS. Loading this in the head was resulting in an error (function not defined). By moving it here the problem was resolved:  
+-->
+<script src="{% static 'js/co2_calc.js' %}"></script>
 {% endblock %}
