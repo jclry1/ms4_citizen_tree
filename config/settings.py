@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # MS4 Apps
     'accounts',
     'home',
+    'calculator',
 
     # Other apps
     'crispy_forms',

@@ -23,4 +23,5 @@ urlpatterns = [
     # MS4
     path('', include('home.urls')),    
     path('accounts/', include('allauth.urls')),
+    path('calculator/', include('calculator.urls')),
 ]
