@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-7 col-md-6 my-auto">
+            <h1 class="display-4 logo-font text-black">
+                Citizen Tree
+            </h1>
+            <h2>{{ heading }}</h2>
+            
+            {% if user.is_authenticated %}
+                <h3>User: {{ username }}</h3>
+                <hr />
+                Hi {{ user.email }}!
+                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+            {% else %}
+                <p>You are not logged in</p>
+                <a href="{% url 'account_login' %}">Log In</a>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}    
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 pt-5">
+            <img class="card-img-top" src="../../static/images/vitor-monthay-seedling.jpg" alt="Seedling being planted">
+            <h2 class="pt-5"> {{ project.title }}</h2>
+            <p> {{project.description }} </p>
+            <p>This project started: {{ project.started }}
+            </p>
+            Location: {{ project.location }}
+            Area: {{ project.area_ha }}
+            Species: {{ project.species }}
+            Ready to team Up: {{ project.available_to_partner }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

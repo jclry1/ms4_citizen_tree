@@ -1,0 +1,36 @@
+from django.conf import settings #Necessary due to custom user model: https://learndjango.com/tutorials/django-best-practices-referencing-user-model
+from django.db import models
+from django.db.models.fields import BooleanField, CharField, DateField, DecimalField, EmailField
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+# Class-based view for projects based on: https://www.youtube.com/watch?v=RwWhQTSV44Q
+
+class Project(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField(null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'projects')
+    slug = models.SlugField(max_length=100, unique=True)
+    updated = models.DateTimeField(auto_now=True)
+    published = models.DateTimeField(default=timezone.now)
+    location = models.CharField(max_length=80)
+    nursery = BooleanField(default=False)
+    plantation = BooleanField(default=False)
+    species = CharField(max_length=180, null=True)
+    available_to_partner = BooleanField(default=True)
+    area_ha = DecimalField(max_digits=3, decimal_places=2)
+    project_lead = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    contact = EmailField()
+    started = DateField()
+
+    def get_absolute_url(self):
+        return reverse('projects:spotlight', kwargs={'slug': self.slug})
+
+
+class Meta:
+    ordering=['-published']
+
+
+def __str__(self):
+    return self.title
