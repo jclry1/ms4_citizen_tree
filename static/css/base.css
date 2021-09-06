@@ -1,3 +1,17 @@
+/* Site-wide */
+
+html {
+  height: 100%;
+}
+body{
+  background: url('../images/ms4_background_willliam_barella_unsplash.jpg') no-repeat center center fixed;
+}
+
+
+
+
+
+
 
 /* CSS to control dynamic divs on calculator page */
 .offset{
@@ -6,7 +20,7 @@
       rgba(0, 0, 0, 0.6) 0%,
       rgba(0, 0, 0, 0.6) 100%
     ),
-    url("/static/images/katya-azi-trees-woodland-green.jpg")
+    url("/static/images/katya-azi-trees-woodland-green.jpg") 
 }
 .estimate{
     background-image: linear-gradient(
