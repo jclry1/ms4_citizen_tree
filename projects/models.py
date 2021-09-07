@@ -1,6 +1,7 @@
 from django.conf import settings #Necessary due to custom user model: https://learndjango.com/tutorials/django-best-practices-referencing-user-model
 from django.db import models
 from django.db.models.fields import BooleanField, CharField, DateField, DecimalField, EmailField
+from django.db.models.fields.files import ImageField
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -28,9 +29,23 @@ class Project(models.Model):
         return reverse('projects:spotlight', kwargs={'slug': self.slug})
 
 
-class Meta:
-    ordering=['-published']
+    class Meta:
+        ordering=['-published']
 
 
-def __str__(self):
-    return self.title
+    def __str__(self):
+        return self.title
+
+class Update(models.Model):
+    title = models.CharField(max_length=100, null=False)
+    text = models.TextField(null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        ordering = ['-date_added']   
+
+
+    def __str__(self):
+        return self.title
