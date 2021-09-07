@@ -7,12 +7,6 @@ body{
   background: url('../images/ms4_background_willliam_barella_unsplash.jpg') no-repeat center center fixed;
 }
 
-
-
-
-
-
-
 /* CSS to control dynamic divs on calculator page */
 .offset{
     background-image: linear-gradient(
@@ -42,4 +36,10 @@ body{
 caption {
   color: white;
   font-style: italic;
+}
+
+/* Projects */
+.card-body{
+  background-color: darkolivegreen;
+  color: white;
 }
