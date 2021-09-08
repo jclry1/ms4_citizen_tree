@@ -5,4 +5,7 @@ app_name = 'projects'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='projects'),
-    path('<slug:slug>/', views.SingleView.as_view(), name='spotlight') ]
+    path('updates/', views.UpdatesView.as_view(), name = 'updates'),
+    path('reports/<int:pk>/', views.ReportView.as_view(), name='report'),
+    path('<slug:slug>/', views.SpotlightView.as_view(), name='spotlight'),
+    ]

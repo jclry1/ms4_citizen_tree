@@ -38,9 +38,15 @@ class Project(models.Model):
 
 class Update(models.Model):
     title = models.CharField(max_length=100, null=False)
+    update_slug = models.SlugField(max_length=100, unique=True)
     text = models.TextField(null=False)
+    short_text = models.TextField(max_length=150)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now=True)
+
+
+    def get_absolute_url(self):
+        return reverse('projects:report', kwargs={"id":self.id})
 
 
     class Meta:

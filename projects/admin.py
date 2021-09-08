@@ -6,5 +6,5 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',), }
 
 @admin.register(Update) #Make project model available in Admin
-class UpdateAdmin(admin.ModelAdmin):
-    pass
+class PostAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'update_slug': ('title',), }
