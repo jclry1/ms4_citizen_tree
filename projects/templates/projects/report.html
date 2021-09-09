@@ -34,12 +34,12 @@
             <img class="card-img-top" src="../../../static/images/vitor-monthay-seedling.jpg" alt="Seedling being planted">
             <div class="card-body">
                 <h5 class="card-title">{{ report.title }}</h5>
-                <h5 class="card-title">{{ report.id }}</h5>
                 <p class="card-text">{{ report.short_text }}</p>
                 
                 <p class="card-text"> {{ report.text }}</p>
                 <a href="#" class="btn btn-primary">Donate</a>
-                <a href="{% url 'projects:updates' %}" class="btn btn-primary">Back to all updates from this project</a>
+                <a href="{% url 'projects:updates' %}" class="btn btn-primary">Back to All Updates</a>
+                <a href="{% url 'projects:projupdates' report.project %}" class="btn btn-primary">Back to Updates for This Project</a>
               </div>
         </div>
     </div>
