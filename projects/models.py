@@ -43,6 +43,7 @@ class Update(models.Model):
     short_text = models.TextField(max_length=150)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now=True)
+    project = models.ForeignKey(Project, default='1', on_delete=models.CASCADE)
 
 
     def get_absolute_url(self):
