@@ -11,7 +11,7 @@ Set up the Dockerfile and docker-compose files
 
 Change settings so that default db is postgres and not sqlite3.
 
-Before running migratinos, set up custom user model: https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
+Before running migrations, set up custom user model: https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
 # Set up static files
 Based on:
@@ -36,7 +36,7 @@ pipenv install django-crispy-forms
 
 ## Class-based generic views
 I'm using some class-based generic views
-Info tfor this has come from:
+Info for this has come from:
 * Django for professionals
 * Very Academy - Learn Django Class-Based View series - https://www.youtube.com/watch?v=GxA2I-n8NR8
 
