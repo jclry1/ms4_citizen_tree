@@ -30,20 +30,24 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12 pt-5">
-            <img class="card-img-top" src="../../../static/images/vitor-monthay-seedling.jpg" alt="Seedling being planted">
+        {% for update in object_list %}
+        <div class="card w-75">
             <div class="card-body">
-                <h5 class="card-title">{{ report.title }}</h5>
-                <p class="card-text">{{ report.short_text }}</p>
-                
-                <p class="card-text"> {{ report.text }}</p>
-                <a href="#" class="btn btn-primary">Donate</a>
-                <a href="{% url 'projects:updates' %}" class="btn btn-primary">Back to All Updates</a>
-                <a href="{% url 'projects:projupdates' report.project %}" class="btn btn-primary">Back to Updates for This Project</a>
-                <a href="{% url 'projects:userupdates' %}" class="btn btn-primary">Updates Added by Me</a>
-              </div>
-        </div>
+              <h5 class="card-title">{{ update.title }}</a></h5>
+              <p class="card-text">{{ update.short_text }}</p>
+              <p class="card-text">{{update.date_added}}</p>
+              <a href="{% url 'projects:report' pk=update.id %}" class="btn btn-primary">View this update</a>
+            </div>
+          </div>
+        {% endfor %}    
     </div>
-</div>
+</div>        
+
+
+
+
+
+
+
 
 {% endblock %}

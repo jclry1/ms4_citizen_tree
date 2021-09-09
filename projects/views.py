@@ -25,6 +25,12 @@ class ProjectUpdatesView(ListView):
         self.project = get_object_or_404(Project, title=self.kwargs['project'])
         return Update.objects.filter(project=self.project)
 
+class UserUpdatesView(ListView): #Credit: https://stackoverflow.com/questions/38471260/django-filtering-by-user-id-in-class-based-listview
+    template_name = 'projects/updates_by_user.html'
+    
+    def get_queryset(self):
+        return Update.objects.filter(author=self.request.user)
+
 class ReportView(DetailView):
     model = Update
     template_name = 'projects/report.html'
