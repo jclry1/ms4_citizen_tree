@@ -45,7 +45,13 @@
                 </ul>
                 <a href="#" class="btn btn-primary">Donate</a>
                 <a href="{% url 'projects:projupdates' project.title %}" class="btn btn-primary">See updates from this project</a>
-                <a href="{% url 'projects:add-update' project.slug %}" class="btn btn-primary">Add an update for this project</a>
+                {% if user.is_authenticated and user.username == project.author.username %}
+                   
+                    <a href="{% url 'projects:add-update' project.slug %}" class="btn btn-primary">Add an update for this project</a>
+                    <a href="{% url 'projects:add-update' project.slug %}" class="btn btn-primary">Update project details</a>
+                    
+                {% endif %}
+
               </div>
         </div>
     </div>
