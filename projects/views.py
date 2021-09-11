@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from .forms import AddUpdate
 from django.template.defaultfilters import slugify
+from django.contrib.auth.mixins import LoginRequiredMixin # For class-based views (as opposed to @loginrequired)
 
 
 class IndexView(ListView):
@@ -41,7 +42,7 @@ class ReportView(DetailView):
     context_object_name = 'report'   
 
 
-class AddUpdateView(CreateView):
+class AddUpdateView(LoginRequiredMixin,CreateView):
     model = Update
     form_class = AddUpdate
     template_name = 'projects/add_update.html'
