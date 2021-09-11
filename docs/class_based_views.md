@@ -14,3 +14,9 @@ The main resources for putting this in place (with some code snippets used) were
 * [List and Detail Views](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views)
 * [Model Queries](https://www.youtube.com/watch?v=WimXjp0ryOo)
 * [self.request.user as filter for class-based view](https://stackoverflow.com/questions/38471260/django-filtering-by-user-id-in-class-based-listview)
+
+Re the CreateView and autopopulating the author field with the logged in user:
+https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-with-createview-in-django-returns-null-value
+
+Re requiring login:
+https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
