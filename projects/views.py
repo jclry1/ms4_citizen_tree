@@ -1,7 +1,11 @@
 # from django.views.generic.detail import DetailView
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from .models import Project, Update
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
+from .forms import AddUpdate
+from django.template.defaultfilters import slugify
 
 
 class IndexView(ListView):
@@ -34,4 +38,27 @@ class UserUpdatesView(ListView): #Credit: https://stackoverflow.com/questions/38
 class ReportView(DetailView):
     model = Update
     template_name = 'projects/report.html'
-    context_object_name = 'report'    
+    context_object_name = 'report'   
+
+
+class AddUpdateView(CreateView):
+    model = Update
+    form_class = AddUpdate
+    template_name = 'projects/add_update.html'
+    success_url = '../../updates' 
+
+    """ def get_initial(self, *args, **kwargs):
+        initial = super().get_initial(**kwargs)
+        initial ['title'] = 'Title for the update report'
+        #initial ['slug'] = slugify(self.title) """
+
+
+
+# https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-with-createview-in-django-returns-null-value
+    def form_valid(self, form):
+        form.instance.author_id = self.request.user.pk
+        form.instance.update_slug = slugify(form.instance.title)
+        form.instance.project = Project.objects.get(slug = self.kwargs['slug'])
+        return super().form_valid(form) 
+        
+         

@@ -35,7 +35,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ update.title }}</a></h5>
               <p class="card-text">{{ update.short_text }}</p>
-              <p class="card-text">{{update.date_added}}</p>
+              <p class="card-text">Added by {{update.author}} on {{update.date_added}} for project {{update.project}}.</a></p>
               <a href="{% url 'projects:report' pk=update.id %}" class="btn btn-primary">View this update</a>
             </div>
           </div>

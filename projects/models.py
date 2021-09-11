@@ -38,7 +38,7 @@ class Project(models.Model):
 
 class Update(models.Model):
     title = models.CharField(max_length=100, null=False)
-    update_slug = models.SlugField(max_length=100, unique=True)
+    update_slug = models.SlugField(max_length=100, unique=False)
     text = models.TextField(null=False)
     short_text = models.TextField(max_length=150)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -49,6 +49,11 @@ class Update(models.Model):
     def get_absolute_url(self):
         return reverse('projects:report', kwargs={"id":self.id})
 
+
+    """ def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs) """ 
 
     class Meta:
         ordering = ['-date_added']   
