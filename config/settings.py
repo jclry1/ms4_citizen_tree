@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'calculator',
     'projects',
+    'donations',
 
     # Other apps
     'crispy_forms',
@@ -178,3 +179,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use console temporarily to output emails
+
+# Stripe
+STRIPE_SECRET_KEY = ''
