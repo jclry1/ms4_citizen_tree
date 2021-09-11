@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <form action="/create-checkout-session" method="POST">
+      <button type="submit">Checkout</button>
+    </form>
+
+{% endblock %}
