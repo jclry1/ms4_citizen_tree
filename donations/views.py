@@ -1,12 +1,15 @@
 import stripe
+from django.http import HttpResponse
 from django.conf import settings
 from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+endpoint_secret = settings.STRIPE_WH_SECRET
 
 
 class DonateLandingPage(TemplateView):              # This works
@@ -39,3 +42,18 @@ def create_checkout_session(request):
         cancel_url= DOMAIN + 'cancel/',
     )
     return redirect(checkout_session.url, code=303)
+
+
+
+# From: https://stripe.com/docs/payments/checkout/fulfill-orders
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+
+    # For now, you only need to print out the webhook payload so you can see
+    # the structure.
+    print(payload)
+
+    return HttpResponse(status=200)
