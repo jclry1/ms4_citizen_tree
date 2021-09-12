@@ -20,3 +20,9 @@ https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-
 
 Re requiring login:
 https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
+
+
+
+## Environment variables
+https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+https://djangocentral.com/environment-variables-in-django/
