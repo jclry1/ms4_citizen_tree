@@ -10,6 +10,7 @@ django-crispy-forms = "*"
 django-allauth = "*"
 djangorestframework = "*"
 stripe = "*"
+django-environ = "*"
 
 [requires]
 python_version = "3.6"
