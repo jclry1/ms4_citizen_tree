@@ -26,3 +26,14 @@ https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mix
 ## Environment variables
 https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 https://djangocentral.com/environment-variables-in-django/
+
+
+## Stripe
+Stripe CLI:
+https://github.com/stripe/stripe-cli/wiki/installation
+https://stackoverflow.com/questions/66217436/gpg-keyserver-receive-failed-no-name/68132500#68132500?newreg=b9ece6b73bdf4fe9aa656a6ff3f4af44
+https://githubmemory.com/repo/stripe/stripe-cli/issues/689
+
+Payments:
+https://www.youtube.com/watch?v=722A27IoQnk
+https://stripe.com/docs/payments/integration-builder
