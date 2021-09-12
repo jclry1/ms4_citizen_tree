@@ -174,6 +174,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use console t
 
 # Stripe
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-#STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
 #STRIPE_CURRENCY = 'eur'
