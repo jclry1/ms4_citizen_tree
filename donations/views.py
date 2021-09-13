@@ -109,17 +109,15 @@ def stripe_webhook(request):
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
-        print("Payment was successful.")
+        #print("Payment was successful.")
         session = event['data']['object']
-        #customer_email = session["customer_details"]["email"]
-        #product_info = session["metadata"]["placeholder"]
-
         print(session)
 
+        #send_mail('Donation to Citizen Tree', session, 'ms4.citizentree@gmail.com', customer_email, fail_silently=False)
         """ send_mail(
             subject="Thanks for your donation",
             message=f"Thanks for your donation of xxx",
-            #recipient_list=[customer_email],
+            recipient_list=[customer_email],
             from_email="admin@citizentree.com"
         ) """
 
