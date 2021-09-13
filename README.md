@@ -136,3 +136,11 @@ https://cieem.net/wp-content/uploads/2021/05/Carbon-and-habitats-paper-v3.pdf
 ### Calculator example
 https://standfortrees.org/footprint-calculator/?utm_source=google&utm_medium=cpc&utm_term=carbon%20footprint%20calculator&utm_campaign=NPM-SFT-FootprintCalculator&gclid=CjwKCAjw092IBhAwEiwAxR1lRosb5bShmxL5amr2H6RkgMF_I_Q7j-u6rCOfSkmzhIwmxH9Vf1bdaxoCEA4QAvD_BwE#calculator
 
+
+
+## Stripe
+Stripe integration is based on:
+* Boutique Ado
+* Stripe docs
+* JustDjango tutorial: https://justdjango.com/blog/django-stripe-payments-tutorial and https://www.youtube.com/watch?v=722A27IoQnk
+* testdriven.io tutorial: https://www.youtube.com/watch?v=722A27IoQnk
