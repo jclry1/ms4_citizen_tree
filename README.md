@@ -143,4 +143,4 @@ Stripe integration is based on:
 * Boutique Ado
 * Stripe docs
 * JustDjango tutorial: https://justdjango.com/blog/django-stripe-payments-tutorial and https://www.youtube.com/watch?v=722A27IoQnk
-* testdriven.io tutorial: https://www.youtube.com/watch?v=722A27IoQnk
+* testdriven.io tutorial: https://testdriven.io/blog/django-stripe-tutorial/
