@@ -170,7 +170,14 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend', # Allauth
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use console temporarily to output emails
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use console temporarily to output emails
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 
 # Stripe
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
