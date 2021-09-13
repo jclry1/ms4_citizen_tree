@@ -109,7 +109,7 @@ def stripe_webhook(request):
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
-        #print("Payment was successful.")
+        print("Payment was successful.")
         session = event['data']['object']
         print(session)
 
