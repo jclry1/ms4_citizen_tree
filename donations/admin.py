@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Donation, Price
+
+admin.site.register(Donation) #Make project model available in Admin
+
+admin.site.register(Price) #Make project model available in Admin
