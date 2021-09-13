@@ -12,23 +12,26 @@
 
 {% block content %}
 
-<div><h1>Donate</h1></div>
+<div><h1>Donate to Citizen Tree</h1></div>
 <section>
-      <div class="product">
-        <!--<img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        /> -->
-        <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
+  <div class="donation">
+      <div class="description">
+          <h3>You can donate using of our 3 tiers.</h3>
+          <hr />
+          {% for price in prices %}
+
+          <div>
+              <h5>€ {{ price.get_display_price }}</h5>
+              <form action="{% url 'donations:create-checkout-session' price.id %}" method="POST">
+                  {% csrf_token %}
+                  <button class="btn-success" type="submit">Donate Now: €{{ price.get_display_price }} </button><br>
+                  <small style="color: yellow;">Your card will be charged €{{ price.get_display_price }}</small>
+              </form>
+          </div>
+
+          {% endfor %}
       </div>
-      
-      <form action = {% url "donations:create-checkout-session" %} method="POST">
-      {% csrf_token %}
-        <button type="submit" id="checkout-button">Checkout</button>
-      </form>
-    </section>
+  </div>
+</section>
 
 {% endblock %}
