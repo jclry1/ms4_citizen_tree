@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.views import View
+from .models import Price, Donation
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -14,6 +15,17 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class DonateLandingPage(TemplateView):            
     template_name = "donations/donate.html"
+
+    def get_context_data(self, **kwargs):
+        donation = Donation.objects.get(name="Regular")
+        prices = Price.objects.filter(donation=donation)
+        context = super(DonateLandingPage,
+                        self).get_context_data(**kwargs)
+        context.update({
+            "donation": donation,
+            "prices": prices
+        })
+        return context
 
 
 class SuccessView(TemplateView):
@@ -24,10 +36,25 @@ class CancelView(TemplateView):
     template_name = "donations/cancel.html"
 
 
-def create_checkout_session(request):
-    DOMAIN = 'http://127.0.0.1:8000/donations/'
+class CreateCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        DOMAIN = 'http://127.0.0.1:8000/donations/'
+        price = Price.objects.get(id=self.kwargs["pk"])
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': price.stripe_price_id,
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url= DOMAIN + 'success/',
+            cancel_url= DOMAIN + 'cancel/',
+        )
+        return redirect(checkout_session.url)
     
-    checkout_session = stripe.checkout.Session.create(
+    """ checkout_session = stripe.checkout.Session.create(
         line_items=[
             {
                 'price': 'price_1JYnvKGXFBy9KvEyU8nAhWTf',
@@ -44,7 +71,7 @@ def create_checkout_session(request):
         success_url= DOMAIN + 'success/',
         cancel_url= DOMAIN + 'cancel/',
     )
-    return redirect(checkout_session.url, code=303)
+    return redirect(checkout_session.url, code=303) """
 
 # From: https://stripe.com/docs/payments/checkout/fulfill-orders
 
