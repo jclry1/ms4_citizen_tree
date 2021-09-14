@@ -145,3 +145,5 @@ Stripe integration is based on:
 * JustDjango tutorial: https://justdjango.com/blog/django-stripe-payments-tutorial and https://www.youtube.com/watch?v=722A27IoQnk
 * testdriven.io tutorial: https://testdriven.io/blog/django-stripe-tutorial/
 * re session object: https://stripe.com/docs/api/checkout/sessions/line_items
+
+https://bhoey.com/blog/stripe-checkout-with-django/
