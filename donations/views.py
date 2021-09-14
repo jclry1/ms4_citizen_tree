@@ -8,10 +8,12 @@ from django.shortcuts import redirect
 from django.views import View
 from .models import Price, Donation
 
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
+""" Code in this file relating to handling stripe payments and webhooks is from:
+Stripe documentation eg: https://stripe.com/docs/payments/checkout/fulfill-orders
+Tutorial 1: https://testdriven.io/blog/django-stripe-tutorial/
+Tutorial 2: https://justdjango.com/blog/django-stripe-payments-tutorial """
 
 class DonateLandingPage(TemplateView):            
     template_name = "donations/donate.html"
@@ -54,66 +56,7 @@ class CreateCheckoutSessionView(View):
         )
         return redirect(checkout_session.url)
     
-    """ checkout_session = stripe.checkout.Session.create(
-        line_items=[
-            {
-                'price': 'price_1JYnvKGXFBy9KvEyU8nAhWTf',
-                'quantity': 1,
-            },
-        ],
-        payment_method_types=[
-            'card',
-        ],
-        metadata={
-            "placeholder":"placeholder data"
-        },
-        mode='payment',
-        success_url= DOMAIN + 'success/',
-        cancel_url= DOMAIN + 'cancel/',
-    )
-    return redirect(checkout_session.url, code=303) """
-
-# From: https://stripe.com/docs/payments/checkout/fulfill-orders
-
-
-
-  
-# Below based on https://testdriven.io/blog/django-stripe-tutorial/ and https://www.youtube.com/watch?v=722A27IoQnk
-"""@csrf_exempt
-def stripe_webhook(request):
-  stripe.api_key = settings.STRIPE_SECRET_KEY
-  endpoint_secret = settings.STRIPE_WH_SECRET
-  payload = request.body
-  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-  event = None
-
-  try:
-    event = stripe.Webhook.construct_event(
-      payload, sig_header, endpoint_secret
-    )
-  except ValueError as e:
-      # Invalid payload
-    return HttpResponse(status=400)
-  except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-    return HttpResponse(status=400)
-
-    # Handle the checkout.session.completed event
-  if event['type'] == 'checkout.session.completed':
-    session = event['data']['object']
-  # Passed signature verification
-  return HttpResponse(status=200)
-
-        #send_mail('Donation to Citizen Tree', session, 'ms4.citizentree@gmail.com', customer_email, fail_silently=False)
- send_mail(
-            subject="Thanks for your donation",
-            message=f"Thanks for your donation of xxx",
-            recipient_list=[customer_email],
-            from_email="admin@citizentree.com"
-        ) """
-
-   
-
+    
 @csrf_exempt
 def stripe_webhook(request):
   endpoint_secret = settings.STRIPE_WH_SECRET
@@ -141,8 +84,6 @@ def stripe_webhook(request):
 
     print(session)
     send_mail('Your donation', f'Thank you for your donation of {display_amount} euros to Citizen Tree.', 'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
-    #send_mail('Donation to Citizen Tree', session, 'ms4.citizentree@gmail.com', customer_email, fail_silently=False) 
 
-  # Passed signature verification
   return HttpResponse(status=200) 
 
