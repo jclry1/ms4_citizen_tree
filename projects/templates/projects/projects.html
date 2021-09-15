@@ -33,7 +33,7 @@
         {% for project in object_list %}
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img class="card-img-top" src="../../static/images/katya-azi-trees-woodland-green.jpg" alt="placeholder image">
+                    <img class="card-img-top" src="{{ project.picture.url }}" alt="The project profile picture or default backup">
                     <div class="card-body">
                             <h4 class=""><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></h4>
                             <p class="card-text">{{ project.description }}</p> <!-- Update model to have a short_desc and include here -->
