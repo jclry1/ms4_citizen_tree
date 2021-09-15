@@ -85,5 +85,15 @@ def stripe_webhook(request):
     print(session)
     send_mail('Your donation', f'Thank you for your donation of {display_amount} euros to Citizen Tree.', 'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
 
+    """
+    Here:
+    Add a row to a 'Received' model
+    With: User, amount, date, 
+    Received.objects.create(user=user, amount = display_amount, date = now,)
+    """
+
+
+
+
   return HttpResponse(status=200) 
 
