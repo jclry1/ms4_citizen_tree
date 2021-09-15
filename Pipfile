@@ -11,6 +11,8 @@ django-allauth = "*"
 djangorestframework = "*"
 stripe = "*"
 django-environ = "*"
+django-storages = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.6"
