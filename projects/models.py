@@ -24,6 +24,7 @@ class Project(models.Model):
     project_lead = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contact = EmailField()
     started = DateField()
+    picture = models.FileField(upload_to='media/', default='media/default.jpg', blank=True)
 
     def get_absolute_url(self):
         return reverse('projects:spotlight', kwargs={'slug': self.slug})
