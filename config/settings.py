@@ -157,14 +157,15 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # Bootstrap add-in for crispy forms
 
 # Settings for allauth
-LOGIN_REDIRECT_URL = 'index'
-ACCOUNT_LOGOUT_REDIRECT = 'index' 
+LOGIN_REDIRECT_URL = 'home:index'
+ACCOUNT_LOGOUT_REDIRECT = 'home:index' 
 SITE_ID = 1 # For allauth/django sites
 ACCOUNT_SESSION_REMEMBER = True # Remove the default allauth 'remember me' checkbox
 ACCOUNT_USERNAME_REQUIRED = True #Make the username a required field for signup
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # Make email the path for authenticating sign up
 ACCOUNT_EMAIL_REQUIRED = True # Make email a required field for sign up
 ACCOUNT_UNIQUE_EMAIL = True #Email cannot be used for more than one account
+ACCOUNT_EMAIL_VERIFICATION = 'optional' #Verification email is sent but not verification not required for login
 
 
 
