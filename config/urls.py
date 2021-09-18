@@ -18,7 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     # Django
-    path('admin/', admin.site.urls),
+    path('adm-cit-tree/', admin.site.urls),
     
     # MS4
     path('', include('home.urls')),    
