@@ -4,3 +4,4 @@ commands.md
 .vscode
 env.py
 staticfiles/
+docker-compose-prod.yml
