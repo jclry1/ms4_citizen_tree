@@ -12,7 +12,7 @@ services:
       - db
     environment:
       - "DJANGO_SECRET_KEY=egryg&29t_f(e#t@8v*k0&y12$$ye^@ydf^xf19x7d8j29jyl12"
-      - "DJANGO_DEBUG=True"
+      - "DJANGO_DEBUG=False"
   db:
     image: postgres:11
     volumes:
