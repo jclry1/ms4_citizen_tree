@@ -1,6 +1,7 @@
 from pathlib import Path
-import environ
 import dj_database_url
+import environ
+
 
 
 env = environ.Env()
@@ -102,9 +103,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
     }
 } """
 DATABASES = {
-"default": env.dj_db_url("DATABASE_URL",
-default="postgres://postgres@db/postgres")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432
+    }
 }
+#DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
