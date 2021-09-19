@@ -15,6 +15,7 @@ django-storages = "*"
 boto3 = "*"
 whitenoise = {version = "*", extras = ["brotli"]}
 gunicorn = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.6"
