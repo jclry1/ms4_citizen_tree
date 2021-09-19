@@ -14,6 +14,7 @@ django-environ = "*"
 django-storages = "*"
 boto3 = "*"
 whitenoise = {version = "*", extras = ["brotli"]}
+gunicorn = "*"
 
 [requires]
 python_version = "3.6"
