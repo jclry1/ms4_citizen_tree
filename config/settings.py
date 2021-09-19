@@ -224,6 +224,7 @@ SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=1)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
 default=True)
 SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # https://stackoverflow.com/questions/43459160/connect-django-to-live-heroku-postgres-database
 #DB setting for local dev in local_settings.py
