@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ
+import dj_database_url
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -89,7 +91,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Using postgres as development db, as seems recommended as best practice
 # Setup based on Django for Professionals, p41
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -98,6 +100,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': 5432
     }
+} """
+DATABASES = {
+"default": env.dj_db_url("DATABASE_URL",
+default="postgres://postgres@db/postgres")
 }
 
 
