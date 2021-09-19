@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
         'PORT': 5432
     }
 } """
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -111,8 +111,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': 5432
     }
+} """
+DATABASES = {
+    'default': dj_database_url.config()
 }
-#DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -222,3 +224,11 @@ SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=1)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
 default=True)
 SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+
+# https://stackoverflow.com/questions/43459160/connect-django-to-live-heroku-postgres-database
+#DB setting for local dev in local_settings.py
+#If present, import and apply. otherwise, use prod setting maintained above
+try:
+    from .local_settings import *
+except ImportError:
+    pass
