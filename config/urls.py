@@ -25,5 +25,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('calculator/', include('calculator.urls')),
     path('projects/', include('projects.urls', namespace='projects')),
-    path('donations', include ('donations.urls', namespace='donations')),
+    path('donations/', include ('donations.urls', namespace='donations')),
 ]
