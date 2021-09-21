@@ -1,1 +1,1 @@
-console.log('Testing for JS')
+// Base JavaScript
