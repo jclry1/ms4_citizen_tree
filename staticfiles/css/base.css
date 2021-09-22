@@ -1,3 +1,46 @@
-h1{
-    color: blue;
+
+/* Site-wide */
+
+html {
+  height: 100%;
+}
+body{
+  background: url('../images/ms4_background_willliam_barella_unsplash.jpg') no-repeat center center fixed;
+}
+
+/* CSS to control dynamic divs on calculator page */
+.offset{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("../images/katya-azi-trees-woodland-green.jpg") 
+}
+.estimate{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("../images/vitor-monthay-seedling.jpg")
+}
+.emissions{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      ),
+      url("../images/jacek-dylag-cars-night-smog.jpg")
+}
+/* For table caption on calculator page */
+caption {
+  color: white;
+  font-style: italic;
+}
+
+/* Projects */
+.card-body{
+  background-color: darkolivegreen;
+  color: white;
 }
