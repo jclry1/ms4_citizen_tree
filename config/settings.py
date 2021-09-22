@@ -162,8 +162,8 @@ STATICFILES_FINDERS = [
 "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 """ 
 Was this setting but changed it due to internal server error and suggestion here: 
 https://stackoverflow.com/questions/63783517/django-heroku-raise-valueerrormissing-staticfiles-manifest-entry-for-s-c
