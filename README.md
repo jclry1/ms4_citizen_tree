@@ -1,4 +1,88 @@
-# Initial Setup
+# Citizen Tree <!-- omit in toc -->
+Citizen Tree is an online space to foster networks of people interested in growing trees to help one another brings trees from seed through to woodland. 
+
+<a href="https://ms4-citizen-tree.herokuapp.com/" target="_blank">View the live project here</a>
+
+# Table of Contents <!-- omit in toc -->  
+- [Scenario Outline / Strategy](#scenario-outline--strategy)
+- [User Experience](#user-experience)
+  - [User Stories by User Type](#user-stories-by-user-type)
+      - [Non-registered Visitor](#non-registered-visitor)
+    - [Registered Non-Contributing User](#registered-non-contributing-user)
+    - [Registered Contributing User](#registered-contributing-user)
+    - [Admin/Site-Owner](#adminsite-owner)
+- [Design - UI](#design---ui)
+- [Design - Database](#design---database)
+- [Features](#features)
+  - [Initial Setup](#initial-setup)
+    - [Based on Django for Professinoals by William S. Vincent](#based-on-django-for-professinoals-by-william-s-vincent)
+  - [Set up static files](#set-up-static-files)
+  - [Problem using docker-compose to install packages](#problem-using-docker-compose-to-install-packages)
+  - [Class-based generic views](#class-based-generic-views)
+  - [Calculator Page](#calculator-page)
+      - [Cost of fuel in Ireland](#cost-of-fuel-in-ireland)
+      - [Emissions from diesel/petrol](#emissions-from-dieselpetrol)
+    - [Hazelnut orchards - sequestration (Italy)](#hazelnut-orchards---sequestration-italy)
+    - [Agroforestry systems](#agroforestry-systems)
+    - [Ireland:](#ireland)
+    - [Planning woodland](#planning-woodland)
+    - [UK](#uk)
+    - [Calculator example](#calculator-example)
+  - [Stripe](#stripe)
+
+
+
+# Scenario Outline / Strategy
+The intended user of Citizen Tree falls broadly into one of two posible categories:
+1. User with time and interest in growing trees but no space.
+   An example of this might be a school. As part of their learning about climate change, biodiversity etc, kids are introduced to the value of trees. Perhaps they visit a local forest on occasion. The kids would be interested in contributing to a tree-growing project but the school has no land to facilitate that. However, they do have space for 2-3 raised beds in which the kids could grow seeds to the seedling or one-year-old stage.At that point they would need to partner with a landowner to get those trees planted into a space where they could to maturity.
+   Other potential users in this category might be individuals with small (or large) gardens, community groups, allotment groups, retirement groups, mens sheds etc.
+2. User with space/land to grow trees but in need of help and/or trees. 
+   The other side of the coin is the person who own some land and would like to have it planted with trees. Maybe they don't have enough land to justify a commercial approach or perhaps they are just not interested in becoming commercial forestry owners. Rather they would be happy for a group of interested people to come and plant the land with them, for free, and provide the trees for free.
+
+The site aims to help foster connections between people in these two categories so that land might get planted and long-standing relationships might develop to help manage the trees and enjoy the spaces they create.
+It also has a donation page where supporters can support the project financially.
+
+# User Experience
+Users envisaged for the site are as follows:
+* An admin superuser who can see and edit all content on the site. When a new project joins, this person is required to give authoring rights to the designated 'author' for a project. This user is essentially the site owner and in a real world scenario would work together with a board to decide how donations were spent, whether requesting projects would be invited to join etc.
+* A project coordinator/author who is responsible for maintaing the information for a project - whether the project details page or periodic updates for the project progress. The rights associated with this user are limited to authoring for a specified subset of projects and cannot be self-assigned.
+* A general user with read-only access. Althoug this user may be registered with the site, and may be a member of a project that is affiliated with the site, they do not have authoring or upload rights. They can make donations and view all content.
+* A non-registered visitor has very limited access. In order to view project details or make a donation, users are required to register. A non-registered visitor can use the calculator app without restriction.
+
+## User Stories by User Type
+
+#### Non-registered Visitor
+* As a first-time or non-registered vistor to the site, I have limited access to content and I cannot make a donation.
+However, as an enticement to register and to set up a degreee of trust in the site and establish the scientific basis for the site's aims.
+* I am encouraged to become a registered user because my access to site content is limited.
+* I can interact with the CO2 calculator and get a sense of my personal CO2 emission (currently from transport fuel only) and how this might be counter-balanced by trees.
+* I can clearly get a sense of the sites aims.
+
+### Registered Non-Contributing User
+* I can access any content that is available to a non-registered user.
+* In addition, I can access all content relating to projects on the site and any associated updates from those projects.
+* I can make a donation.
+
+### Registered Contributing User
+* I have access to all content that a non-registered user has. 
+* In addition, I can access all content relating to projects on the site and any associated updates from those projects.
+* As my user has been designated the 'author' for one or more projects, I can update the information for a project and and can add/edit updates.
+
+### Admin/Site-Owner
+The interaction of this user with the site assumes integration with offline processes. For example, potential projects need to be vetted in person. Assuming this is all in place, the main points in relation to site use are:
+* I can add a project aand assign an 'author' - the designated person for a project to edit the project details page and add project updates.
+* I can access information about donations and successfully accept donations from the public using a secure checkout.
+* I can edit or delete any project or update content.
+
+# Design - UI
+
+# Design - Database
+
+# Features
+
+
+## Initial Setup
 ### Based on Django for Professinoals by William S. Vincent
 Create virtual environment using pipenv
 Install Django (this project uses 3.2.6 - see pipfile.lock)
@@ -13,7 +97,7 @@ Change settings so that default db is postgres and not sqlite3.
 
 Before running migrations, set up custom user model: https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
-# Set up static files
+## Set up static files
 Based on:
 * Django for Professionals
 * Django docs
