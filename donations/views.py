@@ -40,7 +40,7 @@ class CancelView(TemplateView):
 
 class CreateCheckoutSessionView(View):
     def post(self, *args, **kwargs):
-        DOMAIN = 'http://127.0.0.1:8000/donations/'
+        DOMAIN = 'https://ms4-citizen-tree.herokuapp.com/donations/'
         price = Price.objects.get(id=self.kwargs["pk"])
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
