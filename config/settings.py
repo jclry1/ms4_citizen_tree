@@ -190,7 +190,7 @@ ACCOUNT_USERNAME_REQUIRED = True #Make the username a required field for signup
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # Make email the path for authenticating sign up
 ACCOUNT_EMAIL_REQUIRED = True # Make email a required field for sign up
 ACCOUNT_UNIQUE_EMAIL = True #Email cannot be used for more than one account
-ACCOUNT_EMAIL_VERIFICATION = 'none' #Verification email is sent but not verification not required for login
+ACCOUNT_EMAIL_VERIFICATION = 'optional' #Verification email is sent but not verification not required for login
 ACCOUNT_SIGNUP_REDIRECT_URL = 'home:index'
 
 
