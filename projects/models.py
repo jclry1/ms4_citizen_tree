@@ -45,6 +45,8 @@ class Update(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now=True)
     project = models.ForeignKey(Project, default='1', on_delete=models.CASCADE)
+    picture = models.FileField(upload_to='media/', default='media/default-2.jpg', blank=True)
+
 
 
     def get_absolute_url(self):
