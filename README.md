@@ -14,7 +14,8 @@ Citizen Tree is an online space to foster networks of people interested in growi
 - [Design - UI](#design---ui)
 - [Design - Database](#design---database)
 - [Features](#features)
-    - [Admin perspective](#admin-perspective)
+  - [Admin perspective](#admin-perspective)
+    - [Email Verification](#email-verification)
   - [Initial Setup](#initial-setup)
     - [Based on Django for Professinoals by William S. Vincent](#based-on-django-for-professinoals-by-william-s-vincent)
   - [Set up static files](#set-up-static-files)
@@ -81,11 +82,15 @@ The interaction of this user with the site assumes integration with offline proc
 # Design - Database
 
 # Features
-### Admin perspective
+## Admin perspective
 It is easy for users to register with the site using an email and password or some level of social authentication (currently GitHub only).
 It is not possible for an email account to be associated with 2 users.
 Donation functionality on the site is user-friendly and professional. In addition to the success page, users get an email when their donation has been processed, but not before.
 
+### Email Verification
+Based on the functionality provided by django-allauth and the direction in 'Django for Professionals'
+all-auth email templates: https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account/email
+all-auth settings: https://django-allauth.readthedocs.io/en/latest/configuration.html
 
 
 ## Initial Setup
