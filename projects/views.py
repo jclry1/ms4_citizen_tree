@@ -3,8 +3,8 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from .models import Project, Update
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
-from .forms import AddUpdate
+from django.views.generic.edit import CreateView, UpdateView
+from .forms import AddUpdate, EditProject
 from django.template.defaultfilters import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin # For class-based views (as opposed to @loginrequired)
 
@@ -61,5 +61,11 @@ class AddUpdateView(LoginRequiredMixin,CreateView):
         form.instance.update_slug = slugify(form.instance.title)
         form.instance.project = Project.objects.get(slug = self.kwargs['slug'])
         return super().form_valid(form) 
-        
-         
+
+
+class ProjectEditView(UpdateView):
+    model = Project
+    form_class = EditProject
+    template_name = 'projects/edit_project.html'
+    success_url = '../../projects'
+    
