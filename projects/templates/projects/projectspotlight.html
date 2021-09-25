@@ -48,7 +48,7 @@
                 {% if user.is_authenticated and user.username == project.author.username %}
                    
                     <a href="{% url 'projects:add-update' project.slug %}" class="btn btn-primary">Add an update for this project</a>
-                    <a href="{% url 'projects:add-update' project.slug %}" class="btn btn-primary">Update project details</a>
+                    <a href="{% url 'projects:project-edit' project.slug %}" class="btn btn-primary">Update project details</a>
                     
                 {% endif %}
 
