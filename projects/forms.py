@@ -6,7 +6,7 @@ class AddUpdate(forms.ModelForm):
 
     class Meta:
         model = Update
-        fields = ('title', 'text', 'short_text')
+        fields = ('title', 'text', 'short_text', 'picture')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
