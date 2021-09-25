@@ -92,6 +92,10 @@ Based on the functionality provided by django-allauth and the direction in 'Djan
 all-auth email templates: https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account/email
 all-auth settings: https://django-allauth.readthedocs.io/en/latest/configuration.html
 
+Password reset functionality based on django-allauth and uses the allauth templates only slightly modified:
+https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account
+Additional resource: https://www.youtube.com/watch?v=d9aCpxQfnOg
+
 
 ## Initial Setup
 ### Based on Django for Professinoals by William S. Vincent
