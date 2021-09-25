@@ -12,4 +12,5 @@ urlpatterns = [
     path('updates/<project>/', views.ProjectUpdatesView.as_view(), name='projupdates'),
     path('userupdates/', views.UserUpdatesView.as_view(), name='userupdates'),
     path('<slug:slug>/', views.SpotlightView.as_view(), name='spotlight'),
+    path('<slug:slug>/edit', views.ProjectEditView.as_view(), name='project-edit'),
     ]
