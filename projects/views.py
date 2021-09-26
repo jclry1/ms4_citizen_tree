@@ -3,7 +3,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from .models import Project, Update
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import AddUpdate, EditProject
 from django.template.defaultfilters import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin # For class-based views (as opposed to @loginrequired)
@@ -42,6 +42,13 @@ class ReportView(DetailView):
     context_object_name = 'report'   
 
 
+class DeleteReportView(DeleteView):
+    model = Update
+    template_name = 'projects/delete_update.html'
+    context_object_name = 'report' 
+    success_url = '../../updates'
+
+
 class AddUpdateView(LoginRequiredMixin,CreateView):
     model = Update
     form_class = AddUpdate
@@ -68,4 +75,5 @@ class ProjectEditView(UpdateView):
     form_class = EditProject
     template_name = 'projects/edit_project.html'
     success_url = '../../projects'
-    
+
+
