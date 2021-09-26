@@ -3,6 +3,8 @@ from calculator import views
 from .views import calc
 from rest_framework import routers
 
+app_name = 'calculator'
+
 router = routers.DefaultRouter()
 router.register(r'faqs', views.FaqViewSet)
 
