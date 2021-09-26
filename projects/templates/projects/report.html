@@ -40,7 +40,9 @@
                 <a href="#" class="btn btn-primary">Donate</a>
                 <a href="{% url 'projects:updates' %}" class="btn btn-primary">Back to All Updates</a>
                 <a href="{% url 'projects:projupdates' report.project %}" class="btn btn-primary">Back to Updates for This Project</a>
-                <!-- <a href="{% url 'projects:userupdates' %}" class="btn btn-primary">Updates Added by Me</a> -->
+                {% if user.is_authenticated and user.username == report.author.username %}
+                <a href="{% url 'projects:report-delete' pk=report.id %}" class="btn btn-warning">Delete this Update</a>
+                {% endif %}
               </div>
         </div>
     </div>
