@@ -31,6 +31,7 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [UK](#uk)
     - [Calculator example](#calculator-example)
   - [Stripe](#stripe)
+  - [Git](#git)
 
 
 
@@ -144,6 +145,11 @@ https://stackoverflow.com/questions/54444196/get-context-data-breaking-breaking-
 https://stackoverflow.com/questions/51632952/get-the-user-id-class-based-view
 https://stackoverflow.com/questions/65685752/getting-django-db-models-query-utils-deferredattribute-object-at-0x7fca8f1d3d50
 
+Also, class-based edit views.
+Resources for DeleteView:
+https://www.codingforentrepreneurs.com/projects/try-django/class-based-views-deleteview
+https://www.geeksforgeeks.org/deleteview-class-based-views-django/
+https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView
 
 ## Calculator Page
 The purpose of the calculator page is to give some context to the figures and emphasise the purpose of the project and the scales involved.
@@ -246,3 +252,6 @@ Stripe integration is based on:
 * re session object: https://stripe.com/docs/api/checkout/sessions/line_items
 
 https://bhoey.com/blog/stripe-checkout-with-django/
+
+## Git
+Branching and merging: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
