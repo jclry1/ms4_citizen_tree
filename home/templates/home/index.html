@@ -26,5 +26,11 @@
             {% endif %}    
         </div>
     </div>
+    <div class="options">
+        <a class="btn btn-success" href="{% url 'projects:projects' %}">All Projects</a>
+        <a class="btn btn-success" href="{% url 'calculator:calc' %}">Calculate My Footprint and Potential Offsets</a>
+        <a class="btn btn-success" href="{% url 'calculator:calc' %}">About Citizen Tree</a>
+
+    </div>
 </div>
 {% endblock %}
