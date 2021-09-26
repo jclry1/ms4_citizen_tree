@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import handler403, handler404, handler500
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib import admin
 from django.urls import path, include
@@ -23,7 +24,7 @@ from django.conf import settings
 
 urlpatterns = [
     # Django
-    path('adm-cit-tree/', admin.site.urls),
+    path('adm-cit-tree/', admin.site.urls), #Changed for admin-hardening
 
     # Favicon - from https://simpleit.rocks/python/django/django-favicon-adding/
     path(
@@ -38,3 +39,8 @@ urlpatterns = [
     path('projects/', include('projects.urls', namespace='projects')),
     path('donations/', include ('donations.urls', namespace='donations')),
 ]
+
+handler404 = 'home.views.custom_error_404'
+handler403 = 'home.views.custom_error_403'
+handler500 = 'home.views.custom_error_500'
+
