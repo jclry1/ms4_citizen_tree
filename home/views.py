@@ -4,6 +4,7 @@
 from django.views.generic import TemplateView
 from accounts.models import CustomUser
 from django.core.mail import send_mail
+from django.shortcuts import render
 
 
 class HomePageView(TemplateView):
@@ -22,3 +23,16 @@ class HomePageView(TemplateView):
         print('hello')
 
         return context
+
+# Custom error page creation based on: https://engineertodeveloper.com/serving-custom-error-pages-with-django/
+
+def custom_error_404(request, exception):
+    return render(request, '404.html', {})
+
+
+def custom_error_500(request):
+    return render (request, '500.html', {})
+
+
+def custom_error_403(request, exception):
+    return render(request, '403.html', {})
