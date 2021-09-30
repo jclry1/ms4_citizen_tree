@@ -52,12 +52,6 @@ class Update(models.Model):
     def get_absolute_url(self):
         return reverse('projects:report', kwargs={"id":self.id})
 
-
-    """ def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        return super().save(*args, **kwargs) """ 
-
     class Meta:
         ordering = ['-date_added']   
 
