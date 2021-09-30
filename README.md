@@ -15,9 +15,12 @@ Citizen Tree is an online space to foster networks of people interested in growi
 - [Design - Database](#design---database)
     - [faq](#faq)
     - [Donations](#donations)
+    - [Projects and Updates](#projects-and-updates)
 - [Features](#features)
   - [Admin perspective](#admin-perspective)
     - [Email Verification](#email-verification)
+    - [User Image Upload](#user-image-upload)
+    - [Donations with Stripe](#donations-with-stripe)
   - [Initial Setup](#initial-setup)
     - [Based on Django for Professinoals by William S. Vincent](#based-on-django-for-professinoals-by-william-s-vincent)
   - [Set up static files](#set-up-static-files)
@@ -130,6 +133,10 @@ At the moment, there is only one donation type ('Regular') with three price leve
 
 More on the Stripe payment and checkout process below.
 
+### Projects and Updates
+The main content of the site is managed by two models - one for projects and one for updates. These have connections one to the other and both also have a foreign key relationship to the custom user model:
+![Project, Update, User Models](docs/readme_images/project_update_user_models.png)
+
 
 # Features
 ## Admin perspective
@@ -146,6 +153,44 @@ Password reset functionality based on django-allauth and uses the allauth templa
 https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account
 Additional resource: https://www.youtube.com/watch?v=d9aCpxQfnOg
 
+### User Image Upload
+
+### Donations with Stripe
+The app uses Stripe to take donations payments. Options are limited to 3 donation levels and a user must be logged in to access the donate page.
+The payment process can be cancelled by a user in which case they are redirected to a cancel page. Otherwise, when they commit to the payment, they are redirected to a success page.
+In addition to the success page that confirms the amount they have paid, the user is also sent an email from the app to confirm the payment.
+This email only issues after the payment has been successful. This is implemented using a webhook:
+```python
+@csrf_exempt
+def stripe_webhook(request):
+  endpoint_secret = settings.STRIPE_WH_SECRET
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
+
+  try:
+    event = stripe.Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
+
+  # Handle the checkout.session.completed event - send confirmation email
+  if event['type'] == 'checkout.session.completed':
+    session = event['data']['object']
+    customer_email = session["customer_details"]["email"]
+    amount = session["amount_total"]
+    display_amount = "{0:.2f}".format(amount / 100)
+
+    print(session)
+    send_mail('Your donation', f'Thank you for your donation of {display_amount} euros to Citizen Tree.', 'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
+
+```
+The email is sent using SendGrid.
 
 ## Initial Setup
 ### Based on Django for Professinoals by William S. Vincent
