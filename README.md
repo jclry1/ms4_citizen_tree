@@ -37,6 +37,12 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [Calculator example](#calculator-example)
   - [Stripe](#stripe)
   - [Git](#git)
+  - [Deployment](#deployment)
+    - [Notes on Development](#notes-on-development)
+      - [Why not use Gitpod?](#why-not-use-gitpod)
+      - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
+      - [Installing Docker](#installing-docker)
+      - [Setting up a Virtual Environmant and Using Docker Compose](#setting-up-a-virtual-environmant-and-using-docker-compose)
 
 
 
@@ -88,18 +94,21 @@ The interaction of this user with the site assumes integration with offline proc
 
 # Design - UI
 Wireframes and initial mockups:
-[Desktop](docs/MS4_Desktop.pdf)
-[Mobile](docs/MS4_Mobile.pdf)
-[Initial Outline](docs/MS4Draft_InitialOutline.pdf)
+
+* [Desktop](docs/MS4_Desktop.pdf)
+* [Mobile](docs/MS4_Mobile.pdf)
+* [Initial Outline](docs/MS4Draft_InitialOutline.pdf)
 
 # Design - Database
 There are 5 models currently used in the app:
 
 ### faq
 The faq model holds the content for the FAQs that a user accesses at the bottom of the calculator page. These are served using fetch (asynch) and the Django Rest Framework (the API endpoints from which fetch retrieves the data are set up using the Django Rest Framework (DRF)).
+
 ![FAQ Model](docs/readme_images/faq_model.png)
 
 The following resources served as guidance for setting up DRF and fetch:
+
 DRF:
 * https://howtocreateapps.com/fetch-and-display-json-html-javascript/
 * https://stackoverflow.com/questions/66318099/passing-django-model-properties-to-javascript-with-the-fetch-api
@@ -349,3 +358,36 @@ https://bhoey.com/blog/stripe-checkout-with-django/
 
 ## Git
 Branching and merging: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+
+## Deployment
+The deployment steps below are the procedure followed for this app. It differs from the procedure used for Boutique Ado and the MS3 project in that the development and delpoyment process use Docker. 
+Development also differed and was done using Docker Compose and VS Code locally, (as opposed to Gitpod).
+
+### Notes on Development
+#### Why not use Gitpod?
+Gitpod had served well for the three milestone projects so far. I decided to switch to using VS Code locally in combination with Docker Compose for a couple of reasons:
+
+* To expand my learning in relation to handling a development environment.
+* Docker seemed like a useful technology/tool to become familiar with.
+* When I started the MS4 project, I misjudged the time I had available.
+
+All in all I think it was a good decision but it did add an additional load on the learning required to complete the project. 
+
+#### Resources on Docker, Docker Compose, and Pipenv
+For information on installing and using Docker and Docker Compose, I relied on these primary resources:
+
+* [Django for Professionals](https://djangoforprofessionals.com/) book by William S. Vincent
+* [Dive into Docker](https://nickjanetakis.com/courses/#dive-into-docker) online course by Nick Janetakis
+* [Virtual Environment Setup](https://djangoforbeginners.com/initial-setup/) 
+* [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/)
+
+#### Installing Docker
+To install Docker, I followed the steps outlined in the [Docker documentation](https://docs.docker.com/engine/install/ubuntu/).
+To install Dcoker Compose, I followed the steps [here](https://docs.docker.com/compose/install/)
+The versions used are:
+
+#### Setting up a Virtual Environmant and Using Docker Compose
+The setup for the project was based around the steps in the Django for Professionals book and involved the following:
+Create a directory for the project.
+Use 
+
