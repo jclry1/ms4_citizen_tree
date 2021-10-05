@@ -42,7 +42,8 @@ Citizen Tree is an online space to foster networks of people interested in growi
       - [Why not use Gitpod?](#why-not-use-gitpod)
       - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
       - [Installing Docker](#installing-docker)
-      - [Setting up a Virtual Environmant and Using Docker Compose](#setting-up-a-virtual-environmant-and-using-docker-compose)
+      - [Setting up the Virtual Environment and Managing Dependencies](#setting-up-the-virtual-environment-and-managing-dependencies)
+      - [Using Docker Compose](#using-docker-compose)
 
 
 
@@ -383,11 +384,36 @@ For information on installing and using Docker and Docker Compose, I relied on t
 
 #### Installing Docker
 To install Docker, I followed the steps outlined in the [Docker documentation](https://docs.docker.com/engine/install/ubuntu/).
-To install Dcoker Compose, I followed the steps [here](https://docs.docker.com/compose/install/)
-The versions used are:
+To install Docker Compose, I followed the steps [here](https://docs.docker.com/compose/install/)
+The versions used are: screenshot here
 
-#### Setting up a Virtual Environmant and Using Docker Compose
-The setup for the project was based around the steps in the Django for Professionals book and involved the following:
-Create a directory for the project.
-Use 
+#### Setting up the Virtual Environment and Managing Dependencies
+Pipenv was used to install and manage dependencies (e.g. Django itself, crispy forms etc), using the following command:
+```shell
+pipenv install django
+```
+Because I used Pipenv, the ```requirements.txt``` file is replaced by ```Pipfile``` and ```Pipfile.lock```. Pipfile lists the dependencies and Pipfile.lock includes the versions used so that an exact repica of the development environment can be created. These files are updated automatically by Pipenv whenever a new package is installed.
+
+Resources on using Pipenv included:
+* [Django for Professionals](https://djangoforprofessionals.com/) book by William S. Vincent
+* [pypi.org](https://pypi.org/project/pipenv/2021.5.29/)
+* [Pipenv docs](https://pipenv.pypa.io/en/latest/)
+* [Real Python](https://realpython.com/pipenv-guide/) 
+
+#### Using Docker Compose
+Once the project was set up, all manage.py commands were run via docker-compose, using the following pattern (using makemigrations for the projects app as example):
+```sh
+docker-compose exec web python manage.py makemigrations projects
+``` 
+
+Command to start the local server:
+```sh
+docker-compose up
+```
+OR
+```sh
+docker-compose up -d
+```
+The difference bewtween the two commands above being the terminal output was disabled with the ```-d``` flag.
+
 
