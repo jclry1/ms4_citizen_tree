@@ -28,6 +28,26 @@ hr{
   border: 1px solid #fafafa;
 }
 
+p{
+font-family: Lato, sans-serif;
+color: #fafafa;  
+}
+
+a{
+  color: #fafafa;
+}
+a:hover {
+ color: gold;
+}
+
+/* Crispy Forms styling Resource: https://stackoverflow.com/questions/42491691/how-do-i-add-custom-css-to-crispy-forms */
+.requiredField{
+  color: #fafafa;
+}
+.asteriskField{
+  color: #fafafa;
+}
+
 /* CSS to control dynamic divs on calculator page ********/
 .offset{
     background-image: linear-gradient(
