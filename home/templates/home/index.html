@@ -19,11 +19,12 @@
                 <p><a href="{% url 'account_logout' %}">Log Out</a></p>
             {% else %}
                 <p>You are not logged in</p>
-                <a href="{% url 'account_login' %}">Log In</a>
+                <a href="{% url 'account_login' %}">Log In</a>  
                 <a href="{% url 'account_signup' %}">Sign Up</a>
             {% endif %}    
         </div>
     </div>
+    <hr/>
     <div class="options">
         <a class="btn btn-success" href="{% url 'projects:projects' %}">All Projects</a>
         <a class="btn btn-success" href="{% url 'calculator:calc' %}">Calculate My Footprint and Potential Offsets</a>

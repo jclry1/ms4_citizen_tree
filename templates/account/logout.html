@@ -4,7 +4,7 @@
 
 {% block title %}Log Out{% endblock title %}
 {% block content %}
-<h1>Log Out</h1>
+<h1 class="index-h">Log Out</h1>
 <p>Are you sure you want to log out?</p>
 <form method="post" action="{% url 'account_logout' %}">
 {% csrf_token %}

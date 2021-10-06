@@ -5,7 +5,7 @@
 
 {% block title %}Log In{% endblock title %}
 {% block content %}
-<h2>Log In</h2>
+<h2 class="index-h">Log In</h2>
 <form method="post">
 {% csrf_token %}
 {{ form|crispy }}
@@ -14,7 +14,7 @@
 </form>
 
 <div>
-    <h4>If you signed up with your Github Account:</h4>
+    <h4 class="index-h">If you signed up with your Github Account:</h4>
     <a href="{% provider_login_url 'github' %}"><i class="fab fa-github fa-3x"></i></a>
 </div>
 
