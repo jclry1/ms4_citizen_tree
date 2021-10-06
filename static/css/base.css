@@ -12,6 +12,15 @@ body{
   font-family: "Raleway", sans-serif;
   background: url('../images/ms4_background_willliam_barella_unsplash.jpg') no-repeat center center fixed;
 }
+.index-h{
+  color: #fafafa;
+  font-family: Lato, sans-serif;
+  font-weight: 500;
+}
+
+hr{
+  border: 1px solid #fafafa;
+}
 
 /* CSS to control dynamic divs on calculator page ********/
 .offset{
