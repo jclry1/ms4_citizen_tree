@@ -38,7 +38,9 @@
                             <h4 class=""><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></h4>
                             <p class="card-text">{{ project.description|truncatewords:5 }}</p> <!-- Update model to have a short_desc and include here -->
                     </div>
-
+                    <div class="card-footer text-muted">
+                        Location: {{ project.location }}
+                      </div>    
                 </div>
 
 
