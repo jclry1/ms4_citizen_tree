@@ -29,7 +29,9 @@
         <a class="btn btn-success" href="{% url 'projects:projects' %}">All Projects</a>
         <a class="btn btn-success" href="{% url 'calculator:calc' %}">Calculate My Footprint and Potential Offsets</a>
         <a class="btn btn-success" href="{% url 'calculator:calc' %}">About Citizen Tree</a>
-
+        {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'donations:donate-landing' %}">Donate</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
