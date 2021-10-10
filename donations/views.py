@@ -124,15 +124,15 @@ def handle_checkout_session(session):
         amount = session["amount_total"]
         display_amount = "{0:.2f}".format(amount / 100)
         donor_user = user.username
-        #print(user.username, "just purchased something.")
+        
         send_mail('Thank you for your donation', f'Hi there {donor_user}, thank you for your donation of {display_amount} euros to Citizen Tree.', 
         'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
         
         # Save the donation to the DB
         Donor.objects.create(
-          donor="user",
-          amount = "display_amount",
-          email_used="customer_email",
+          donor = User.objects.get(id=client_reference_id),
+          amount = display_amount,
+          email_used=customer_email,
         )
 
     except User.DoesNotExist:
