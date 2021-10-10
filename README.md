@@ -16,6 +16,7 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [faq](#faq)
     - [Donations](#donations)
     - [Projects and Updates](#projects-and-updates)
+      - [Using the Custom user Model](#using-the-custom-user-model)
 - [Features](#features)
   - [Admin perspective](#admin-perspective)
     - [Email Verification](#email-verification)
@@ -146,6 +147,15 @@ More on the Stripe payment and checkout process below.
 ### Projects and Updates
 The main content of the site is managed by two models - one for projects and one for updates. These have connections one to the other and both also have a foreign key relationship to the custom user model:
 ![Project, Update, User Models](docs/readme_images/project_update_user_models.png)
+
+#### Using the Custom user Model
+The Django docs explicitly recommend using a custom user model: "If you’re starting a new project, it’s highly recommended to set up a custom user model, even if the default User model is sufficient for you."
+This advice was echoed in Django for Beginners and Django for Professionals books and I went with it. In retrospect, for this project I think it was a bad idea and if I were to start over, I think I would use the default user model.
+Main resources on setting up and using the custom user model:
+
+* [Django for Professionals](https://djangoforprofessionals.com/) book by William S. Vincent
+* [Django Docs](https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)
+* [Django Best Practices: Referencing the User Model](https://learndjango.com/tutorials/django-best-practices-referencing-user-model)
 
 
 # Features
@@ -354,8 +364,7 @@ Stripe integration is based on:
 * JustDjango tutorial: https://justdjango.com/blog/django-stripe-payments-tutorial and https://www.youtube.com/watch?v=722A27IoQnk
 * testdriven.io tutorial: https://testdriven.io/blog/django-stripe-tutorial/
 * re session object: https://stripe.com/docs/api/checkout/sessions/line_items
-
-https://bhoey.com/blog/stripe-checkout-with-django/
+* https://bhoey.com/blog/stripe-checkout-with-django/
 
 ## Git
 Branching and merging: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
