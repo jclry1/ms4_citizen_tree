@@ -1,4 +1,5 @@
 import stripe
+from django.contrib.auth import get_user_model #https://learndjango.com/tutorials/django-best-practices-referencing-user-model
 from django.core.mail import send_mail
 from django.http.response import HttpResponse, JsonResponse
 from django.conf import settings
@@ -39,9 +40,11 @@ class CancelView(TemplateView):
 
 
 class CreateCheckoutSessionView(View):
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         DOMAIN = 'https://ms4-citizen-tree.herokuapp.com/donations/'
         price = Price.objects.get(id=self.kwargs["pk"])
+        #client_reference_id=request.user.id if request.user.is_authenticated else None,
+        #donor = request.user.username if request.user.is_authenticated else None,
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[
@@ -53,7 +56,11 @@ class CreateCheckoutSessionView(View):
             mode='payment',
             success_url= DOMAIN + 'success/',
             cancel_url= DOMAIN + 'cancel/',
+            client_reference_id=request.user.id if request.user.is_authenticated else None,
+            #metadata={'donor': 'request.user.username if request.user.is_authenticated else None'}
+            #donor = request.user.username if request.user.is_authenticated else None             
         )
+        #print (client_reference_id)
         return redirect(checkout_session.url)
     
     
@@ -81,19 +88,48 @@ def stripe_webhook(request):
     customer_email = session["customer_details"]["email"]
     amount = session["amount_total"]
     display_amount = "{0:.2f}".format(amount / 100)
+    
 
-    print(session)
+    
     send_mail('Your donation', f'Thank you for your donation of {display_amount} euros to Citizen Tree.', 'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
-
+    handle_checkout_session(session) # Based on: https://github.com/testdrivenio/django-stripe-checkout/blob/master/payments/views.py
     """
     Here:
     Add a row to a 'Received' model
     With: User, amount, date, 
     Received.objects.create(user=user, amount = display_amount, date = now,)
+
+    do this by calling another function: handle_checkout_session(session) - see https://github.com/testdrivenio/django-stripe-checkout/blob/master/payments/views.py
     """
-
-
-
-
   return HttpResponse(status=200) 
+
+def handle_checkout_session(session):
+    # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#referencing-the-user-model
+    # https://learndjango.com/tutorials/django-best-practices-referencing-user-model
+
+    User = get_user_model()
+    # client_reference_id = user's id
+    client_reference_id = session.get("client_reference_id")
+    # payment_intent = session.get("payment_intent")
+
+    if client_reference_id is None:
+        """Customer wasn't logged in when purchasing - this shouldn't happen
+        because the donate button is visible only to logged-in users - To do!""" 
+        return
+
+    # Customer was logged in we can now fetch the Django user and make changes to our models
+    try:
+        user = User.objects.get(id=client_reference_id)
+        customer_email = session["customer_details"]["email"]
+        amount = session["amount_total"]
+        display_amount = "{0:.2f}".format(amount / 100)
+        hi_name = user.username
+        #print(user.username, "just purchased something.")
+        send_mail('Thank you for your donation', f'Hi there {hi_name}, thank you for your donation of {display_amount} euros to Citizen Tree.', 
+        'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
+
+        # To Do: make changes to our models.
+
+    except User.DoesNotExist:
+        pass
 
