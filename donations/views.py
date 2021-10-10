@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.views import View
-from .models import Price, Donation
+from .models import Price, Donation, Donor
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
