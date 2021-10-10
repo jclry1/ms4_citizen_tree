@@ -123,12 +123,17 @@ def handle_checkout_session(session):
         customer_email = session["customer_details"]["email"]
         amount = session["amount_total"]
         display_amount = "{0:.2f}".format(amount / 100)
-        hi_name = user.username
+        donor_user = user.username
         #print(user.username, "just purchased something.")
-        send_mail('Thank you for your donation', f'Hi there {hi_name}, thank you for your donation of {display_amount} euros to Citizen Tree.', 
+        send_mail('Thank you for your donation', f'Hi there {donor_user}, thank you for your donation of {display_amount} euros to Citizen Tree.', 
         'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
-
-        # To Do: make changes to our models.
+        
+        # Save the donation to the DB
+        Donor.objects.create(
+          donor="user",
+          amount = "display_amount",
+          email_used="customer_email",
+        )
 
     except User.DoesNotExist:
         pass
