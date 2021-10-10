@@ -131,7 +131,7 @@ def handle_checkout_session(session):
         # Save the donation to the DB
         Donor.objects.create(
           donor = User.objects.get(id=client_reference_id),
-          amount = display_amount,
+          amount = amount,
           email_used=customer_email,
         )
 
