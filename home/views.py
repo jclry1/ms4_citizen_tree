@@ -15,7 +15,12 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        total_cent_amount = Donor.objects.all().aggregate(Sum('amount'))
+        total_cent_amount = Donor.objects.all().aggregate(Sum('amount'))['amount__sum'] or 0
+        """
+        Reference: 
+        https://stackoverflow.com/questions/27596574/how-to-just-retrieve-the-integer-of-a-aggregate-query-in-django
+        'or 0' - https://www.reddit.com/r/django/comments/fui93z/how_to_make_aggregate_return_0_instead_of_none/
+        """
         total_euro_amount = total_cent_amount/100
         total_sink=total_euro_amount*1.46    
         context['total_sink'] = total_sink
@@ -24,7 +29,7 @@ class HomePageView(TemplateView):
             user = CustomUser.objects.get(pk=self.request.user.pk)
             context ['username'] = user.username
 
-            donor_cent_amount = Donor.objects.filter(donor=self.request.user).aggregate(Sum('amount'))
+            donor_cent_amount = Donor.objects.filter(donor=self.request.user).aggregate(Sum('amount'))['amount__sum'] or 0
             donor_euro_amount = donor_cent_amount/100
             donor_sink = donor_euro_amount*1.46
             context['donor_sink'] = donor_sink
