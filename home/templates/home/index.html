@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
 {% block page_header %}
 {% endblock %}
 
@@ -38,8 +40,20 @@
     <h3 class="index-h">Donations so far have helped Citizen Tree projects sequester {{ total_sink }} Kg of CO2 annually.</h3>
     <br>
     <h3 class="index-h">Your donations so far have helped projects sequester {{ donor_sink }} Kg of CO2 annually.</h3>
-
-
-
+    <h5 class="index-h">We'd love to have you on board as a volunteer or as a donor, or both.</h5>
+    <h5 class="index-h">Unfortunately, the perspective of the bigger picture shows how far we have to go, Irelands annual emission are a fairly steady 60 million tonnes. 
+        A tonne is Kg*1000, so that's 60 billion Kg. Can you give a hand to start changing the colour of the doughnut?</h5>
+    <!-- https://www.chartjs.org/docs/latest/getting-started/ -->
+    <div class="col-10 col-md-8 mx-auto" style="height: 400px; width: 400px; margin-top: 60px;">
+        <canvas id="co2_doughnut" ></canvas>
+    </div>
+    
 </div>
+<!-- 
+https://adamj.eu/tech/2020/02/18/safely-including-data-for-javascript-in-a-django-template/ 
+https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#json-script
+-->
+
+{{ d_sink_js|json_script:"d_sink_chart" }}
+<script src="{% static 'js/pie.js' %}"></script>
 {% endblock %}
