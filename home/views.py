@@ -22,8 +22,9 @@ class HomePageView(TemplateView):
         'or 0' - https://www.reddit.com/r/django/comments/fui93z/how_to_make_aggregate_return_0_instead_of_none/
         """
         total_euro_amount = total_cent_amount/100
-        total_sink=total_euro_amount*1.46    
+        total_sink=total_euro_amount*1.46   #Value of total sink is kg 
         context['total_sink'] = total_sink
+        context['d_sink_js'] = {"donor_sink": total_sink } #Dict to pass to pie.js via json_script
 
         if self.request.user.is_authenticated:
             user = CustomUser.objects.get(pk=self.request.user.pk)
@@ -33,6 +34,7 @@ class HomePageView(TemplateView):
             donor_euro_amount = donor_cent_amount/100
             donor_sink = donor_euro_amount*1.46
             context['donor_sink'] = donor_sink
+            
 
         return context
 
