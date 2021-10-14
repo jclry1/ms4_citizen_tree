@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'calculator',
     'projects',
     'donations',
+    'shop',
 
     # Other apps
     'crispy_forms',

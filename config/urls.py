@@ -38,6 +38,7 @@ urlpatterns = [
     path('calculator/', include('calculator.urls')),
     path('projects/', include('projects.urls', namespace='projects')),
     path('donations/', include ('donations.urls', namespace='donations')),
+    path('shop/', include ('shop.urls', namespace='shop')),
 ]
 
 handler404 = 'home.views.custom_error_404'
