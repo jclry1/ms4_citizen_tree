@@ -1,0 +1,45 @@
+/* Site-wide */
+
+html {
+  height: 100%;
+}
+body{
+  background: url("../images/ms4_background_willliam_barella_unsplash.bb879d291438.jpg") no-repeat center center fixed;
+}
+
+/* CSS to control dynamic divs on calculator page */
+.offset{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("/static/images/katya-azi-trees-woodland-green.6a09b706ea6f.jpg") 
+}
+.estimate{
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url("/static/images/vitor-monthay-seedling.a4683492b90b.jpg")
+}
+.emissions{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      ),
+      url("/static/images/jacek-dylag-cars-night-smog.ef7322f5ced3.jpg")
+}
+/* For table caption on calculator page */
+caption {
+  color: white;
+  font-style: italic;
+}
+
+/* Projects */
+.card-body{
+  background-color: darkolivegreen;
+  color: white;
+}
