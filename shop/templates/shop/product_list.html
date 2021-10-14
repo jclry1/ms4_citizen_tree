@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-10 col-md-10 my-auto">
+            <h1 class="index-h">
+                Citizen Tree - Current Projects
+            </h1>
+            
+            
+            {% if user.is_authenticated %}
+                <h5 class="index-h">User: {{ user.username }}</h5>
+                <hr />
+                Hi {{ user.email }}!
+                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+            {% else %}
+                <p>You are not logged in</p>
+                <a href="{% url 'account_login' %}">Log In</a>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}    
+        </div>
+    </div>
+</div>
+<div class="album py-5 ">
+<div class="container">
+    <div class="row">
+        {% for product in object_list %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top project-list-card" src="{{ product.picture.url }}" alt="The project profile picture or default backup">
+                    <div class="card-body">
+                            <h4 class=""><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h4>
+                            <p class="card-text">{{ product.description|truncatewords:5 }}</p> <!-- Update model to have a short_desc and include here -->
+                    </div>
+    
+                </div>
+
+
+            </div>
+        {% endfor %}    
+
+
+
+    </div>
+</div>        
+</div>
+
+
+
+
+
+
+
+{% endblock %}
