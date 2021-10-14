@@ -3,6 +3,6 @@ users.md
 commands.md
 .vscode
 env.py
-staticfiles/
+
 docker-compose-prod.yml
 local_settings.py
