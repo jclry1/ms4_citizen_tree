@@ -6,6 +6,14 @@ from django.shortcuts import reverse
 
 User = get_user_model()
 
+class VarietySpec(models.Model):
+    name = models.CharField(max_length=80)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Product(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
@@ -15,6 +23,7 @@ class Product(models.Model):
     active = models.BooleanField(default=False)
     bareroot = models.BooleanField(default = True)
     picture = models.FileField(upload_to='media/', default='media/default.jpg', blank=True)
+    available_varieties = models.ManyToManyField(VarietySpec)
 
     def __str__(self):
         return self.title
@@ -47,6 +56,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     order = models.ForeignKey("Order", related_name='items', on_delete=models.CASCADE)
+    variety = models.ForeignKey(VarietySpec, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.product.title} by {self.quantity}"
