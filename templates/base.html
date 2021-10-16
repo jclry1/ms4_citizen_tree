@@ -50,13 +50,17 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home:index' %}">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop:product-list' %}">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link site-cart" href="{% url 'shop:summary' %}"><span><i class="fas fa-shopping-cart"></i></span></a>
+          </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'shop:product-list' %}">Shop</a>
-          </li>
+          
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
