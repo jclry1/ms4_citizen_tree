@@ -117,3 +117,16 @@ caption {
 .footer-element a:hover{
   color:gold;
 }
+
+
+/*--------------------------------------------------------Cart - table*/ 
+.cart-table{
+  color: #fafafa;
+  
+}
+.product-thumbnail{
+  max-width: 150px;
+}
+.cart-qty{
+  max-width: 50px;
+}
