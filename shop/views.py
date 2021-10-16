@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
+from django.views.generic.base import TemplateView
 from .models import Product
 from .utils import get_or_set_order_session
 from .forms import AddToCartForm
@@ -20,7 +21,7 @@ class ProductDetailView(generic.FormView):
         return get_object_or_404(Product, slug=self.kwargs["slug"])
 
     def get_success_url(self):
-        return reverse("home") 
+        return reverse("shop:summary") 
 
     def get_form_kwargs(self):
         kwargs = super(ProductDetailView, self).get_form_kwargs()
@@ -53,3 +54,12 @@ class ProductDetailView(generic.FormView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['product'] = self.get_object()
         return context
+
+
+class CartView(generic.TemplateView):
+    template_name = 'shop/cart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+        context["order"] = get_or_set_order_session(self.request)
+        return context     
