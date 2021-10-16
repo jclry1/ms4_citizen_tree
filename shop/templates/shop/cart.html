@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12">
+            <h1 class="index-h">
+                Citizen Tree - Your Cart
+            </h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="cart-table">
+                <table class="cart-table">
+                    <tbody>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                        {% for item in order.items.all %}
+                        <tr> 
+                            <td class="product-thumbnail"><img src="{{ item.product.picture.url }}" alt="product image" class="img-fluid"></td>
+
+                            <td class="product-name">
+                                
+                                <p>{{ item.product.title }}</p> 
+                                <small>{{ item.variety.name }}</small>
+                            </td>
+
+                            <td>0</td>
+                            
+                            <td>
+                                <div class="input-group mb-3 cart-input" style="max-width: 220px; color: red;">
+                                    <div class="input-group-prepend">
+                                        <a href="#" class = "btn btn-ouline-primary"> &minus; </a>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control text-center" value="{{ item.quantity }}">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <a href="#" class = "btn btn-ouline-primary" style="max-width: 120px;"> + </a>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                            <td>0</td>
+                            
+                            <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                        </tr> 
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
