@@ -8,14 +8,30 @@
 
 <div class="container h-100">
     <div class="row h-100">
-        <div class="col-12">
+        <div class="col-12 col-md-6 my-auto">
             <h1 class="index-h">
                 Citizen Tree - Your Cart
             </h1>
+            
+            
+            {% if user.is_authenticated %}
+                <h3 class="index-h">User: {{ user.username }}</h3>
+                <hr />
+                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+            {% else %}
+                <p>You are not logged in</p>
+                <a href="{% url 'account_login' %}">Log In</a>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}    
+        </div>
+    </div>
+</div> 
+
+<div class="container"> 
     <div class="row">
         <div class="col-md-12">
             <div class="cart-table">
-                <table class="cart-table">
+                <table class="cart-table table table-reponsive">
                     <tbody>
                     <tr>
                         <th>Image</th>
@@ -38,15 +54,15 @@
                             <td>0</td>
                             
                             <td>
-                                <div class="input-group mb-3 cart-input" style="max-width: 220px; color: red;">
+                                <div class="input-group mb-3 cart-input">
                                     <div class="input-group-prepend">
-                                        <a href="#" class = "btn btn-ouline-primary"> &minus; </a>
+                                        <a href="#" class = "btn btn-dark"> &minus; </a>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control text-center" value="{{ item.quantity }}">
-                                <div class="input-group mb-3">
+                                <input type="text" class="form-control text-center cart-qty" value="{{ item.quantity }}">
+                                <div class="input-group mt-3">
                                     <div class="input-group-append">
-                                        <a href="#" class = "btn btn-ouline-primary" style="max-width: 120px;"> + </a>
+                                        <a href="#" class = "btn btn-dark" style="max-width: 120px;"> + </a>
                                     </div>
                                 </div>
                             </td>
