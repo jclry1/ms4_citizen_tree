@@ -18,6 +18,7 @@ class Product(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
     description = models.TextField()
+    price = models.IntegerField(default=0)
     created = models. DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
@@ -30,6 +31,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("shop:product-spotlight", kwargs={'slug': self.slug })
+
+    def get_display_price(self):
+        return "{:.2f}".format(self.price / 100) #Convert from cents to euros for display, same convention as for donations 
 
 class Address(models.Model):
     ADDRESS_CHOICES = (
@@ -60,6 +64,15 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.title} by {self.quantity}"
+
+    def get_raw_total_item_price(self):
+        return self.quantity * self.product.price
+
+    def get_total_item_price_display(self):
+        price = self.get_raw_total_item_price()
+        return "{:.2f}".format(price / 100)
+
+
     
 
 class Order(models.Model):
