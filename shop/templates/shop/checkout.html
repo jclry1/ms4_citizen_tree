@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto">
+            <h1 class="index-h">
+                Citizen Tree - Checkout
+            </h1>
+            {% if user.is_authenticated %}
+            <h3 class="index-h">User: {{ user.username }}</h3>
+            <hr />
+            <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+            {% else %}
+            <p>You are not logged in</p>
+            <a href="{% url 'account_login' %}">Log In</a>
+            <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="cart-section">
+    <div class="container">
+
+        {% if not request.user.is_authenticated %}
+        <div class="row mb-5"></div>
+        <div class="col-md-12">
+            <p>To complete the checkout process, you need to log in or sign up. <a href="{% url 'account_login' %}">log
+                    in</a> or <a href="{% url 'account_signup' %}">sign up</a>.</p>
+        </div>
+        {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <h3 class="index-h">Billing Details</h3>
+                    <hr>
+                    <div class="p-2 p-lg-2 text-white">
+                        {{ form|crispy }}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block">Go to Payment</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h3 class="index-h text-center mb-3">Your Order</h3>
+                            
+                            <div>
+                                <table class="cart-table table table-reponsive">
+                                    <tbody>
+                                        <tr>                                       
+                                        <th>Product</th>
+                                        <th>Total</th> 
+                                        {% for item in order.items.all %}                                       
+                                    </tr>
+                                        <tr> 
+                                            <td class="product-name"> 
+                                                <p>{{ item.product.title }} (<small>{{ item.variety.name }}</small>) x {{ item.quantity }}</p> 
+                                                
+                                            </td>
+                                            <td>€{{ item.get_total_item_price_display }}</td>                                            
+                                        </tr> 
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td><strong>Subtotal</strong></td>
+                                            <td><strong>€{{ order.get_subtotal }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total incl. delivery</strong></td>
+                                            <td><strong>€{{ order.get_total }}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    {% endif %}
+</div>
+
+<!-- {% if order.items.count > 0 %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center btn btn-info">
+                <a href="{% url 'shop:product-list' %}">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 pl-5">
+        <div class="row justify-content-end">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-5">
+                        <h3 class="index-h">Cart Totals</h3>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <span>
+                            <h5 class="index-h">Subtotal</h5>
+                        </span>
+                    </div>
+                    <div class="col-md-6 text-right text-white">
+                        <strong>€{{ order.get_subtotal }}</strong>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <span>
+                            <h5 class="index-h">Delivery*</h5>
+                        </span>
+                        <small class="text-white">*Flat fee for all orders.</small>
+                    </div>
+                    <div class="col-md-6 text-right text-white">
+                        <strong>€25.00</strong>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <span>
+                            <h5 class="index-h">Total</h5>
+                        </span>
+                    </div>
+                    <div class="col-md-6 text-right text-white">
+                        <strong>€{{ order.get_total }}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{% url 'shop:checkout' %}" class="btn btn-info btn-block">Go to Checkout</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+{% endif %} -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
