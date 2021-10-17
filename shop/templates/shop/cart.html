@@ -26,9 +26,9 @@
         </div>
     </div>
 </div> 
-
+<div class="cart-section">
 <div class="container"> 
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-md-12">
             <div class="cart-table">
                 <table class="cart-table table table-reponsive">
@@ -79,7 +79,68 @@
             </div>
         </div>
               </div>
+
+            {% if order.items.count > 0 %}    
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="row mb-5">
+                          <div class="col-md-12 text-center btn btn-info">
+                              <a href="{% url 'shop:product-list' %}">Continue Shopping</a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 pl-5">
+                      <div class="row justify-content-end">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 text-right border-bottom mb-5">
+                                    <h3 class="index-h">Cart Totals</h3>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <span><h5 class="index-h">Subtotal</h5></span>
+                                </div>
+                                <div class="col-md-6 text-right text-white">
+                                    <strong>€{{ order.get_subtotal }}</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <span><h5 class="index-h">Delivery*</h5></span>
+                                    <small class="text-white">*Flat fee for all orders.</small>
+                                </div>
+                                <div class="col-md-6 text-right text-white">
+                                    <strong>€25.00</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-6">
+                                    <span><h5 class="index-h">Total</h5></span>
+                                </div>
+                                <div class="col-md-6 text-right text-white">
+                                    <strong>€{{ order.get_total }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{% url 'shop:product-list' %}" class="btn btn-info btn-block">Go to Checkout</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                      </div>
+                  </div>
+
+
+
+              </div>
+              {% endif %}
+
         </div>
+    </div>
     </div>
 </div>
 
