@@ -230,7 +230,7 @@ class StripePaymentView(generic.FormView):
         context["payment_methods"] = pay_methods
         return context
 
-@csrf_exempt
+""" @csrf_exempt
 def stripe_webhook_view(request):
     endpoint_secret = settings.STRIPE_WH_SECRET_SHOP
     payload = request.body
@@ -251,9 +251,46 @@ def stripe_webhook_view(request):
 
     # Handle the event
     if event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
-        print('PI was ok')
-        print(payment_intent)
+      payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
+      print('PI was ok')
+      print(payment_intent)
+      stripe_payment = StripePayment.objects.get(
+      payment_intent_id=payment_intent["id"],
+      )
+      stripe_payment.successful = True
+      stripe_payment.save()
+      order = stripe_payment.order
+      order.ordered = True
+      order.ordered_date = timezone.now()
+      order.save()
+    else:
+        # Unexpected event type
+      return HttpResponse(status=400)
+
+    return HttpResponse(status=200) """
+
+
+@csrf_exempt
+def stripe_webhook_view(request):
+    endpoint_secret = settings.STRIPE_WH_SECRET_SHOP
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded':
+        payment_intent = event.data.object  # contains a stripe.PaymentIntent
         stripe_payment = StripePayment.objects.get(
             payment_intent_id=payment_intent["id"],
         )
