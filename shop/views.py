@@ -232,7 +232,7 @@ class StripePaymentView(generic.FormView):
 
 @csrf_exempt
 def stripe_webhook_view(request):
-    endpoint_secret = settings.STRIPE_WH_SECRET
+    endpoint_secret = settings.STRIPE_WH_SECRET_SHOP
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
