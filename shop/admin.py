@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 
 from .models import (
-    Product, Order, OrderItem, VarietySpec, Address)
+    Product, Order, OrderItem, VarietySpec, Address, StripePayment)
 
 class AddressAdmin(admin.ModelAdmin):
     list_display=[
@@ -19,4 +19,5 @@ admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(VarietySpec)
 admin.site.register(Address, AddressAdmin)
+admin.site.register(StripePayment)
 
