@@ -81,3 +81,7 @@ class AddressForm(forms.Form):
                 self.add_error("billing_address_county", "Fill in this field")
             if not data.get('billing_address_eircode', None):
                 self.add_error("billing_address_eircode", "Fill in this field")
+
+
+class StripePaymentForm(forms.Form):
+    selectedCard = forms.CharField(max_length=100)

@@ -1,11 +1,23 @@
+import stripe
+import json
+import os
+import datetime
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.http.response import HttpResponse, JsonResponse
+from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.base import TemplateView
-from .models import Product, OrderItem, Address
+from stripe.api_resources import payment_intent
+from .models import Product, OrderItem, Address, StripePayment
 from .utils import get_or_set_order_session
-from .forms import AddToCartForm, AddressForm
+from .forms import AddToCartForm, AddressForm, StripePaymentForm
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class ProductListView(generic.ListView):
@@ -96,7 +108,7 @@ class CheckoutView(generic.FormView):
     form_class = AddressForm
 
     def get_success_url(self):
-        pass
+        return reverse("shop:stripe-pay")
     
     def form_valid(self, form):
         order = get_or_set_order_session(self.request)
@@ -114,7 +126,7 @@ class CheckoutView(generic.FormView):
                 county=form.cleaned_data['shipping_address_county'],
                 eircode=form.cleaned_data['shipping_address_eircode'],
             )
-        order.shipping_address = address
+            order.shipping_address = address
 
         if selected_billing_address:
             order.billing_address = selected_billing_address
@@ -127,7 +139,7 @@ class CheckoutView(generic.FormView):
                 county=form.cleaned_data['billing_address_county'],
                 eircode=form.cleaned_data['billing_address_eircode'],
             )
-        order.billing_address = address
+            order.billing_address = address
         order.save()
 
         messages.info(self.request, "Addresses have been added successfully")
@@ -143,3 +155,116 @@ class CheckoutView(generic.FormView):
         context["order"] = get_or_set_order_session(self.request)
         return context 
 
+class StripePaymentView(generic.FormView):
+    template_name = 'shop/stripe_payment.html'
+    form_class = StripePaymentForm
+
+    def form_valid(self, form):
+        payment_method = form.cleaned_data["selectedCard"]
+        print(payment_method)
+        if payment_method != "newCard":
+            try:
+                order = get_or_set_order_session(self.request)
+                payment_intent = stripe.PaymentIntent.create(
+                    amount=order.get_raw_total(),
+                    currency='eur',
+                    customer=self.request.user.customer.stripe_customer_id,
+                    payment_method=payment_method,
+                    off_session=True,
+                    confirm=True,
+                )
+                payment_record, created = StripePayment.objects.get_or_create(
+                    order=order
+                )
+                payment_record.payment_intent_id = payment_intent["id"]
+                payment_record.amount = order.get_total()
+                payment_record.save()
+
+
+            except stripe.error.CardError as e:
+                err = e.error
+                # Error code will be authentication_required if authentication is needed
+                print("Code is: %s" % err.code)
+                payment_intent_id = err.payment_intent['id']
+                payment_intent = stripe.PaymentIntent.retrieve(
+                    payment_intent_id)
+                messages.warning(self.request, "Code is: %s" % err.code)
+        return redirect("/")
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        if not user.customer.stripe_customer_id:
+            stripe_customer = stripe.Customer.create(email=user.email)
+            user.customer.stripe_customer_id = stripe_customer["id"]
+            user.customer.save()
+
+        order = get_or_set_order_session(self.request)
+
+        payment_intent = stripe.PaymentIntent.create(
+            amount=order.get_raw_total(), #Amount in cents
+            currency='eur',
+            customer=user.customer.stripe_customer_id,
+        )
+        print(payment_intent)
+        payment_record, created = StripePayment.objects.get_or_create(
+            order=order
+        )
+        payment_record.payment_intent_id = payment_intent["id"]
+        payment_record.amount = order.get_total()
+        payment_record.save()
+
+        cards = stripe.PaymentMethod.list(
+            customer=user.customer.stripe_customer_id,
+            type="card",
+        )
+        pay_methods=[]
+        for card in cards:
+            pay_methods.append(card["id"])
+
+        print(cards)
+
+        context = super(StripePaymentView, self).get_context_data(**kwargs)
+        context ["order"] = get_or_set_order_session(self.request)
+        context["STRIPE_PUBLIC_KEY"] = settings.STRIPE_PUBLIC_KEY
+        context["client_secret"] = payment_intent["client_secret"]
+        context["payment_methods"] = pay_methods
+        return context
+
+@csrf_exempt
+def stripe_webhook_view(request):
+    endpoint_secret = settings.STRIPE_WH_SECRET
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+        print(event)
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded':
+        payment_intent = event.data.object  # contains a stripe.PaymentIntent
+        print('PI was ok')
+        print(payment_intent)
+        stripe_payment = StripePayment.objects.get(
+            payment_intent_id=payment_intent["id"],
+        )
+        stripe_payment.successful = True
+        stripe_payment.save()
+        order = stripe_payment.order
+        order.ordered = True
+        order.ordered_date = timezone.now()
+        order.save()
+    else:
+        # Unexpected event type
+        return HttpResponse(status=400)
+
+    return HttpResponse(status=200)
