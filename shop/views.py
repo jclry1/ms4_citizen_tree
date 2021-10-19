@@ -239,7 +239,7 @@ def stripe_webhook_view(request):
 
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
+          payload, sig_header, endpoint_secret
         )
         print(event)
     except ValueError as e:
@@ -250,8 +250,8 @@ def stripe_webhook_view(request):
         return HttpResponse(status=400)
 
     # Handle the event
-    if event.type == 'payment_intent.succeeded':
-        payment_intent = event.data.object  # contains a stripe.PaymentIntent
+    if event['type'] == 'payment_intent.succeeded':
+        payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
         print('PI was ok')
         print(payment_intent)
         stripe_payment = StripePayment.objects.get(
