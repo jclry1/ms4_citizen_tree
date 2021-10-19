@@ -3,6 +3,7 @@ import json
 import os
 import datetime
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
@@ -13,6 +14,8 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic.base import TemplateView
 from stripe.api_resources import payment_intent
+
+from home.models import Customer
 from .models import Product, OrderItem, Address, StripePayment
 from .utils import get_or_set_order_session
 from .forms import AddToCartForm, AddressForm, StripePaymentForm
@@ -230,46 +233,6 @@ class StripePaymentView(generic.FormView):
         context["payment_methods"] = pay_methods
         return context
 
-""" @csrf_exempt
-def stripe_webhook_view(request):
-    endpoint_secret = settings.STRIPE_WH_SECRET_SHOP
-    payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
-
-    try:
-        event = stripe.Webhook.construct_event(
-          payload, sig_header, endpoint_secret
-        )
-        print(event)
-    except ValueError as e:
-        # Invalid payload
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        return HttpResponse(status=400)
-
-    # Handle the event
-    if event['type'] == 'payment_intent.succeeded':
-      payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
-      print('PI was ok')
-      print(payment_intent)
-      stripe_payment = StripePayment.objects.get(
-      payment_intent_id=payment_intent["id"],
-      )
-      stripe_payment.successful = True
-      stripe_payment.save()
-      order = stripe_payment.order
-      order.ordered = True
-      order.ordered_date = timezone.now()
-      order.save()
-    else:
-        # Unexpected event type
-      return HttpResponse(status=400)
-
-    return HttpResponse(status=200) """
-
-
 @csrf_exempt
 def stripe_webhook_view(request):
     endpoint_secret = settings.STRIPE_WH_SECRET_SHOP
@@ -300,8 +263,24 @@ def stripe_webhook_view(request):
         order.ordered = True
         order.ordered_date = timezone.now()
         order.save()
+
+        handle_receipt(payment_intent)
     else:
         # Unexpected event type
         return HttpResponse(status=400)
 
     return HttpResponse(status=200)
+
+def handle_receipt(payment_intent):
+    User = get_user_model()
+    # Modified from Donations app
+    customer_id = payment_intent["customer"]
+    customer_user = Customer.objects.get(stripe_customer_id=customer_id)
+    customer_user_email = customer_user.email
+    receipt_link = payment_intent["receipt_url"]
+    purchase_amount = payment_intent["amount"]
+    display_amount_display = "{0:.2f}".format(purchase_amount / 100)
+    send_mail('Thank you for your purchase', f'Hi there {customer_user}, thanks for purchasing trees from Citizen Tree. View receipt here: {receipt_link}', 
+        'ms4.citizentree@gmail.com', [customer_user_email], fail_silently=False)
+
+    # payment_intent = session.get("payment_intent") 
