@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-User = get_user_model()
+
 
 class Customer(models.Model):
-    user= models.OneToOneField(User, on_delete=models.CASCADE)
+    user= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=100)
 
     def __str__(self):
