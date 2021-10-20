@@ -2,10 +2,13 @@
 # Understanding of class-based view from: https://www.youtube.com/watch?v=GxA2I-n8NR8
 
 from django.db.models.aggregates import Sum
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 from django.views.generic import TemplateView
 from accounts.models import CustomUser
 from donations.models import Donor
 from django.db.models import Sum
+from shop.models import Order
 from django.shortcuts import render
 
 
