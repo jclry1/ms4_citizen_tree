@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 import stripe
 import json
 import os
@@ -16,12 +17,13 @@ from django.views.generic.base import TemplateView
 from stripe.api_resources import payment_intent
 
 from home.models import Customer
-from .models import Product, OrderItem, Address, StripePayment
+from .models import Product, OrderItem, Address, StripePayment, Order
 from .utils import get_or_set_order_session
 from .forms import AddToCartForm, AddressForm, StripePaymentForm
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+User = get_user_model()
 
 class ProductListView(generic.ListView):
     template_name = 'shop/product_list.html'
@@ -207,6 +209,7 @@ class StripePaymentView(generic.FormView):
             amount=order.get_raw_total(), #Amount in cents
             currency='eur',
             customer=user.customer.stripe_customer_id,
+            receipt_email = user.email
         )
         print(payment_intent)
         payment_record, created = StripePayment.objects.get_or_create(
@@ -264,23 +267,27 @@ def stripe_webhook_view(request):
         order.ordered_date = timezone.now()
         order.save()
 
-        handle_receipt(payment_intent)
+        #handle_receipt(payment_intent)
     else:
         # Unexpected event type
         return HttpResponse(status=400)
 
     return HttpResponse(status=200)
 
-def handle_receipt(payment_intent):
-    User = get_user_model()
-    # Modified from Donations app
-    customer_id = payment_intent["customer"]
-    customer_user = Customer.objects.get(stripe_customer_id=customer_id)
-    customer_user_email = customer_user.email
-    receipt_link = payment_intent["receipt_url"]
-    purchase_amount = payment_intent["amount"]
-    display_amount_display = "{0:.2f}".format(purchase_amount / 100)
-    send_mail('Thank you for your purchase', f'Hi there {customer_user}, thanks for purchasing trees from Citizen Tree. View receipt here: {receipt_link}', 
-        'ms4.citizentree@gmail.com', [customer_user_email], fail_silently=False)
 
-    # payment_intent = session.get("payment_intent") 
+
+
+class OrderReview(LoginRequiredMixin, generic.DetailView):
+    template_name = 'shop/order_review.html'
+    queryset = Order.objects.all()
+    context_object_name = 'order'
+
+class ProfileView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'shop/user_profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context.update({
+            "orders": Order.objects.filter(user=self.request.user, ordered=True)
+        })
+        return context
