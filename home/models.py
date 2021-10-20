@@ -5,9 +5,10 @@ from django.db.models.signals import post_save
 
 
 #https://stackoverflow.com/questions/57752859/django-user-object-has-no-attribute-profile
+#https://stackoverflow.com/questions/1823880/relatedmanager-object-has-no-attribute
 
 class Customer(models.Model):
-    user= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='customer')
+    user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='customer')
     stripe_customer_id = models.CharField(max_length=100)
 
     def __str__(self):
