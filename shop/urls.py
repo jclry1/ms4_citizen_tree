@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+
+
 app_name = 'shop'
 
 urlpatterns = [
@@ -13,4 +15,6 @@ urlpatterns = [
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('payment/stripe/', views.StripePaymentView.as_view(), name='stripe-pay'),
     path('webhooks/stripe/', views.stripe_webhook_view, name='stripe-webhook'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path ('orders/<pk>/', views.OrderReview.as_view(), name='order-review'),
 ]
