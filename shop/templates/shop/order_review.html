@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto">
+            <h1 class="index-h">
+                Order Review
+            </h1>  
+            <h4 class="index-h">Showing order: {{order.reference_number}} </h4>
+            <h4 class="index-h">Placed on: {{ order.ordered_date }} </h4>
+            <h4 class="index-h">Value: {{ order.get_total }}</h4>
+        </div>
+    </div>
+</div> 
+<div class="profile-section">
+    <div class="container"> 
+    <div class="row">
+    <div class="col-md-12">
+        <div class="site-blocks-table">
+            <table class="cart-table table table-reponsive">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Number</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product.title }}, variety: {{item.variety}}</td>
+                        <td> x {{ item.quantity }}</td>
+                        <td>€{{ item.get_total_item_price_display }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" class="text-center"><a href="{% url 'shop:profile' %}">Back to my profile<h5></h5></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

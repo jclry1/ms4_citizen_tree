@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto">
+            <h1 class="index-h">
+                Citizen Tree - Your Profile
+            </h1>
+            
+            
+            {% if user.is_authenticated %}
+                <h3 class="index-h">User: {{ user.username }}</h3>
+                <hr />
+                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+            {% else %}
+                <p>You are not logged in</p>
+                <a href="{% url 'account_login' %}">Log In</a>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}    
+        </div>
+    </div>
+</div> 
+<div class="profile-section">
+    <div class="container"> 
+    <div class="row">
+    <div class="col-md-12">
+        <div class="site-blocks-table">
+            <table class="cart-table table table-reponsive">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if orders %}
+                    {% for order in orders %}
+                    <tr>
+                        <td><a href="{% url 'shop:order-review' order.pk %}">#{{ order.reference_number }}</a></td>
+                        <td>{{ order.ordered_date }}</td>
+                        <td>€{{ order.get_total }}</td>
+                        <td>{% if order.ordered %}Paid{% else %}Not paid{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="4">We don't have any paid orders listed for your account.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
