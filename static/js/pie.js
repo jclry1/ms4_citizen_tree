@@ -7,7 +7,8 @@ function chart(){
 var ctx = document.getElementById('co2_doughnut');
 let total_donor_sink = JSON.parse(document.getElementById('d_sink_chart').textContent);
 let chart_sink_kg = total_donor_sink.donor_sink;
-let chart_sink_tonne = parseInt(chart_sink_kg / 1000);
+let var_total_sink = document.getElementById("chartVal").value; //JSON option not working after deploying so trying this as temp workaround
+//let chart_sink_tonne = parseInt(chart_sink_kg / 1000);
   var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -17,7 +18,7 @@ let chart_sink_tonne = parseInt(chart_sink_kg / 1000);
         ],
         datasets: [{
           label: 'Citizen Tree Sequestration',
-          data: [60000000, chart_sink_tonne],
+          data: [60000000, var_total_sink],
           backgroundColor: [
             'rgb(250, 250, 250)',
             'rgb(100, 0, 0)',
