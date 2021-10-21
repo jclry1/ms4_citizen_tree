@@ -209,7 +209,7 @@ class StripePaymentView(generic.FormView):
             amount=order.get_raw_total(), #Amount in cents
             currency='eur',
             customer=user.customer.stripe_customer_id,
-            receipt_email = user.email
+            receipt_email = user.email #Stripe will send receipt (but not in test mode)
         )
         print(payment_intent)
         payment_record, created = StripePayment.objects.get_or_create(
