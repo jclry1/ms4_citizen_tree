@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-
+#https://learndjango.com/tutorials/django-best-practices-referencing-user-model
 #https://stackoverflow.com/questions/57752859/django-user-object-has-no-attribute-profile
 #https://stackoverflow.com/questions/1823880/relatedmanager-object-has-no-attribute
 
