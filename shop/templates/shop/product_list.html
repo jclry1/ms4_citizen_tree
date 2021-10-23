@@ -9,16 +9,13 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-10 col-md-10 my-auto">
-            <h1 class="index-h">
-                Citizen Tree - Current Projects
-            </h1>
-            
-            
+            <div class="page-desc">
+                <h1 class="index-h">Citizen Tree - Shop</h1>
+            </div>
+
             {% if user.is_authenticated %}
                 <h5 class="index-h">User: {{ user.username }}</h5>
-                <hr />
-                Hi {{ user.email }}!
-                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+                <p class="float-right"><a href="{% url 'account_logout' %}">Log Out</a></p>
             {% else %}
                 <p>You are not logged in</p>
                 <a href="{% url 'account_login' %}">Log In</a>
@@ -26,6 +23,12 @@
             {% endif %}    
         </div>
     </div>
+    <hr>
+</div>
+<div class="nursery-info col-10 col-md-10 my-auto">
+<p>All the trees for sale in our shop are sourced from one of the project sites. They are all grafted, layered, or grown from seed on-site.</p>
+<p>We are not a commercial nursery. Please do not contact us with enquiries for specific types of fruit trees or sourcing additional varieties.</p>
+<p>All proceeds go towards funding future Citzen Tree projects. Thank you for shopping with us.</p>
 </div>
 <div class="album py-5 ">
 <div class="container">
