@@ -194,7 +194,7 @@ class StripePaymentView(generic.FormView):
                 payment_intent = stripe.PaymentIntent.retrieve(
                     payment_intent_id)
                 messages.warning(self.request, "Code is: %s" % err.code)
-        return redirect("/")
+        return redirect("shop:profile")
 
     def get_context_data(self, **kwargs):
         user = self.request.user
