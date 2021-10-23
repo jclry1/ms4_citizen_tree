@@ -13,8 +13,8 @@ let var_total_sink = document.getElementById("chartVal").value; //JSON option no
     type: 'doughnut',
     data: {
         labels: [
-          'Ireland Emissions - Annual (Tonnes)',
-          'Citizen Tree Sink - Annual (Tonnes)',
+          'Irl. Emissions - Annual (T)',
+          'CT Sink - Annual (Kg)',
         ],
         datasets: [{
           label: 'Citizen Tree Sequestration',
@@ -34,7 +34,7 @@ let var_total_sink = document.getElementById("chartVal").value; //JSON option no
           labels: {
             color: "white",
             font: {
-              size: 20,
+              size: 16,
             }
           }
         }

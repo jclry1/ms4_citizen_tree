@@ -24,6 +24,10 @@ body{
   font-weight: 500;
 }
 
+.emissions-note{
+  color: #fafafa;
+}
+
 hr{
   border: 1px solid #fafafa;
 }
@@ -129,4 +133,10 @@ caption {
 }
 .cart-qty{
   max-width: 50px;
+}
+
+
+/*--------------------------------------------------------Chart container div*/ 
+.chart-container {
+  max-width: fit-content;
 }

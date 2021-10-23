@@ -40,12 +40,18 @@
 <hr>
     <h3 class="index-h">Donations so far have helped Citizen Tree projects sequester {{ total_sink }} Kg of CO2 annually.</h3>
     <br>
-    <h3 class="index-h">Your donations so far have helped projects sequester {{ donor_sink }} Kg of CO2 annually.</h3>
-    <h5 class="index-h">We'd love to have you on board as a volunteer or as a donor, or both.</h5>
-    <h5 class="index-h">Unfortunately, the perspective of the bigger picture shows how far we have to go, Irelands annual emission are a fairly steady 60 million tonnes. 
-        A tonne is Kg*1000, so that's 60 billion Kg. Can you give a hand to start changing the colour of the doughnut?</h5>
-    <!-- https://www.chartjs.org/docs/latest/getting-started/ -->
-    <div class="col-10 col-md-8 mx-auto" style="height: 400px; width: 400px; margin-top: 60px;">
+    <p>Unfortunately, the perspective of the bigger picture shows how far we have to go, Irelands annual emission are a fairly steady 60 million tonnes. 
+        A tonne is Kg*1000, so that's 60 billion Kg. Can you give a hand to start changing the colour of the doughnut?*</p>
+    <small class="emissions-note">*Note: Value units in the doughnut are not equal. The sink is scaled x1000 (Kg) relative to emissions (tonne).</small>
+
+
+  <br>
+  <br>
+
+    <!-- https://www.chartjs.org/docs/latest/getting-started/ 
+    https://www.chartjs.org/docs/latest/configuration/responsive.html#configuration-options-->
+
+    <div class="mx-auto chart-container">
         <canvas id="co2_doughnut" ></canvas>
     </div>
     
