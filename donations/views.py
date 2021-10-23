@@ -1,4 +1,5 @@
 import stripe
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model #https://learndjango.com/tutorials/django-best-practices-referencing-user-model
 from django.core.mail import send_mail
 from django.http.response import HttpResponse, JsonResponse
@@ -16,7 +17,7 @@ Stripe documentation eg: https://stripe.com/docs/payments/checkout/fulfill-order
 Tutorial 1: https://testdriven.io/blog/django-stripe-tutorial/
 Tutorial 2: https://justdjango.com/blog/django-stripe-payments-tutorial """
 
-class DonateLandingPage(TemplateView):            
+class DonateLandingPage(LoginRequiredMixin,TemplateView):            
     template_name = "donations/donate.html"
 
     def get_context_data(self, **kwargs):

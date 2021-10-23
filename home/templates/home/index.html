@@ -31,10 +31,8 @@
     <div class="options">
         <a class="btn btn-success ms4-btn" href="{% url 'projects:projects' %}">All Projects</a>
         <a class="btn btn-success ms4-btn" href="{% url 'calculator:calc' %}">Calculate My Footprint and Potential Offsets</a>
-        <a class="btn btn-success ms4-btn" href="{% url 'calculator:calc' %}">About Citizen Tree</a>
-        {% if user.is_authenticated %}
-        <a class="btn btn-success ms4-btn" href="{% url 'donations:donate-landing' %}">Donate</a>
-        {% endif %}
+        <a class="btn btn-success ms4-btn" href="{% url 'shop:product-list' %}">Shop</a>
+        <a class="btn btn-success ms4-btn" href="{% url 'donations:donate-landing' %}">Donate</a>  
     </div>
 <hr>
     <h3 class="index-h">Donations so far have helped Citizen Tree projects sequester {{ total_sink }} Kg of CO2 annually.</h3>
