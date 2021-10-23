@@ -7,17 +7,33 @@ User = get_user_model()
 class AddToCartForm(forms.ModelForm):
 
     variety = forms.ModelChoiceField(queryset=VarietySpec.objects.none())
+    quantity = forms.IntegerField(min_value=1)
 
     class Meta:
         model = OrderItem
         fields = OrderItemfields = ['quantity', 'variety']
 
     def __init__(self, *args, **kwargs):
-        product_id = kwargs.pop('product_id')
-        product = Product.objects.get(id=product_id)
+        self.product_id = kwargs.pop('product_id')
+        product = Product.objects.get(id=self.product_id)
         super().__init__(*args, **kwargs)
 
         self.fields['variety'].queryset = product.available_varieties.all()
+
+    def clean(self):
+        product_id = self.product_id
+        product = Product.objects.get(id=self.product_id)
+        quantity = self.cleaned_data['quantity']
+        max_available = product.stock - 5
+        if max_available < 0:
+            print_max = 0
+        else:
+            print_max = max_available    
+
+        if max_available < quantity:
+            raise forms.ValidationError(f"Sorry, the most we can accept an order for at the moment is {print_max}. Please adjust your order.")
+            
+
 
 
 class AddressForm(forms.Form):

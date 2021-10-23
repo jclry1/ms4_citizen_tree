@@ -23,14 +23,19 @@
             <div class="card-body">
                 <h5 class="card-title">{{ product.title }}</h5>
                 <p class="card-text">{{ product.description }}</p>
+                <br>
+                <p>Note: Our current stock is approximately {{product.stock}}. We will do our best to meet your specific variety requirements. If we can't, we'll get in touch before sending an alternative, for example, might be able to send a Bardsey variety apple tree instead of a Discovery.</p>
+
+                {% if product.in_stock %}
                 <form method="POST">
                     {% csrf_token %}
                     {{ form|crispy }}       
 
                     <button class="btn btn-sm btn-primary" type="submit">Add to Cart</button>
                 </form>
-                
-                
+                {%else%}
+                <p>Sorry, our stock of '{{ product.title }}' is too low to take an order online.</p>
+                {%endif%}
 
               </div>
         </div>

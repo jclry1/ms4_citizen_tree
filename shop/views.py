@@ -266,15 +266,20 @@ def stripe_webhook_view(request):
         order.ordered = True
         order.ordered_date = timezone.now()
         order.save()
-
-        #handle_receipt(payment_intent)
+        handle_stock(order)
     else:
         # Unexpected event type
         return HttpResponse(status=400)
 
     return HttpResponse(status=200)
 
-
+def handle_stock(ordered):
+    sold = OrderItem.objects.get(order=ordered)
+    for item in sold:
+        qty_sold = item.quantity
+        product_sold = Product.objects.get(id = item.product.id)
+        product_sold.quantity -= qty_sold
+        product_sold.save()
 
 
 class OrderReview(LoginRequiredMixin, generic.DetailView):

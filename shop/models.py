@@ -25,6 +25,7 @@ class Product(models.Model):
     bareroot = models.BooleanField(default = True)
     picture = models.FileField(upload_to='media/', default='media/default.jpg', blank=True)
     available_varieties = models.ManyToManyField(VarietySpec)
+    stock = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -34,6 +35,10 @@ class Product(models.Model):
 
     def get_display_price(self):
         return "{:.2f}".format(self.price / 100) #Convert from cents to euros for display, same convention as for donations 
+
+    @property
+    def in_stock(self):
+        return self.stock > 0
 
 class Address(models.Model):
     ADDRESS_CHOICES = (
