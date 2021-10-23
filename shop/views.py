@@ -278,7 +278,7 @@ def handle_stock(ordered):
     for item in sold:
         qty_sold = item.quantity
         product_sold = Product.objects.get(id = item.product.id)
-        product_sold.quantity -= qty_sold
+        product_sold.stock -= qty_sold
         product_sold.save()
 
 
