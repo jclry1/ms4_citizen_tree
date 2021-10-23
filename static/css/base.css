@@ -24,6 +24,10 @@ body{
   font-weight: 500;
 }
 
+.page-desc{
+  margin-top: 20px;
+}
+
 .emissions-note{
   color: #fafafa;
 }
@@ -35,6 +39,11 @@ hr{
 p{
 font-family: Lato, sans-serif;
 color: #fafafa;  
+}
+
+li {
+  font-family: Lato, sans-serif;
+color: #fafafa; 
 }
 
 a{
@@ -86,7 +95,7 @@ caption {
 
 /* Projects ************************************************/
 .card-body{
-  background-color: darkolivegreen;
+  background-color: rgb(85, 107, 47);
   color: white;
 }
 /*---------------------------------------------------Cards for projects - based on MS3*/
@@ -97,6 +106,23 @@ caption {
   object-fit: cover;
 }
 
+/*--------------------------------------------------------Donations*/   
+.donations-block{
+  margin-top: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.donate-block-ind{
+  margin-bottom: 20px;
+}
+
+.donate-block-info{
+  margin-top: 25px;
+}
 
 /*--------------------------------------------------------Footer*/    
 #ms4-footer{
