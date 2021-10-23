@@ -277,9 +277,12 @@ def handle_stock(ordered):
     sold = OrderItem.objects.filter(id=ordered.id)
     for item in sold:
         qty_sold = item.quantity
-        product_sold = Product.objects.get(id = item.product.id)
-        product_sold.stock -= qty_sold
-        product_sold.save()
+        sale_product = Product.objects.get(id = item.product.id)
+        pre_sale_stock = sale_product.stock
+        post_sale_stock = pre_sale_stock - qty_sold
+        sale_product.stock = post_sale_stock
+        sale_product.save()
+        print(pre_sale_stock, qty_sold, post_sale_stock)
 
 
 class OrderReview(LoginRequiredMixin, generic.DetailView):
