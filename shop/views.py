@@ -274,7 +274,8 @@ def stripe_webhook_view(request):
     return HttpResponse(status=200)
 
 def handle_stock(ordered):
-    sold = OrderItem.objects.filter(id=ordered.id)
+    sold = OrderItem.objects.filter(order = ordered)
+    print(sold)
     for item in sold:
         qty_sold = item.quantity
         sale_product = Product.objects.get(id = item.product.id)
