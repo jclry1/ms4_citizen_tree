@@ -36,7 +36,10 @@
                 {%else%}
                 <p>Sorry, our stock of '{{ product.title }}' is too low to take an order online.</p>
                 {%endif%}
-
+                <br>
+                <div class="btn btn-sm btn-primary">
+                <a href="{% url 'shop:product-list' %}">Back to Shop</a>
+            </div>
               </div>
         </div>
     </div>
