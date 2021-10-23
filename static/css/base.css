@@ -23,7 +23,9 @@ body{
   font-family: Lato, sans-serif;
   font-weight: 500;
 }
-
+.ms4-navbar-expand{
+  font-family: "Raleway" sans-serif;
+}
 .page-desc{
   margin-top: 20px;
 }
@@ -66,6 +68,7 @@ a:hover {
   border: solid 1px gold;
   color: gold;
 }
+
 
 /* Crispy Forms styling Resource: https://stackoverflow.com/questions/42491691/how-do-i-add-custom-css-to-crispy-forms */
 .requiredField{

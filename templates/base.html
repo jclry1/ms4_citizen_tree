@@ -41,14 +41,23 @@
 <!-- Navbar from Bootstrap with custom changes -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Citizen Tree</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="{% url 'home:index' %}">Citizen Tree</a>
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#ms4Nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div class="collapse navbar-collapse ms4-navbar-expand" id="ms4Nav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home:index' %}">Home</a>
+            <a class="nav-link" aria-current="page" href="{% url 'home:index' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'projects:projects' %}">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'calculator:calc' %}">Calculate</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'donations:donate-landing' %}">Donate</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'shop:product-list' %}">Shop</a>
@@ -60,7 +69,6 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
           </li>
-          
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
@@ -70,9 +78,6 @@
           </li>
           {% endif %}
         </ul>
-        <span class="navbar-text">
-          Helping human networks help trees
-        </span>
       </div>
     </div>
   </nav>
