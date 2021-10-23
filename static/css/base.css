@@ -52,6 +52,20 @@ a{
 a:hover {
  color: gold;
 }
+.ms4-btn{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: rgb(85, 107, 47);
+  border: solid 1px white;
+}
+
+.ms4-btn:hover{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: rgb(85, 107, 47);
+  border: solid 1px gold;
+  color: gold;
+}
 
 /* Crispy Forms styling Resource: https://stackoverflow.com/questions/42491691/how-do-i-add-custom-css-to-crispy-forms */
 .requiredField{
@@ -87,6 +101,8 @@ a:hover {
       url("../images/jacek-dylag-cars-night-smog.jpg");
       margin-top: 15px;
 }
+
+
 /* For table caption on calculator page */
 caption {
   color: white;
