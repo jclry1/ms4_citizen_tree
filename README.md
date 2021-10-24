@@ -55,6 +55,8 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
   - [Environment variables](#environment-variables-2)
   - [Stripe CLI and Payments](#stripe-cli-and-payments)
+- [Technologies Used](#technologies-used)
+- [Image Credits](#image-credits)
 - [Acknowledgements](#acknowledgements)
 - [Disclaimer](#disclaimer)
 
@@ -223,7 +225,7 @@ Gitpod had served well for the three milestone projects so far. I decided to swi
 All in all, I think it was a good decision but it did add an additional load on the learning required to complete the project. 
 
 ## Deployment
-The following subsections outline the deployment process followed for this project. the main resource followed was Django for Professionals by Willima S. Vincent. 
+The following subsections outline the deployment process followed for this project. The main resource followed was *Django for Professionals* by William S. Vincent. 
 
 #### Note on Procfile and requirements.txt
 Because the project uses Docker Compose, there is no ```requirements.txt``` file. There is also no Procfile. The Procfile is replaced with a .yml file: ```heroku.yml```.
@@ -452,13 +454,36 @@ Payments:
 https://www.youtube.com/watch?v=722A27IoQnk
 https://stripe.com/docs/payments/integration-builder
 
+## Technologies Used
+ Apart from the packages installed for use in Django, and Docker, the following technologies were used:
+
+* Code Editor: [VSCode](https://code.visualstudio.com/)
+* DB: [PostgreSQL](https://www.postgresql.org/) 
+* Image hosting: [Amazon S3 Bucket](https://aws.amazon.com/s3/?nc2=type_a)
+* Django emails: [SendGrid](https://sendgrid.com/go/email-brand-signup-sales-1?utm_source=google&utm_medium=cpc&utm_term=sendgrid&utm_campaign=SendGrid_G_S_Brand_UKI&gclid=Cj0KCQjwiNSLBhCPARIsAKNS4_d_zm7qAn-hIJK2TW1LDv-AlDH0o6UKn4S64gJnppkHPiWfJGLJPHIaAkKvEALw_wcB)
+* Contact form: [EmailJS](https://www.emailjs.com/)
+* Image compression: [TinyJPG](https://tinyjpg.com/)
+* Wireframes: [Balsamiq](https://balsamiq.com/)
+* API: [Django Rest Framework](https://www.django-rest-framework.org/)
+* Icons: [FontAwesome](https://fontawesome.com/)
+* Data representation: [Chart.js](https://www.chartjs.org/)
+* Fonts: [Google Fonts](https://fonts.google.com/)
+* Version management: [git](https://git-scm.com/)
+* Repository: [GitHub](https://github.com/)
+* Hosting: [Heroku](https://www.heroku.com/home)
+* Styling: [Bootstrap](https://getbootstrap.com/)
+  
+Languages: Python, HTML, CSS, JavaScript
+
+## Image Credits
+* [Jacek Dylag](https://unsplash.com/@dylu)
+* [Katie Azi](https://unsplash.com/)  
+* [William Barella](https://unsplash.com/@williambarellaphoto)
 
 ## Acknowledgements
 I would like to acknowledge the following contributions to the project:
 * My mentor Antonio Rodriguez for his guidance
 * Tutor support (Sheryl and Michael) for their help with resolving an issue with JavaScript/StaticFiles.
- 
- (See Credits section above for code sources and references)
 
 ## Disclaimer
 This project is for educational purposes only. 
