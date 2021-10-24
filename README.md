@@ -20,20 +20,12 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [Email Verification](#email-verification)
     - [User Image Upload](#user-image-upload)
     - [Donations with Stripe](#donations-with-stripe)
-  - [Initial Setup](#initial-setup)
-    - [Based on Django for Professinoals by William S. Vincent](#based-on-django-for-professinoals-by-william-s-vincent)
+  - [Technical Info](#technical-info)
+    - [Initial Setup based on Django for Professinoals by William S. Vincent](#initial-setup-based-on-django-for-professinoals-by-william-s-vincent)
   - [Set up static files](#set-up-static-files)
   - [Problem using docker-compose to install packages](#problem-using-docker-compose-to-install-packages)
   - [Class-based generic views](#class-based-generic-views)
   - [Calculator Page](#calculator-page)
-      - [Cost of fuel in Ireland](#cost-of-fuel-in-ireland)
-      - [Emissions from diesel/petrol](#emissions-from-dieselpetrol)
-    - [Hazelnut orchards - sequestration (Italy)](#hazelnut-orchards---sequestration-italy)
-    - [Agroforestry systems](#agroforestry-systems)
-    - [Ireland:](#ireland)
-    - [Planning woodland](#planning-woodland)
-    - [UK](#uk)
-    - [Calculator example](#calculator-example)
   - [Stripe](#stripe)
   - [Git](#git)
   - [Deployment](#deployment)
@@ -108,10 +100,10 @@ Further input on the look and feel would be on the list of to-dos for the first 
 
 The models used on the different apps interact across the project as a whole. For ease of reading, I have separated out the most important models per app:
 
-[FAQ model in the calculator app, plus resource info on DRF and fetch](/docs/faq_models.md)
-[Shop-related models](/docs/shop_models.md)
-[Project-related models](/docs/projects_models.md)
-[Donations-related models](/docs/donations_models.md)
+* [FAQ model in the calculator app, plus resource info on DRF and fetch](/docs/faq_models.md)
+* [Shop-related models](/docs/shop_models.md)
+* [Project-related models](/docs/projects_models.md)
+* [Donations-related models](/docs/donations_models.md)
 
 
 #### Using the CustomUser Model
@@ -123,7 +115,7 @@ Main resources on setting up and using the custom user model:
 * [Django Docs](https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)
 * [Django Best Practices: Referencing the User Model](https://learndjango.com/tutorials/django-best-practices-referencing-user-model)
 
-Using it did not really bring any benefit and there was a small extra overhead when trying to figure out how to access the user.
+Using it did not really bring any benefit and there was a small extra overhead when trying to figure out how to access the user. Resources consulted at various points for this are commented in the code.
 
 
 # Features
@@ -144,6 +136,9 @@ https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account
 Additional resource: https://www.youtube.com/watch?v=d9aCpxQfnOg
 
 ### User Image Upload
+Image upload is available for users who are designated as the 'author' for a project. The option is part of the form when editing the project details or adding a new update.
+Images uploaded by users in this way are stored and served from an Amazon S3 bucket.
+![S3 Image Storage](/docs/readme_images/s3_image_storage.png)
 
 ### Donations with Stripe
 The app uses Stripe to take donations payments. Options are limited to 3 donation levels and a user must be logged in to access the donate page.
@@ -182,8 +177,8 @@ def stripe_webhook(request):
 ```
 The email is sent using SendGrid.
 
-## Initial Setup
-### Based on Django for Professinoals by William S. Vincent
+## Technical Info
+### Initial Setup based on Django for Professinoals by William S. Vincent
 Create virtual environment using pipenv
 Install Django (this project uses 3.2.6 - see pipfile.lock)
 Install psycopg2 for using postgres in development
@@ -219,11 +214,12 @@ pipenv install django-crispy-forms
 ```
 
 ## Class-based generic views
-I'm using some class-based generic views
-Info for this has come from:
+I'm using mostly class-based views in the project.
+For the Projects app, info for this has come from:
 * Django for professionals
 * Very Academy - Learn Django Class-Based View series - https://www.youtube.com/watch?v=GxA2I-n8NR8
 
+Other Resources included:
 For some issues passing context data (breaking if no user is logged in):
 https://stackoverflow.com/questions/54444196/get-context-data-breaking-breaking-django-listview
 https://stackoverflow.com/questions/51632952/get-the-user-id-class-based-view
@@ -253,78 +249,7 @@ Note on tech setup:
 The page updates dynamically and asynchronously as the user progresses through it. The HTML is updated according to the inputs and some hard-coded HTML (template literal) in the corresponding JS functions. 
 For the FAQs, the page is updated (no reload) using fetch (similar to Ajax). The API endpoints from which fetch retrieves the data are set up using the Django Rest Framework (DRF).
 
-The following resources served as guidance for setting up DRF and fetch:
-* https://howtocreateapps.com/fetch-and-display-json-html-javascript/
-* https://stackoverflow.com/questions/66318099/passing-django-model-properties-to-javascript-with-the-fetch-api
-* https://www.pluralsight.com/guides/work-with-ajax-django
-* https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
-* https://www.youtube.com/watch?v=DG4obitDvUA&list=PLBMLLI9khn4f1ydlbn3jsuvkf4HEmRtoX
-* https://docs.djangoproject.com/en/3.2/topics/db/queries/
-* https://stackoverflow.com/questions/65369567/import-rest-framework-could-not-be-resolved-but-i-have-installed-djangorestfr
-* https://medium.com/swlh/build-your-first-rest-api-with-django-rest-framework-e394e39a482c
-* https://www.geeksforgeeks.org/textfield-django-models/
-* https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
-* https://selmi.tech/post/how-to-use-ajax-in-django-using-the-javascript-fetch-api-no-jquery
-* https://www.youtube.com/watch?v=263xt_4mBNc
-* https://www.youtube.com/watch?v=3Qdy-FvUEcY
-* https://www.django-rest-framework.org/tutorial/quickstart/
-  Fetch:
-* https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
-* https://css-tricks.com/using-fetch/
-* https://www.brennantymrak.com/articles/fetching-data-with-ajax-and-django.html
-* https://stackoverflow.com/questions/64020495/trouble-with-fetch-from-js-to-django-view
-* https://timonweb.com/django/how-to-make-django-requestis_ajax-work-with-js-fetch/
-* https://stackoverflow.com/questions/58725652/inserting-data-from-fetch-into-a-html-div
-
-For calculations, the following resources were used:
-#### Cost of fuel in Ireland
-Info from the AA, April 2021:
-https://www.theaa.ie/aa/motoring-advice/petrol-prices.aspx
-Diesel: 133.8c round to 1.34
-Petrol: 142.9c round to 1.43
-
-
-#### Emissions from diesel/petrol
-Diesel = 2600g/l
-Comprises 720g C in the diesel + 1,920g O2 to combust it.
-
-Petrol = 2300g/l
-Comprises 652g C in the petrol and 1740g O2 to combust it.
-
-Sources:
-* https://www.tcd.ie/news_events/articles/are-diesel-cars-really-more-polluting-than-petrol-cars/
-* https://ecoscore.be/en/info/ecoscore/co2
-
-### Hazelnut orchards - sequestration (Italy)
-https://www.researchgate.net/publication/340878646_Carbon_dioxide_sequestration_capability_of_hazelnut_orchards_daily_and_seasonal_trends
-"Overall, during the year, from the structural maturation of leaves to the beginning of leaf senescence, the hazelnut
-orchards, under consideration removed from the atmosphere, a total amount of CO2 equal to 58.8 ± 9.1 Mg(CO2) ha-1 year-1 (mean value), corresponding to an amount of C equal to 16.0 ± 2.5 Mg ha-1 year-1."
-At 400 bushes/ha, that works out to approx 145Kg CO2/bush per year.
-
-### Agroforestry systems
-http://www.sidalc.net/repdoc/A3678i/A3678i.pdf
-
-### Ireland:
-COFORD report may be outdated: http://www.coford.ie/media/coford/content/publications/projectreports/carbonseq-Irishforests.pdf
-Estimates: 1.8Mg/ha/year for oak/beech and 2.4Mg/ha per year for 'other conifers
-
-### Planning woodland
-http://woodlandsofireland.com/sites/default/files/No.%205%20-%20New%20Woodland%20Design%20%26%20Establishment.pdf
-
-"As well as attaining conservation objectives over a shorter timeframe by accelerating canopy closure, closer spacings (e.g. 2.0 m x
-2.5 m to give 2000 stems/ha) will also result in less follow-up maintenance, especially vegetation control (Fig. 5)."
- => 2000 trees/ha)
-
-Donation conversion to trees = 50euro: 20 trees
- = 1% of a ha.
- 
-### UK 
-https://cieem.net/wp-content/uploads/2021/05/Carbon-and-habitats-paper-v3.pdf
-
-
-### Calculator example
-https://standfortrees.org/footprint-calculator/?utm_source=google&utm_medium=cpc&utm_term=carbon%20footprint%20calculator&utm_campaign=NPM-SFT-FootprintCalculator&gclid=CjwKCAjw092IBhAwEiwAxR1lRosb5bShmxL5amr2H6RkgMF_I_Q7j-u6rCOfSkmzhIwmxH9Vf1bdaxoCEA4QAvD_BwE#calculator
-
+Additional information on the assumptions used for the calculation and relevant resources are here.
 
 
 ## Stripe
@@ -364,7 +289,8 @@ For information on installing and using Docker and Docker Compose, I relied on t
 #### Installing Docker
 To install Docker, I followed the steps outlined in the [Docker documentation](https://docs.docker.com/engine/install/ubuntu/).
 To install Docker Compose, I followed the steps [here](https://docs.docker.com/compose/install/)
-The versions used are: screenshot here
+The versions used are: 
+![Docker](/docs/readme_images/docker_verify_install.png)
 
 #### Setting up the Virtual Environment and Managing Dependencies
 Pipenv was used to install and manage dependencies (e.g. Django itself, crispy forms etc), using the following command:

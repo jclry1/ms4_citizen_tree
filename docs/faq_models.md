@@ -1,5 +1,5 @@
 
-[Back to README](../README.md)
+[Back to README](../README.md#design---database)
 
 The faq model holds the content for the FAQs that a user accesses at the bottom of the calculator page. These are served using fetch (asynch) and the Django Rest Framework (the API endpoints from which fetch retrieves the data are set up using the Django Rest Framework (DRF)).
 

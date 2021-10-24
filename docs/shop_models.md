@@ -1,5 +1,5 @@
 
-[Back to README](../README.md)
+[Back to README](../README.md#design---database)
 
 Note:
 All work on the Shop app closely follows this JustDjango [tutorial and code](https://learn.justdjango.com/roadmaps/django-advanced).
