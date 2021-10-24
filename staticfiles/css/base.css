@@ -69,6 +69,12 @@ a:hover {
   color: gold;
 }
 
+/* CSS to default standard styling for Form validation error messages ********/
+.alert-danger{
+  background-color: orange;
+  color: black;
+}
+
 
 /* Crispy Forms styling Resource: https://stackoverflow.com/questions/42491691/how-do-i-add-custom-css-to-crispy-forms */
 .requiredField{
@@ -184,4 +190,10 @@ caption {
 /*--------------------------------------------------------Chart container div*/ 
 .chart-container {
   max-width: fit-content;
+}
+
+
+/*--------------------------------------------------------Chart container div*/ 
+.ms4_contact{
+  color: #fafafa;
 }
