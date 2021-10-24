@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+{% endblock %}
+
+{% block extra_title %} - Donate{% endblock %}
+
+{% block content %}
+
+<div class="page-desc">
+    <h1 class="index-h">About Citizen Tree</h1>
+</div>
+<section>
+  <div class="donation">
+      <div class="description">
+          
+          <hr />
+
+          <div class="donations-block">
+        <p>Citizen Tree is an online and on-the-ground project to facilitate cooperation between landowners and tree-growers of all ages.</p>
+        <p>It arose out of the sense that there was both unused capacity (energy, time, interest) and unused land (corners of fields, large unused gardens, inaccessible or steep ground) which, if brought together, might usefully contribute to Ireland's effort to mitigate its climate change impacts and help raise the still very low rate of tree cover in the country.</p>
+        <p>Volunteers and monetary support are always welcome and if you have specific ideas on how the project can improve and grow, please get in touch.</p>
+        <p>For more information about how we calculate the potential impact of Citizen Tree projects and to see this in the context of our personal transport emissions, please visit and interact with our <a href="{% url 'calculator:calc' %}">Calculator</a> page.</p>
+
+        
+        <p>Note: This site is deveoped as a project submission for Code Institute's Full Stack Software Development course. Citizen tree doesn't actually exist - at least not yet.
+        If you come across this page and think it's a good idea, use the contact form and I will follow up if/when this becomes an actual project.
+        Thanks for your interest.</p>
+        
+         
+        </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
