@@ -1,12 +1,39 @@
-# Testing for MS3 <!-- omit in toc -->
+# Testing for MS4 <!-- omit in toc -->
 The testing oultined below is organised by functionality and or user story.
 Note: Testing is ongoing with final changes to the appearance of the site. Some of the screenshots may not match exactly with the submitted version in terms of the appearance.
+
+The format of the sections here is to briefly describe the test actinos taken and give a result.
+
+[Back to README](../README.md)
+
+- [Tests For First-Time or Non-Registered User](#tests-for-first-time-or-non-registered-user)
+  - [As a first-time visitor, the purpose and overall content of the site is clear and easy to navigate](#as-a-first-time-visitor-the-purpose-and-overall-content-of-the-site-is-clear-and-easy-to-navigate)
+  - [The site appears and trustworthy](#the-site-appears-and-trustworthy)
+  - [The calculator feature works](#the-calculator-feature-works)
+  - [The sequestration figure and the doughnut reprsentation on the home page update correctly after a donation](#the-sequestration-figure-and-the-doughnut-reprsentation-on-the-home-page-update-correctly-after-a-donation)
+  - [Access to site content is limited as non-logged in user, encouraging registration](#access-to-site-content-is-limited-as-non-logged-in-user-encouraging-registration)
+- [Donations and Shop Tests](#donations-and-shop-tests)
+  - [Test that clicking Donate brings me to the Log In page if not logged in.](#test-that-clicking-donate-brings-me-to-the-log-in-page-if-not-logged-in)
+  - [Test that clicking to proceed to Checkout brings me to Log In page if not logged in](#test-that-clicking-to-proceed-to-checkout-brings-me-to-log-in-page-if-not-logged-in)
+  - [Test stock information](#test-stock-information)
+  - [Test Stock Update in DB](#test-stock-update-in-db)
+  - [Verify that the order information together with the payment status is available to a user on their 'My Orders' page](#verify-that-the-order-information-together-with-the-payment-status-is-available-to-a-user-on-their-my-orders-page)
+  - [Verify that a receipt is sent to the buyer on successful payment](#verify-that-a-receipt-is-sent-to-the-buyer-on-successful-payment)
+- [Project Edits and Updates](#project-edits-and-updates)
+  - [Verify that as a normal logged in user, I can view all projects and all updates, and can update project details or add an update for any project for which I am a deignated 'author'](#verify-that-as-a-normal-logged-in-user-i-can-view-all-projects-and-all-updates-and-can-update-project-details-or-add-an-update-for-any-project-for-which-i-am-a-deignated-author)
+- [Calculator Page](#calculator-page)
+  - [Verify the calculation is working correctly](#verify-the-calculation-is-working-correctly)
+  - [Verify that the last column in the table 'As % of your fuel emission' is calculated correctly](#verify-that-the-last-column-in-the-table-as--of-your-fuel-emission-is-calculated-correctly)
+  - [Verify that all the buttons work and the page is dynamically loaded based on the user input](#verify-that-all-the-buttons-work-and-the-page-is-dynamically-loaded-based-on-the-user-input)
+- [Test Contact Form functionality](#test-contact-form-functionality)
+- [Test Cross-Browser](#test-cross-browser)
+- [Responsiveness Testing](#responsiveness-testing)
 
 ## Tests For First-Time or Non-Registered User
 
 ### As a first-time visitor, the purpose and overall content of the site is clear and easy to navigate
-Steps:
-1. Navigate to the site and asses whether the purpose of the site is clearly evident and/or accessible to a non-registered user.
+
+Navigate to the site and asses whether the purpose of the site is clearly evident and/or accessible to a non-registered user.
 
 Result: Pass
 When I navigate to the site, the image, heading, sub-heading are all consistent.
@@ -21,10 +48,10 @@ Result: Pass
 When I navigate to the mentioned pages, resources are mentioned and I can verify that these exist.
 
 ### The calculator feature works
- As a non-registered or non-logged-in user, attempt use the calculator function and check that the sequestration potential per 50 euro donation is calculated based on my input.
+ As a non-registered or non-logged-in user, attempt to use the calculator function and check that the sequestration potential per 50 euro donation is calculated based on my input.
    
 Result: Pass
-The calculator page is accessible and the calculations update in line with my inputs. The 'sequestration potential' table updates dynamically with my input: Add screenshot here
+The calculator page is accessible and the calculations update in line with my inputs. The 'sequestration potential' table updates dynamically with my input.
 
 ### The sequestration figure and the doughnut reprsentation on the home page update correctly after a donation
 Check the value of the CO2 sequestration before making a donation. Make a donation, and then refresh the home page to verify the new value has been populated. 
@@ -33,7 +60,7 @@ Result: Pass
 
 ### Access to site content is limited as non-logged in user, encouraging registration
 Verify that certain parts of the site are inaccesible while not logged in.
-Non-logged in uer can vistit the project pages, the calculator, and the shop. However they cannot make a donation, buy something, or access their profile (My Orders) without being logged in.
+Non-logged in user can vistit the project pages, the calculator, and the shop. However they cannot make a donation, buy something, or access their profile (My Orders) without being logged in.
 
 Result: Pass.
 
@@ -81,8 +108,8 @@ Log in as a normal user and view project pages and updates.
 Verify that no button option is displayed to add an update or edit project details,
 Result: Pass
 
-Log in to the Django Admin as admin user and assign 'author' stats to the user used inthe step above.
-Return to the site and verify that I now see the optionto edit the project details or to add an update for the project.
+Log in to the Django Admin as admin user and assign 'author' status to the user used in the step above.
+Return to the site and verify that I now see the option to edit the project details or to add an update for the project.
 Result: Pass
 
 ## Calculator Page
@@ -125,9 +152,16 @@ To check responsiveness, the site has been checked using:
 * An Android tablet
 * An iPad
 
+I also attempted to test with some online responsiveness checkers but found this to be a problem due to X-Frame-Options.
+The [Django documentation](https://docs.djangoproject.com/en/3.2/ref/clickjacking/) says: "By default, the middleware will set the X-Frame-Options header to DENY for every outgoing HttpResponse. If you want any other value for this header instead, set the X_FRAME_OPTIONS setting".
+I have not maintained any other setting and have left the default in place:
+![X-Frame-Options](/docs/readme_images/middleware_xframe.png)
+
+The upshot is that tools like [Am I Responsive](https://responsivedesign.is/articles/xframe-options/) cannot access the site.
+
 Result:
 In general, the site maintains it usability but there are areas for improvement:
-* On the calculator page, the FAQs can appear outside the viewport but the focus does not switch, so the user has to scroll down to see the output. A user could mistakenly think that nothing has been returned and not realize they need to scroll. To be fixed (not done before submission).
-* When accessin g the cart, the table is wider than the view port so the user has to scroll horizontally. Depending on the device, this can result in the header and footer not populating the full width of the page. To be fixed (not done before submission).
+* On the calculator page, the FAQs can appear outside (below) the viewport but the focus does not switch, so the user has to scroll down to see the output. A user could mistakenly think that nothing has been returned and not realize they need to scroll. To be fixed (not done before submission).
+* When accessing the cart, the table is wider than the view port so the user has to scroll horizontally. Depending on the device, this can result in the header and footer not populating the full width of the page. To be fixed (not done before submission).
 
 Overall: Pass with some issues for further investigation

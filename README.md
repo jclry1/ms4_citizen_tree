@@ -12,11 +12,9 @@ Citizen Tree is an online space to foster networks of people interested in growi
     - [Registered Contributing User](#registered-contributing-user)
     - [Admin/Site-Owner](#adminsite-owner)
 - [Design - UI](#design---ui)
+    - [Additional Design Notes](#additional-design-notes)
 - [Design - Database](#design---database)
-    - [faq](#faq)
-    - [Donations](#donations)
-    - [Projects and Updates](#projects-and-updates)
-      - [Using the Custom user Model](#using-the-custom-user-model)
+      - [Using the CustomUser Model](#using-the-customuser-model)
 - [Features](#features)
   - [Admin perspective](#admin-perspective)
     - [Email Verification](#email-verification)
@@ -49,49 +47,50 @@ Citizen Tree is an online space to foster networks of people interested in growi
 
 
 # Scenario Outline / Strategy
-The intended user of Citizen Tree falls broadly into one of two posible categories:
+The intended user of Citizen Tree falls broadly into one of three posible categories:
 1. User with time and interest in growing trees but no space/land to do so.
    An example of this might be a school. As part of their learning about climate change, biodiversity etc, kids are introduced to the value of trees. Perhaps they visit a local forest on occasion. The kids would be interested in contributing to a tree-growing project but the school has no land to facilitate that. However, they do have space for 2-3 raised beds in which the kids could grow seeds to the seedling or one-year-old stage.At that point they would need to partner with a landowner to get those trees planted into a space where they could grow to maturity.
    Other potential users in this category might be individuals with small (or large) gardens, community groups, allotment groups, retirement groups, mens sheds etc.
 2. User with space/land to grow trees but in need of help and/or trees. 
    The other side of the coin is the person or institution who owns some land and would like to have it planted with trees and are interested in community engagement. Maybe they don't have enough land to justify a commercial approach or perhaps they are just not interested in becoming commercial forestry owners. Rather they would be happy for a group of interested people to come and plant the land with them, for free, and provide the trees for free. It might also suit a company who has a land bank and sees the opportunity for devloping a positive profile using the partnerships facilitated bythe site.
+3. A user who is interested in the aims of theproject and wishes to support it by making a donation or purchasing trees for their own use.
 
-The site aims to help foster connections between people in these two categories so that land might get planted and long-standing relationships might develop to help manage the trees and enjoy the spaces they create.
+The site aims to help foster connections between people in the first two categories so that land might get planted and long-standing relationships might develop to help manage the trees and enjoy the spaces they create.
 
-It also has a donation page where supporters can support the project financially.
+It also has a donation page where supporters can support the project financially and a shop where users can buy a specific subset of trees grown at project sites.
 
 # User Experience
 Users envisaged for the site are as follows:
-* An admin superuser who can see and edit all content on the site. When a new project joins, this person is required to give authoring rights to the designated 'author' for a project. This user is essentially the site owner and in a real world scenario would work together with a board to decide how donations were spent, whether requesting projects would be invited to join etc.
+* An admin superuser who can see and edit all content on the site. When a new project joins, it must be set up in the Django Admin by an admin user.This person is also required to give authoring rights to the designated 'author' for a project. This user is essentially the site owner and in a real world scenario would work together with a board to decide how donations were spent, whether requesting projects would be invited to join etc.
+* The admin user is also responsible for adding products tot he site shop absed on real-world info and for setting initial stock numbers and prices.
 * A project coordinator/author who is responsible for maintaing the information for a project - whether the project details page or periodic updates for the project progress. The rights associated with this user are limited to authoring for a specified subset of projects and cannot be self-assigned.
-* A general user with read-only access. Although this user may be registered with the site, and may be a member of a project that is affiliated with the site, they do not have authoring or upload rights. They can make donations and view all content.
-* A non-registered visitor has very limited access. In order to view project details or make a donation, users are required to register. A non-registered visitor can use the calculator app without restriction.
+* A general user with read-only access. Although this user may be registered with the site, and may be a member of a project that is affiliated with the site, they do not have authoring or upload rights. They can make donations, use the shop, and view all content.
+* A non-registered visitor has limited access. In order to make a donation or check out from the shop, users are required to register. A non-registered visitor can use the calculator app without restriction.
 
 
 ## User Stories by User Type
 
 #### Non-Registered Visitor
-* As a first-time or non-registered vistor to the site, I have limited access to content and I cannot make a donation.
-However, as an enticement to register and to set up a degreee of trust in the site and establish the scientific basis for the site's aims.
-* I am encouraged to become a registered user because my access to site content is limited.
+* As a first-time or non-registered vistor to the site, I have access to the content but I cannot make a donation.
+However, as an enticement to register and to set up a degreee of trust in the site and establish the scientific basis for the site's aims:
 * I can interact with the CO2 calculator and get a sense of my personal CO2 emission (currently from transport fuel only) and how this might be counter-balanced by trees.
 * I can clearly get a sense of the sites aims.
-* The sites credibility is established by use of references and clear presentation of how claimed values are calculated.
-
+* I can add items from the shop to my cart but cannot check out without registering.
+  
 ### Registered Non-Contributing User
 * I can access any content that is available to a non-registered user.
-* In addition, I can access all content relating to projects on the site and any associated updates from those projects.
-* I can make a donation.
+* In addition, I can use the shop and make donations.
 
 ### Registered Contributing User
 * I have access to all content that a non-registered user has. 
-* In addition, I can access all content relating to projects on the site and any associated updates from those projects.
-* If my user has been designated the 'author' for one or more projects, I can update the information for a project and and can add/edit updates.
+* If my user has been designated the 'author' for one or more projects, I can update the information for a project and and can add or delete updates (no edit option for project updates).
 
 ### Admin/Site-Owner
 The interaction of this user with the site assumes integration with offline processes. For example, potential projects need to be vetted in person. Assuming this is all in place, the main points in relation to site use are:
 * I can add a project and assign an 'author' - the designated person for a project to edit the project details page and add project updates.
-* I can access information about donations and successfully accept donations from the public using a secure checkout.
+* I can access information about donations.
+* I can add products to the shop and edit price and stock information.
+* I can view order information and payment status with a view to order fulfillment.
 * I can edit or delete any project or update content.
 
 # Design - UI
@@ -101,54 +100,21 @@ Wireframes and initial mockups:
 * [Mobile](docs/MS4_Mobile.pdf)
 * [Initial Outline](docs/MS4Draft_InitialOutline.pdf)
 
+### Additional Design Notes
+The aim is to maintain an 'earthy' look and feel to the site. The same background image is used throughout and colours for bottons and the background for project inof etc pick up on the greens and browns that would be familiar from a forest or farm setting.
+Further input on the look and feel would be on the list of to-dos for the first update.
+
 # Design - Database
-There are 5 models currently used in the app:
 
-### faq
-The faq model holds the content for the FAQs that a user accesses at the bottom of the calculator page. These are served using fetch (asynch) and the Django Rest Framework (the API endpoints from which fetch retrieves the data are set up using the Django Rest Framework (DRF)).
+The models used on the different apps interact across the project as a whole. For ease of reading, I have separated out the most important models per app:
 
-![FAQ Model](docs/readme_images/faq_model.png)
+[FAQ model in the calculator app, plus resource info on DRF and fetch](/docs/faq_models.md)
+[Shop-related models](/docs/shop_models.md)
+[Project-related models](/docs/projects_models.md)
+[Donations-related models](/docs/donations_models.md)
 
-The following resources served as guidance for setting up DRF and fetch:
 
-DRF:
-* https://howtocreateapps.com/fetch-and-display-json-html-javascript/
-* https://stackoverflow.com/questions/66318099/passing-django-model-properties-to-javascript-with-the-fetch-api
-* https://www.pluralsight.com/guides/work-with-ajax-django
-* https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
-* https://www.youtube.com/watch?v=DG4obitDvUA&list=PLBMLLI9khn4f1ydlbn3jsuvkf4HEmRtoX
-* https://docs.djangoproject.com/en/3.2/topics/db/queries/
-* https://stackoverflow.com/questions/65369567/import-rest-framework-could-not-be-resolved-but-i-have-installed-djangorestfr
-* https://medium.com/swlh/build-your-first-rest-api-with-django-rest-framework-e394e39a482c
-* https://www.geeksforgeeks.org/textfield-django-models/
-* https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
-* https://selmi.tech/post/how-to-use-ajax-in-django-using-the-javascript-fetch-api-no-jquery
-* https://www.youtube.com/watch?v=263xt_4mBNc
-* https://www.youtube.com/watch?v=3Qdy-FvUEcY
-* https://www.django-rest-framework.org/tutorial/quickstart/
-  
-  Fetch:
-* https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
-* https://css-tricks.com/using-fetch/
-* https://www.brennantymrak.com/articles/fetching-data-with-ajax-and-django.html
-* https://stackoverflow.com/questions/64020495/trouble-with-fetch-from-js-to-django-view
-* https://timonweb.com/django/how-to-make-django-requestis_ajax-work-with-js-fetch/
-* https://stackoverflow.com/questions/58725652/inserting-data-from-fetch-into-a-html-div
-
-### Donations
-The donation app uses two models with a foreign key link between them:
-![Donations Models](docs/readme_images/donations_models_fk.png)
-
-At the moment, there is only one donation type ('Regular') with three price levels corresponding to three stripe IDs.
-![Stripe Prices](docs/readme_images/stripe_donation.png)
-
-More on the Stripe payment and checkout process below.
-
-### Projects and Updates
-The main content of the site is managed by two models - one for projects and one for updates. These have connections one to the other and both also have a foreign key relationship to the custom user model:
-![Project, Update, User Models](docs/readme_images/project_update_user_models.png)
-
-#### Using the Custom user Model
+#### Using the CustomUser Model
 The Django docs explicitly recommend using a custom user model: "If you’re starting a new project, it’s highly recommended to set up a custom user model, even if the default User model is sufficient for you."
 This advice was echoed in Django for Beginners and Django for Professionals books and I went with it. In retrospect, for this project I think it was a bad idea and if I were to start over, I think I would use the default user model.
 Main resources on setting up and using the custom user model:
@@ -157,9 +123,12 @@ Main resources on setting up and using the custom user model:
 * [Django Docs](https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)
 * [Django Best Practices: Referencing the User Model](https://learndjango.com/tutorials/django-best-practices-referencing-user-model)
 
+Using it did not really bring any benefit and there was a small extra overhead when trying to figure out how to access the user.
+
 
 # Features
 (For testing, go to [Testing](/docs/testing.md))
+
 ## Admin perspective
 It is easy for users to register with the site using an email and password or some level of social authentication (currently GitHub only).
 It is not possible for an email account to be associated with 2 users.
