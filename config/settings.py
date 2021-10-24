@@ -95,26 +95,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Using postgres as development db, as seems recommended as best practice
 # Setup based on Django for Professionals, p41
 
-""" DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
-    }
-} """
-""" DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
-    }
-} """
+
 DATABASES = {
     'default': dj_database_url.config()
 }
