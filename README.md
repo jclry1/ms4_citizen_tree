@@ -44,9 +44,17 @@ Citizen Tree is an online space to foster networks of people interested in growi
       - [Create the app in Heroku:](#create-the-app-in-heroku)
       - [Pushing Code](#pushing-code)
   - [Run the App Locally](#run-the-app-locally)
-      - [Note on Local Deployment:](#note-on-local-deployment)
-      - [Note on Environment Variables](#note-on-environment-variables)
-  - [Forking](#forking)
+      - [Environment Variables](#environment-variables-1)
+      - [Forking](#forking)
+  - [Credits](#credits)
+    - [Shop App](#shop-app)
+    - [Projects App](#projects-app)
+    - [Donations App](#donations-app)
+    - [Initial Project Setup and Allauth](#initial-project-setup-and-allauth)
+    - [Environment variables](#environment-variables-2)
+    - [Stripe CLI and Payments](#stripe-cli-and-payments)
+  - [Acknowledgements](#acknowledgements)
+  - [Disclaimer](#disclaimer)
 
 
 
@@ -452,44 +460,81 @@ To download the code and open it in your own IDE, do the following steps. Note, 
 11. This should call the docker-compose.yml file which will in turn call the Dockerfile. It will take a little time while the dependencies are installed.
 12. the ```docker-compose up``` command is equivalent to running the server. You can now use manage.py commands by prefacing them with ``` docker-compose exec web```. For example, ```docker-compose exec web python manage.py createsuperuser```
 13. To stop the server: ``` docker-compose down```
-
     
-       
+#### Environment Variables
+Secret keys have not been pushed to GitHub so will not be included in athe downloaded ZIP. Without these, the app will not run. You would need to create an alternative set of valid environment variables (see above re config vars).
 
 
-#### Note on Local Deployment:
-
-To run the app from the copied files would require that you have installed all required components in your development environment, for example Flask and PyMongo. Requirements are listed in the requirements.txt file.
-In a clean environment, you can install all the requirements together using the following command:
-
-   ```shell
-   pip3 install -r requirements.txt
-   ```
-   (Should I use pip or pip3? This depends on your Python version. If you have Python 3, use pip3. For more, see: https://techwithtech.com/python-pip-vs-pip3/ )
-
-If you already have some of the required packages installed, you can install packages individually, for example:
-   * To install flask:
-      ```shell
-      pip3 install Flask
-      ```
-   Official Documentation: https://flask.palletsprojects.com/en/1.1.x/installation/
-   * To install PyMongo: 
-      ```shell
-      pip3 install flask-pymongo
-      ```
-   Official documentation: https://pymongo.readthedocs.io/en/stable/
-
-#### Note on Environment Variables
-
-Running the app locally requires that you have access to the environment variables. These are stored in a .gitignore file and are not provided in the README or as part of the downloaded ZIP. For MS3 grading, these are provided separately for the tester.
-
-## Forking
+#### Forking
 If you have a Github account, you can fork the repository to your own account. This will create a copy with which you can then work.
-The proviso above regarding environment variables also applies in this instance.
-To fork your own copy of the repository:
-1. While in the repository you wish to fork (ie, this one), click the *Fork* icon in the top-right corner of the screen.
-2. You can confirm whether you want to use the fork as a basis for your own project or as a copy via which to contribute to the original (using pull requests).
-
-**The proviso above regarding environment variables also applies in this instance.**
+Provisos remain regarding environment variables and Docker. I have not tested how this might work (or not).
 
 Full deatils about forking a Github repository can be found here: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
+
+## Credits
+Aspects of this project rely heavily on the following resources:
+
+### Shop App
+The shop app is based on, and closely follows, the 'Business Logic' and 'Stripe' parts of the Just Django tutorial on building an ecommerce site. The [tutorial can be found here](https://learn.justdjango.com/roadmaps/django-advanced) and this is the [corresponding GitHub repository](https://github.com/justdjango/django-simple-ecommerce).
+
+Although I followed the tutorial closely, some aspects were removed and others added. For example, I have not included hte functionality to remember cards and I have added:
+
+* Add in the buyer's (user) email address to the Stripe payment intent so that a receipt can be sent.
+* Updating the stock of products based on successful payments.
+
+Obviously, variable names and model fields have also changed as appropriate to the MS4 project.
+
+### Projects App
+The projects app relies on class-based views and the background for using these was taken primarily from the Very Academy YouTube channel.
+
+The class-based views are integrated with dynamic URLS using get_absolute_url and dynamic filtering of content using foreign keys and get_queryset.
+
+The main resources for putting this in place (with some code snippets used) were:
+* **NB [Class-Based Views - Very Academy](https://www.youtube.com/watch?v=RwWhQTSV44Q&list=PLBMLLI9khn4ewoLazztY1eepWFCvujPB9&index=7&t=1024s)
+* [Django documentation - get_queryset()](https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects)
+* [Django documentation - get_absolute_url](https://docs.djangoproject.com/en/3.2/ref/models/instances/)
+* [Django documentation - ForeignKey](https://docs.djangoproject.com/en/3.2/ref/models/fields/#foreignkey)
+* [URL Mapping](https://www.youtube.com/watch?v=YT60BZJjySg)
+* [get_absolute_url -- GoDjango](https://www.youtube.com/watch?v=dv1Sm2Rlyao)
+* [Slug Field](https://learndjango.com/tutorials/django-slug-tutorial)
+* [List and Detail Views](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views)
+* [Model Queries](https://www.youtube.com/watch?v=WimXjp0ryOo)
+* [self.request.user as filter for class-based view](https://stackoverflow.com/questions/38471260/django-filtering-by-user-id-in-class-based-listview)
+
+Re the CreateView and autopopulating the author field with the logged in user:
+https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-with-createview-in-django-returns-null-value
+
+### Donations App
+The donations app and inparticular setting up the webhook, rely heavily on the following resources (including some code):
+* Stripe documentation eg: https://stripe.com/docs/payments/checkout/fulfill-orders
+* Tutorial 1: https://testdriven.io/blog/django-stripe-tutorial/
+* Tutorial 2: https://justdjango.com/blog/django-stripe-payments-tutorial
+
+### Initial Project Setup and Allauth
+Project set up, social login, using the CustomUser relies heavily on:
+* Django for Beginners and Django for Profesinals books by William S. Vincent, together with the sister website [here](https://learndjango.com/). 
+
+### Environment variables
+https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+https://djangocentral.com/environment-variables-in-django/
+
+### Stripe CLI and Payments
+Stripe CLI:
+https://github.com/stripe/stripe-cli/wiki/installation
+https://stackoverflow.com/questions/66217436/gpg-keyserver-receive-failed-no-name/68132500#68132500?newreg=b9ece6b73bdf4fe9aa656a6ff3f4af44
+https://githubmemory.com/repo/stripe/stripe-cli/issues/689
+
+Payments:
+https://www.youtube.com/watch?v=722A27IoQnk
+https://stripe.com/docs/payments/integration-builder
+
+
+## Acknowledgements
+I would like to acknowledge the following contributions to the project:
+* My mentor Antonio Rodriguez for his guidance
+* Tutor support (Sheryl and Michael) for their help with resolving an issue with JavaScript/StaticFiles.
+ 
+ (See Credits section above for code sources and references)
+
+## Disclaimer
+This project is for educational purposes only. 
