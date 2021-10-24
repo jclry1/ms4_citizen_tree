@@ -35,6 +35,14 @@ Citizen Tree is an online space to foster networks of people interested in growi
       - [Installing Docker](#installing-docker)
       - [Setting up the Virtual Environment and Managing Dependencies](#setting-up-the-virtual-environment-and-managing-dependencies)
       - [Using Docker Compose](#using-docker-compose)
+  - [Deployment:](#deployment-1)
+      - [Note on Procfile](#note-on-procfile)
+      - [Environment Variables](#environment-variables)
+      - [Staticfiles](#staticfiles)
+      - [WSGI](#wsgi)
+      - [Heroku as Allowed Host](#heroku-as-allowed-host)
+      - [Heroku.yml](#herokuyml)
+      - [Pushing Code](#pushing-code)
 
 
 
@@ -321,4 +329,71 @@ docker-compose up -d
 ```
 The difference bewtween the two commands above being the terminal output was disabled with the ```-d``` flag.
 
+## Deployment:
+#### Note on Procfile
+As mentioned above, this project was deloped on VS Code locally (as opposed to GitPod) and uses Docker Compose.
+For that reason, there is no requirements.txt file. This is replaced with a procfile and procfile.lock.
+Please consult these fles for information on installed dependencies.
 
+#### Environment Variables
+Assumption throughout the process below is that all secret keys are stored in environment variables (.env file) and these are replicated in Heroku's config vars once the Heroku app is set up.
+The following secret keys are required in Heroku:
+![Heroku Config Vars](/docs/readme_images/heroku_config_vars.png)
+
+These are maintained in settings.py as follows:
+![Settings Secret Keys](/docs/readme_images/secret_keys_settings_py.png)
+
+#### Staticfiles
+Staticfiles are handled using WhiteNoise.
+To enable this, install WhiteNoise using the instructions [here](http://whitenoise.evans.io/en/stable/).
+During deployment, I had issues with staticfiles. The current setting in settings.py is working fine and commented with link to related stackoverflow.
+
+#### WSGI
+For WSGI, install [Gunicorn](https://docs.gunicorn.org/en/stable/).
+
+#### Heroku as Allowed Host
+Add '.herokuapp.com' to allowed hosts in the app settings.py:
+```
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
+```
+#### Heroku.yml
+Create a [heroku.yml](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml#heroku-yml-overview) file for deploying with Docker:
+In the case of this app:
+```sh
+setup:
+  addons:
+  - plan: heroku-postgresql
+build:
+  docker:
+    web: Dockerfile
+release:
+  image: web
+  command:
+    - python manage.py collectstatic --noinput
+run:
+  web: gunicorn config.wsgi
+  ```
+
+Create the app in Heroku:
+![Heroku Setup](/docs/readme_images/heroku_app_info.png)
+
+Once this is in place, you can set the required config vars mentioned above.
+
+#### Pushing Code
+Once the above settings are in place, there are two ways to push code and deploy the app. Both have been used for this project (mostly GitHub manual deploys).
+1. Connect the heroku app with the corresponding GitHub repository and deploy the latest code from the Heroku dashboard. This can be set up to run every time new code is pushed to GitHub. I did not use this option as it seemed a needless repetition of redeploying the app for minor changes. Rather I used the manual deploy option.
+This is convenient as it also allows deployment of a branch. So changes can be checked before merging into the main/master branch.
+![GitHub Connected](/docs/readme_images/heroku_github_connect.png)
+
+2. The alternative to using GitHub is to connect a [git repository on heroku](https://devcenter.heroku.com/articles/git#creating-a-heroku-remote) itself.
+3. 
+Note: A prereqiusite for this is to have the [Heroku CLI installed](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
+
+The connection from the local git with Heroku is established with the following command:
+```sh
+heroku git:remote -a <app-name>
+```
+Once that is set up, committed code can be deployed directly to heroku using:
+```sh
+git push heroku master
+```
