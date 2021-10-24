@@ -20,7 +20,8 @@ The format of the sections here is to briefly describe the test actinos taken an
   - [Verify that the order information together with the payment status is available to a user on their 'My Orders' page](#verify-that-the-order-information-together-with-the-payment-status-is-available-to-a-user-on-their-my-orders-page)
   - [Verify that a receipt is sent to the buyer on successful payment](#verify-that-a-receipt-is-sent-to-the-buyer-on-successful-payment)
 - [Project Edits and Updates](#project-edits-and-updates)
-  - [Verify that as a normal logged in user, I can view all projects and all updates, and can update project details or add an update for any project for which I am a deignated 'author'](#verify-that-as-a-normal-logged-in-user-i-can-view-all-projects-and-all-updates-and-can-update-project-details-or-add-an-update-for-any-project-for-which-i-am-a-deignated-author)
+  - [Verify that as a normal logged in user, I can only view projects and updates](#verify-that-as-a-normal-logged-in-user-i-can-only-view-projects-and-updates)
+  - [Verify that as a designated 'author', I can add or delete project updates and edit project details](#verify-that-as-a-designated-author-i-can-add-or-delete-project-updates-and-edit-project-details)
 - [Calculator Page](#calculator-page)
   - [Verify the calculation is working correctly](#verify-the-calculation-is-working-correctly)
   - [Verify that the last column in the table 'As % of your fuel emission' is calculated correctly](#verify-that-the-last-column-in-the-table-as--of-your-fuel-emission-is-calculated-correctly)
@@ -82,7 +83,7 @@ Result: pass
 ### Test Stock Update in DB
 As an admin, check the stock for a particular product in the Django Admin.
 Proceed to site and make a purchase of the product * 2. 
-Return to admin and verigy that the stock level ahs updated and is also correctly reflected in the UI for the next buyer.
+Return to admin and verify that the stock level has updated and is also correctly reflected in the UI for the next buyer.
 Result: Pass
 
 ### Verify that the order information together with the payment status is available to a user on their 'My Orders' page
@@ -96,20 +97,21 @@ Make a payment as a logged in user.
 Check the order number.
 In the Django Admin, find the corresponding Stripe payment ID.
 On the Stripe dashboard, locate the order and trigger an email receipt. 
-Verify that the email is received, for the correct amount, at the email address given for the loogged in user.
+Verify that the email is received, for the correct amount, at the email address given for the logged in user.
 
 ![Send receipt for paid order](/docs/readme_images/resolve_payment_order.png)
 
 Result: Pass
 
 ## Project Edits and Updates
-### Verify that as a normal logged in user, I can view all projects and all updates, and can update project details or add an update for any project for which I am a deignated 'author'
+### Verify that as a normal logged in user, I can only view projects and updates
 Log in as a normal user and view project pages and updates.
-Verify that no button option is displayed to add an update or edit project details,
+Verify that no option is displayed to add an update or edit project details
 Result: Pass
 
-Log in to the Django Admin as admin user and assign 'author' status to the user used in the step above.
-Return to the site and verify that I now see the option to edit the project details or to add an update for the project.
+### Verify that as a designated 'author', I can add or delete project updates and edit project details
+Log in as a user assigned 'author' stats for a projetc.
+Verify that I now see the option to edit the project details or to add an update for the project. (Note: Updates only have add or delte options, but no edit functionality.)
 Result: Pass
 
 ## Calculator Page
@@ -130,7 +132,6 @@ Verify that the contact form works by filling out a valid entry and submitting. 
 
 Result: Pass
 
-
 ## Test Cross-Browser
 The site was developed and all primary tests were conducted using a laptop and monitor.
 
@@ -140,7 +141,7 @@ With this setup, the site was tested in the following browsers:
 * Safari
 * Opera
 
-In general, no major hiccups were found but here were some discrepancies. For example, the home page showing the doughnut chart displays as intended in Chrome and Opera, but Firefox displays it in a larger size. This is a display issue and not critical and I have run out of time to do further testing so have left any remaining display issues as they are. As far as I have tested, the functionality works as intended in all major browsers. 
+In general, no major hiccups were found but here were some discrepancies. For example, the home page showing the doughnut chart displays as intended in Chrome, Safari, and Opera, but Firefox displays it in a larger size. This is a display issue and not critical and I have run out of time to do further testing so have left any remaining display issues as they are. As far as I have tested, the functionality works as intended in all major browsers. 
 
 Result: Pass with issues for investigation
 
@@ -158,6 +159,9 @@ I have not maintained any other setting and have left the default in place:
 ![X-Frame-Options](/docs/readme_images/middleware_xframe.png)
 
 The upshot is that tools like [Am I Responsive](https://responsivedesign.is/articles/xframe-options/) cannot access the site.
+
+One tool I could use was Chrome's Lighthouse. Results here also have room for improvement:
+![Example Lighthouse Report - Calculator page](/docs/readme_images/lighthouse_report.png)
 
 Result:
 In general, the site maintains it usability but there are areas for improvement:

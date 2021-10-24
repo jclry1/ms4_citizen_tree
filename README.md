@@ -1,5 +1,5 @@
 # Citizen Tree <!-- omit in toc -->
-Citizen Tree is an online space to foster networks of people interested in growing trees to help one another brings trees from seed through to woodland. 
+Citizen Tree is an online space to foster networks of people interested in growing trees from seed through to woodland. 
 
 <a href="https://ms4-citizen-tree.herokuapp.com/" target="_blank">View the live project here</a>
 
@@ -28,21 +28,25 @@ Citizen Tree is an online space to foster networks of people interested in growi
   - [Calculator Page](#calculator-page)
   - [Stripe](#stripe)
   - [Git](#git)
-  - [Deployment](#deployment)
-    - [Notes on Development](#notes-on-development)
+  - [Development](#development)
       - [Why not use Gitpod?](#why-not-use-gitpod)
       - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
       - [Installing Docker](#installing-docker)
       - [Setting up the Virtual Environment and Managing Dependencies](#setting-up-the-virtual-environment-and-managing-dependencies)
       - [Using Docker Compose](#using-docker-compose)
-  - [Deployment:](#deployment-1)
+  - [Deployment](#deployment)
       - [Note on Procfile](#note-on-procfile)
       - [Environment Variables](#environment-variables)
       - [Staticfiles](#staticfiles)
       - [WSGI](#wsgi)
       - [Heroku as Allowed Host](#heroku-as-allowed-host)
       - [Heroku.yml](#herokuyml)
+      - [Create the app in Heroku:](#create-the-app-in-heroku)
       - [Pushing Code](#pushing-code)
+  - [Run the App Locally](#run-the-app-locally)
+      - [Note on Local Deployment:](#note-on-local-deployment)
+      - [Note on Environment Variables](#note-on-environment-variables)
+  - [Forking](#forking)
 
 
 
@@ -272,11 +276,10 @@ Stripe integration is based on:
 ## Git
 Branching and merging: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 
-## Deployment
-The deployment steps below are the procedure followed for this app. It differs from the procedure used for Boutique Ado and the MS3 project in that the development and delpoyment process use Docker. 
-Development also differed and was done using Docker Compose and VS Code locally, (as opposed to Gitpod).
+## Development
+in contrast with the my previous milestone projects, this project was developed lcally using VSCode and Docker Compose (as opposed to GitPod).
+This hasd knock-on effects for deployment, installation, dependency management.
 
-### Notes on Development
 #### Why not use Gitpod?
 Gitpod had served well for the three milestone projects so far. I decided to switch to using VS Code locally in combination with Docker Compose for a couple of reasons:
 
@@ -296,8 +299,10 @@ For information on installing and using Docker and Docker Compose, I relied on t
 
 #### Installing Docker
 To install Docker, I followed the steps outlined in the [Docker documentation](https://docs.docker.com/engine/install/ubuntu/).
+
 To install Docker Compose, I followed the steps [here](https://docs.docker.com/compose/install/)
 The versions used are: 
+
 ![Docker](/docs/readme_images/docker_verify_install.png)
 
 #### Setting up the Virtual Environment and Managing Dependencies
@@ -329,18 +334,22 @@ docker-compose up -d
 ```
 The difference bewtween the two commands above being the terminal output was disabled with the ```-d``` flag.
 
-## Deployment:
+## Deployment
+The follwing subsections onutline the deployment process followed for this project.
+
 #### Note on Procfile
-As mentioned above, this project was deloped on VS Code locally (as opposed to GitPod) and uses Docker Compose.
-For that reason, there is no requirements.txt file. This is replaced with a procfile and procfile.lock.
-Please consult these fles for information on installed dependencies.
+As mentioned above, the project was deloped on VS Code locally (as opposed to GitPod) and uses Docker Compose.
+For that reason, as well as there being no requirements.txt file, there is also no Procfile. This is replaced with a .yml file: ```heroku.yml```.
+```heroku.yml``` is to the production build what the docker-compose file is to the development build. It sets some initial patameters and indicates the Dockerfile to be built.
 
 #### Environment Variables
 Assumption throughout the process below is that all secret keys are stored in environment variables (.env file) and these are replicated in Heroku's config vars once the Heroku app is set up.
 The following secret keys are required in Heroku:
+
 ![Heroku Config Vars](/docs/readme_images/heroku_config_vars.png)
 
-These are maintained in settings.py as follows:
+An example of how these are maintained in settings.py:
+
 ![Settings Secret Keys](/docs/readme_images/secret_keys_settings_py.png)
 
 #### Staticfiles
@@ -374,26 +383,113 @@ run:
   web: gunicorn config.wsgi
   ```
 
-Create the app in Heroku:
+#### Create the app in Heroku:
+
 ![Heroku Setup](/docs/readme_images/heroku_app_info.png)
+
+Basically, the steps are:
+1. Log in to your Heroku account.
+2. Choose *New -> Create New App*.
+3. Enter an app name.
+4. Choose the region.
+5. Make sure the Stack option is set as 'Container'. 
+   If it is not possible to set this when setting up the app in the dashboard, you can do so using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install). When you have the Heroku CLI connected, the following command will set the stack:
+   ```
+  heroku stack:set container -a <app name>
+   ```
+6. Click *Create App*.
 
 Once this is in place, you can set the required config vars mentioned above.
 
 #### Pushing Code
 Once the above settings are in place, there are two ways to push code and deploy the app. Both have been used for this project (mostly GitHub manual deploys).
+
 1. Connect the heroku app with the corresponding GitHub repository and deploy the latest code from the Heroku dashboard. This can be set up to run every time new code is pushed to GitHub. I did not use this option as it seemed a needless repetition of redeploying the app for minor changes. Rather I used the manual deploy option.
-This is convenient as it also allows deployment of a branch. So changes can be checked before merging into the main/master branch.
+This is convenient as it also allows deployment of a branch. In a few cases, this allowed changes can be checked before merging into the main/master branch.
 ![GitHub Connected](/docs/readme_images/heroku_github_connect.png)
 
 2. The alternative to using GitHub is to connect a [git repository on heroku](https://devcenter.heroku.com/articles/git#creating-a-heroku-remote) itself.
-3. 
+
 Note: A prereqiusite for this is to have the [Heroku CLI installed](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
 
 The connection from the local git with Heroku is established with the following command:
+
 ```sh
 heroku git:remote -a <app-name>
 ```
+
 Once that is set up, committed code can be deployed directly to heroku using:
 ```sh
 git push heroku master
 ```
+
+When changes are made locally, they cam be pushed to heroku directly or via GitHub.
+
+In either case, heroku rebuilds the app and deploys the updated version automatically.
+
+
+## Run the App Locally
+To download the code and open it in your own IDE, do the following steps. Note, these steps assume the use of VSCode. They might differ depending on the IDE.
+1. On the repository home page on Github, find the download code button above the table with the commit history and open the dropdown menu.
+2. Choose *Download ZIP*.
+3. Locate the download in the *Downloads* folder on your computer and store it in a suitable dedicated folder.
+4. Extract the ZIP.
+5. Open the project files from your IDE. For example, if using VSCode, choose *File* -> *Open Folder* and choose the folder just created in step 4.
+6. Outside of your IDE donload and install Docker and Docker Compose.
+7. Verify your installation by checking the version. In the terminal:
+   ```
+   docker-compose --version
+   ```
+   ```
+   docker --version
+   ```
+8. Go back to your opened folder in VSCode.
+9. Verify that the project files are present and that there is a docker-compose.yml file present.
+10. In the terminal inside VSCode, verify that you are located in the correct folder and type the following command:
+    ```sh
+    docker-compose up
+    ```
+11. This should call the docker-compose.yml file which will in turn call the Dockerfile. It will take a little time while the dependencies are installed.
+12. the ```docker-compose up``` command is equivalent to running the server. You can now use manage.py commands by prefacing them with ``` docker-compose exec web```. For example, ```docker-compose exec web python manage.py createsuperuser```
+13. To stop the server: ``` docker-compose down```
+
+    
+       
+
+
+#### Note on Local Deployment:
+
+To run the app from the copied files would require that you have installed all required components in your development environment, for example Flask and PyMongo. Requirements are listed in the requirements.txt file.
+In a clean environment, you can install all the requirements together using the following command:
+
+   ```shell
+   pip3 install -r requirements.txt
+   ```
+   (Should I use pip or pip3? This depends on your Python version. If you have Python 3, use pip3. For more, see: https://techwithtech.com/python-pip-vs-pip3/ )
+
+If you already have some of the required packages installed, you can install packages individually, for example:
+   * To install flask:
+      ```shell
+      pip3 install Flask
+      ```
+   Official Documentation: https://flask.palletsprojects.com/en/1.1.x/installation/
+   * To install PyMongo: 
+      ```shell
+      pip3 install flask-pymongo
+      ```
+   Official documentation: https://pymongo.readthedocs.io/en/stable/
+
+#### Note on Environment Variables
+
+Running the app locally requires that you have access to the environment variables. These are stored in a .gitignore file and are not provided in the README or as part of the downloaded ZIP. For MS3 grading, these are provided separately for the tester.
+
+## Forking
+If you have a Github account, you can fork the repository to your own account. This will create a copy with which you can then work.
+The proviso above regarding environment variables also applies in this instance.
+To fork your own copy of the repository:
+1. While in the repository you wish to fork (ie, this one), click the *Fork* icon in the top-right corner of the screen.
+2. You can confirm whether you want to use the fork as a basis for your own project or as a copy via which to contribute to the original (using pull requests).
+
+**The proviso above regarding environment variables also applies in this instance.**
+
+Full deatils about forking a Github repository can be found here: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
