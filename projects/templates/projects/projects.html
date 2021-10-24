@@ -16,16 +16,7 @@
 <div class="album py-5 ">
 <div class="container">
     <div class="row">
-        <div>
-            {% if messages %}
-              <ul class="messages">
-                {% for message in messages %}
-                  <li class="{{ message.tags }}">{{ message }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-        </div>
-        {% for project in object_list %}
+                {% for project in object_list %}
             <div class="col-md-4">
                 <div class="card mb-4">
                     <img class="card-img-top project-list-card" src="{{ project.picture.url }}" alt="The project profile picture or default backup">
