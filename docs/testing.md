@@ -1,5 +1,5 @@
 # Testing for MS3 <!-- omit in toc -->
-The testing oultined below is organised by user stories (US) (individually or grouped).
+The testing oultined below is organised by functionality and or user story.
 Note: Testing is ongoing with final changes to the appearance of the site. Some of the screenshots may not match exactly with the submitted version in terms of the appearance.
 
 ## Tests For First-Time or Non-Registered User
@@ -11,41 +11,123 @@ Steps:
 Result: Pass
 When I navigate to the site, the image, heading, sub-heading are all consistent.
 I can easily access the 'About' page from the landing page and this clearly outlines the site purpose.
-I can also easil visit and use the calculator functinality and this illustrates with a meaningful and unique-to-me exampleo f how  donation might help to store carbon and offset personal lifetyle emissions.
+I can also easil visit and use the calculator functionality and this illustrates with a meaningful example of how a donation might help to store carbon and offset personal lifetyle emissions.
 
 ### The site appears and trustworthy
 Steps:
-1. Check the About page and the Calculator page to assess trustworthiness. Both should make it clear that the claims for sequestration/offsets are based on reliable data. Verify that the site does not actively request any payments or card data - in fact the user cannot donate without becoming a registered user.
+1. Check the Calculator page to assess trustworthiness. It should make it clear that the claims for sequestration/offsets are based on reliable data. Verify that the site does not actively request any payments or card data - in fact the user cannot donate without becoming a registered user.
 
 Result: Pass 
 When I navigate to the mentioned pages, resources are mentioned and I can verify that these exist.
 
 ### The calculator feature works
-1. As a non-registered or non-logged-in user, attempt use the calculator function and check that the sequestration potential per 50 euro donation is calculated based on my input.
+ As a non-registered or non-logged-in user, attempt use the calculator function and check that the sequestration potential per 50 euro donation is calculated based on my input.
    
 Result: Pass
 The calculator page is accessible and the calculations update in line with my inputs. The 'sequestration potential' table updates dynamically with my input: Add screenshot here
 
+### The sequestration figure and the doughnut reprsentation on the home page update correctly after a donation
+Check the value of the CO2 sequestration before making a donation. Make a donation, and then refresh the home page to verify the new value has been populated. 
+
+Result: Pass
+
 ### Access to site content is limited as non-logged in user, encouraging registration
-1. Navigate to the site and attempt to access the 'Projects' or 'Donate' pages. Verify that this is not p[ossible while user is not logged in.
+Verify that certain parts of the site are inaccesible while not logged in.
+Non-logged in uer can vistit the project pages, the calculator, and the shop. However they cannot make a donation, buy something, or access their profile (My Orders) without being logged in.
 
 Result: Pass.
-Having established the basic credibility of the site, the user attempts to view the projects (and associated updates) or make a donation. however, they must log in, prompting user registration.
+
+## Donations and Shop Tests
+
+### Test that clicking Donate brings me to the Log In page if not logged in.
+Result: Pass
+
+### Test that clicking to proceed to Checkout brings me to Log In page if not logged in
+Result: Pass
+A non-logged in user can add items to their cart and browse products but they cannot go to checkout without first logging in.
+
+### Test stock information
+As admin, check the stock for a particular product in the Django admin.
+Verify that this is correctly reflected on the product page.
+To allow for some leeeway in terms of variety and any damage that might occur to trees at a nursery, verify that a buffer of 5 trees is always maintained - ie , a purchase cannot reduce the stock level below 5. User is informed of the max number available.
+Result: pass
+
+### Test Stock Update in DB
+As an admin, check the stock for a particular product in the Django Admin.
+Proceed to site and make a purchase of the product * 2. 
+Return to admin and verigy that the stock level ahs updated and is also correctly reflected in the UI for the next buyer.
+Result: Pass
+
+### Verify that the order information together with the payment status is available to a user on their 'My Orders' page
+As a user, make a purchase of an item and verify that the order details are visible on the My Orders page when payment has gone through.
+
+Result: Pass
+
+### Verify that a receipt is sent to the buyer on successful payment
+Stripe does not send email receipts in test mode. However, on the stripe dashboard a receipt can be triggered for a particular stripe payment (as would occur out of test mode). To verify that once out of test mode the receipt functionality would work:
+Make a payment as a logged in user.
+Check the order number.
+In the Django Admin, find the corresponding Stripe payment ID.
+On the Stripe dashboard, locate the order and trigger an email receipt. 
+Verify that the email is received, for the correct amount, at the email address given for the loogged in user.
+
+![Send receipt for paid order](/docs/readme_images/resolve_payment_order.png)
+
+Result: Pass
+
+## Project Edits and Updates
+### Verify that as a normal logged in user, I can view all projects and all updates, and can update project details or add an update for any project for which I am a deignated 'author'
+Log in as a normal user and view project pages and updates.
+Verify that no button option is displayed to add an update or edit project details,
+Result: Pass
+
+Log in to the Django Admin as admin user and assign 'author' stats to the user used inthe step above.
+Return to the site and verify that I now see the optionto edit the project details or to add an update for the project.
+Result: Pass
+
+## Calculator Page
+### Verify the calculation is working correctly
+Make an entry at for fuel cost and type and press the button to estimate emissions.
+Double-check the result against an expected result calculated offline.
+Result: Pass
+
+### Verify that the last column in the table 'As % of your fuel emission' is calculated correctly
+As above, double-check against values calculated offline.
+Result: Pass
+
+### Verify that all the buttons work and the page is dynamically loaded based on the user input
+Result: Pass
+
+## Test Contact Form functionality
+Verify that the contact form works by filling out a valid entry and submitting. Verify that the email is received by 'ms4.citizentree@gmail.com' and the email provided by the peson submitting the form.
+
+Result: Pass
 
 
-## Tests For Non-Contributing User
-### I can make a donation and this is verified by email
-1. Register and log in to the site.
-2. Verify that the content that was available when not logged in is still accessible.
-3. Click the Donate button from one of the locations in which it appears.
-4. Verify that you have 3 donate options - 20 euros, 50 euros, 100 euros.
-5. Select an amount to donate.
-6. Verify that the Stripe checkout opens and the selected amount is displayed as the amount to pay.
-7. Enter card details (use Stripe test card 4242 4242 4242 4242, with future expiry and any 3-digit combination for CVV).
-8. Verify that the stripe presents a successful message and you are directed to a success page on Citizen Tree.
-9. Confirm that an email is received confirming the donation and has the correct amount.
+## Test Cross-Browser
+The site was developed and all primary tests were conducted using a laptop and monitor.
 
-Pass: All steps above complete.
+With this setup, the site was tested in the following browsers:
+* Chrome
+* Firefox
+* Safari
+* Opera
 
-### I can access project and project updates content but cannot edit
-1. 
+In general, no major hiccups were found but here were some discrepancies. For example, the home page showing the doughnut chart displays as intended in Chrome and Opera, but Firefox displays it in a larger size. This is a display issue and not critical and I have run out of time to do further testing so have left any remaining display issues as they are. As far as I have tested, the functionality works as intended in all major browsers. 
+
+Result: Pass with issues for investigation
+
+## Responsiveness Testing
+To check responsiveness, the site has been checked using:
+* The Inspect option in Google Chrome simulating different device widths
+* An Android phone 
+* An iPhone
+* An Android tablet
+* An iPad
+
+Result:
+In general, the site maintains it usability but there are areas for improvement:
+* On the calculator page, the FAQs can appear outside the viewport but the focus does not switch, so the user has to scroll down to see the output. A user could mistakenly think that nothing has been returned and not realize they need to scroll. To be fixed (not done before submission).
+* When accessin g the cart, the table is wider than the view port so the user has to scroll horizontally. Depending on the device, this can result in the header and footer not populating the full width of the page. To be fixed (not done before submission).
+
+Overall: Pass with some issues for further investigation

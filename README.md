@@ -159,6 +159,7 @@ Main resources on setting up and using the custom user model:
 
 
 # Features
+(For testing, go to [Testing](/docs/testing.md))
 ## Admin perspective
 It is easy for users to register with the site using an email and password or some level of social authentication (currently GitHub only).
 It is not possible for an email account to be associated with 2 users.
