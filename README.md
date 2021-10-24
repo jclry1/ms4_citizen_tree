@@ -2,63 +2,67 @@
 Citizen Tree is an online space to foster networks of people interested in growing trees from seed through to woodland. 
 
 <a href="https://ms4-citizen-tree.herokuapp.com/" target="_blank">View the live project here</a>
+[View the live project here](https://ms4-citizen-tree.herokuapp.com/){:target="_blank"}
 
 # Table of Contents <!-- omit in toc -->  
 - [Scenario Outline / Strategy](#scenario-outline--strategy)
 - [User Experience](#user-experience)
-  - [User Stories by User Type](#user-stories-by-user-type)
-      - [Non-Registered Visitor](#non-registered-visitor)
-    - [Registered Non-Contributing User](#registered-non-contributing-user)
-    - [Registered Contributing User](#registered-contributing-user)
-    - [Admin/Site-Owner](#adminsite-owner)
+- [User Stories by User Type](#user-stories-by-user-type)
+    - [Non-Registered Visitor](#non-registered-visitor)
+  - [Registered Non-Contributing User](#registered-non-contributing-user)
+  - [Registered Contributing User](#registered-contributing-user)
+  - [Admin/Site-Owner](#adminsite-owner)
 - [Design - UI](#design---ui)
-    - [Additional Design Notes](#additional-design-notes)
+  - [Additional Design Notes](#additional-design-notes)
 - [Design - Database](#design---database)
-      - [Using the CustomUser Model](#using-the-customuser-model)
-- [Features](#features)
-  - [Admin perspective](#admin-perspective)
-    - [Email Verification](#email-verification)
-    - [User Image Upload](#user-image-upload)
-    - [Donations with Stripe](#donations-with-stripe)
-  - [Technical Info](#technical-info)
-    - [Initial Setup based on Django for Professinoals by William S. Vincent](#initial-setup-based-on-django-for-professinoals-by-william-s-vincent)
-  - [Set up static files](#set-up-static-files)
-  - [Problem using docker-compose to install packages](#problem-using-docker-compose-to-install-packages)
-  - [Class-based generic views](#class-based-generic-views)
-  - [Calculator Page](#calculator-page)
-  - [Stripe](#stripe)
-  - [Git](#git)
-  - [Development](#development)
-      - [Why not use Gitpod?](#why-not-use-gitpod)
-      - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
-      - [Installing Docker](#installing-docker)
-      - [Setting up the Virtual Environment and Managing Dependencies](#setting-up-the-virtual-environment-and-managing-dependencies)
-      - [Using Docker Compose](#using-docker-compose)
-  - [Deployment](#deployment)
-      - [Note on Procfile](#note-on-procfile)
-      - [Environment Variables](#environment-variables)
-      - [Staticfiles](#staticfiles)
-      - [WSGI](#wsgi)
-      - [Heroku as Allowed Host](#heroku-as-allowed-host)
-      - [Heroku.yml](#herokuyml)
-      - [Create the app in Heroku:](#create-the-app-in-heroku)
-      - [Pushing Code](#pushing-code)
-  - [Run the App Locally](#run-the-app-locally)
-      - [Environment Variables](#environment-variables-1)
-      - [Forking](#forking)
-  - [Credits](#credits)
-    - [Shop App](#shop-app)
-    - [Projects App](#projects-app)
-    - [Donations App](#donations-app)
-    - [Initial Project Setup and Allauth](#initial-project-setup-and-allauth)
-    - [Environment variables](#environment-variables-2)
-    - [Stripe CLI and Payments](#stripe-cli-and-payments)
-  - [Acknowledgements](#acknowledgements)
-  - [Disclaimer](#disclaimer)
+    - [Using the CustomUser Model](#using-the-customuser-model)
+- [Features - Admin Perspective](#features---admin-perspective)
+  - [Email Verification](#email-verification)
+  - [User Image Upload](#user-image-upload)
+  - [Donations and Payments with Stripe](#donations-and-payments-with-stripe)
+  - [Contact Form](#contact-form)
+- [Features - New User Perspective](#features---new-user-perspective)
+  - [All data regarding ongoing projects is visible](#all-data-regarding-ongoing-projects-is-visible)
+  - [User-specific, interactive context provided](#user-specific-interactive-context-provided)
+      - [Calculator Page](#calculator-page)
+  - [Country-specific, dynamic content](#country-specific-dynamic-content)
+  - [Educational content](#educational-content)
+- [Features - Registered User](#features---registered-user)
+  - [Donations](#donations)
+  - [Shop](#shop)
+  - [Community](#community)
+- [Development](#development)
+    - [Why not use Gitpod?](#why-not-use-gitpod)
+    - [Resources on Docker, Docker Compose, and Pipenv](#resources-on-docker-docker-compose-and-pipenv)
+    - [Installing Docker](#installing-docker)
+    - [Setting up the Virtual Environment and Managing Dependencies](#setting-up-the-virtual-environment-and-managing-dependencies)
+    - [Using Docker Compose](#using-docker-compose)
+- [Deployment](#deployment)
+    - [Note on Procfile](#note-on-procfile)
+    - [Environment Variables](#environment-variables)
+    - [Staticfiles](#staticfiles)
+    - [WSGI](#wsgi)
+    - [Heroku as Allowed Host](#heroku-as-allowed-host)
+    - [Heroku.yml](#herokuyml)
+    - [Create the app in Heroku:](#create-the-app-in-heroku)
+    - [Pushing Code](#pushing-code)
+- [Run the App Locally](#run-the-app-locally)
+    - [Environment Variables](#environment-variables-1)
+    - [Forking](#forking)
+- [Credits](#credits)
+  - [Shop App](#shop-app)
+  - [Projects App](#projects-app)
+      - [Other Resources included:](#other-resources-included)
+  - [Donations App](#donations-app)
+  - [Initial Project Setup and Allauth](#initial-project-setup-and-allauth)
+  - [Environment variables](#environment-variables-2)
+  - [Stripe CLI and Payments](#stripe-cli-and-payments)
+- [Acknowledgements](#acknowledgements)
+- [Disclaimer](#disclaimer)
 
 
 
-# Scenario Outline / Strategy
+## Scenario Outline / Strategy
 The intended user of Citizen Tree falls broadly into one of three posible categories:
 1. User with time and interest in growing trees but no space/land to do so.
    An example of this might be a school. As part of their learning about climate change, biodiversity etc, kids are introduced to the value of trees. Perhaps they visit a local forest on occasion. The kids would be interested in contributing to a tree-growing project but the school has no land to facilitate that. However, they do have space for 2-3 raised beds in which the kids could grow seeds to the seedling or one-year-old stage.At that point they would need to partner with a landowner to get those trees planted into a space where they could grow to maturity.
@@ -71,7 +75,7 @@ The site aims to help foster connections between people in the first two categor
 
 It also has a donation page where supporters can support the project financially and a shop where users can buy a specific subset of trees grown at project sites.
 
-# User Experience
+## User Experience
 Users envisaged for the site are as follows:
 * An admin superuser who can see and edit all content on the site. When a new project joins, it must be set up in the Django Admin by an admin user.This person is also required to give authoring rights to the designated 'author' for a project. This user is essentially the site owner and in a real world scenario would work together with a board to decide how donations were spent, whether requesting projects would be invited to join etc.
 * The admin user is also responsible for adding products tot he site shop absed on real-world info and for setting initial stock numbers and prices.
@@ -105,7 +109,7 @@ The interaction of this user with the site assumes integration with offline proc
 * I can view order information and payment status with a view to order fulfillment.
 * I can edit or delete any project or update content.
 
-# Design - UI
+## Design - UI
 Wireframes and initial mockups:
 
 * [Desktop](docs/MS4_Desktop.pdf)
@@ -116,7 +120,7 @@ Wireframes and initial mockups:
 The aim is to maintain an 'earthy' look and feel to the site. The same background image is used throughout and colours for bottons and the background for project inof etc pick up on the greens and browns that would be familiar from a forest or farm setting.
 Further input on the look and feel would be on the list of to-dos for the first update.
 
-# Design - Database
+## Design - Database
 
 The models used on the different apps interact across the project as a whole. For ease of reading, I have separated out the most important models per app:
 
@@ -138,120 +142,38 @@ Main resources on setting up and using the custom user model:
 Using it did not really bring any benefit and there was a small extra overhead when trying to figure out how to access the user. Resources consulted at various points for this are commented in the code.
 
 
-# Features
+## Features - Admin Perspective
 (For testing, go to [Testing](/docs/testing.md))
 
-## Admin perspective
 It is easy for users to register with the site using an email and password or some level of social authentication (currently GitHub only).
 It is not possible for an email account to be associated with 2 users.
 Donation functionality on the site is user-friendly and professional. In addition to the success page, users get an email when their donation has been processed, but not before.
 
 ### Email Verification
-Based on the functionality provided by django-allauth and the direction in 'Django for Professionals'
-all-auth email templates: https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account/email
-all-auth settings: https://django-allauth.readthedocs.io/en/latest/configuration.html
-
-Password reset functionality based on django-allauth and uses the allauth templates only slightly modified:
-https://github.com/pennersr/django-allauth/tree/master/allauth/templates/account
-Additional resource: https://www.youtube.com/watch?v=d9aCpxQfnOg
+Email verification is required for new users. This ensures records in the DB regarding payments is valid.
 
 ### User Image Upload
 Image upload is available for users who are designated as the 'author' for a project. The option is part of the form when editing the project details or adding a new update.
 Images uploaded by users in this way are stored and served from an Amazon S3 bucket.
 ![S3 Image Storage](/docs/readme_images/s3_image_storage.png)
 
-### Donations with Stripe
-The app uses Stripe to take donations payments. Options are limited to 3 donation levels and a user must be logged in to access the donate page.
-The payment process can be cancelled by a user in which case they are redirected to a cancel page. Otherwise, when they commit to the payment, they are redirected to a success page.
-In addition to the success page that confirms the amount they have paid, the user is also sent an email from the app to confirm the payment.
-This email only issues after the payment has been successful. This is implemented using a webhook:
-```python
-@csrf_exempt
-def stripe_webhook(request):
-  endpoint_secret = settings.STRIPE_WH_SECRET
-  payload = request.body
-  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-  event = None
+### Donations and Payments with Stripe
+The app uses Stripe to take donations and payments. 
+The advantage from the admin perspective is ease of use, no requirement to store card data and automatic updating of donations totals or product stock levels based on verifoed successful payments.
+In addition to the success page that confirms the amount they have paid, the user is also sent an email from the app to confirm the payment or sent a Stripe receip in the case of a purchase. This bolsters credibility and user satisfaction.
+Email functionality is automated based on Stripe receipt functionality and by using SendGrid.
 
-  try:
-    event = stripe.Webhook.construct_event(
-      payload, sig_header, endpoint_secret
-    )
-  except ValueError as e:
-    # Invalid payload
-    return HttpResponse(status=400)
-  except stripe.error.SignatureVerificationError as e:
-    # Invalid signature
-    return HttpResponse(status=400)
+### Contact Form
+There is a quick and straightforward contact form to allow users get in touch with the projects via a central channel. Messages can then be forwarded or dealt with as appropriate by project admins.
 
-  # Handle the checkout.session.completed event - send confirmation email
-  if event['type'] == 'checkout.session.completed':
-    session = event['data']['object']
-    customer_email = session["customer_details"]["email"]
-    amount = session["amount_total"]
-    display_amount = "{0:.2f}".format(amount / 100)
+## Features - New User Perspective
+### All data regarding ongoing projects is visible
+This gives a sense of transparency and increases willingness to donate or take part. I can get a sense the overall project is legitimate.
 
-    print(session)
-    send_mail('Your donation', f'Thank you for your donation of {display_amount} euros to Citizen Tree.', 'ms4.citizentree@gmail.com', [customer_email], fail_silently=False)
+### User-specific, interactive context provided
+By using the calculator app I am given a sense of one aspect of my own personal emissins and how I could help to balance them with a donation to the project.
 
-```
-The email is sent using SendGrid.
-
-## Technical Info
-### Initial Setup based on Django for Professinoals by William S. Vincent
-Create virtual environment using pipenv
-Install Django (this project uses 3.2.6 - see pipfile.lock)
-Install psycopg2 for using postgres in development
-Start the Django project and run the server to check - ok
-
-Stop the virtual env.
-
-Set up the Dockerfile and docker-compose files
-
-Change settings so that default db is postgres and not sqlite3.
-
-Before running migrations, set up custom user model: https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
-
-## Set up static files
-Based on:
-* Django for Professionals
-* Django docs
-* Boutique Ado
-
-## Problem using docker-compose to install packages
-For much of the basic setup of the project, I'm following Django for Professionals by William S. Vincent. To install packages, eg Crispy Forms, he recommends the following command in the terminal:
-```sh
-$ docker-compose exec web pipenv install <django-crispy-forms==1.9.2>
-```
-I found that this did not work. The problem seems to be known but I didn't find a perfect solution.
-See:
-https://stackoverflow.com/questions/53400385/django-docker-and-pipenv-error-adding-new-packages
-https://stackoverflow.com/questions/60949436/django-docker-and-pipenv-error-adding-new-packages-not-transfering-from-con
-
-The command that seems to work is to remove the docker-compose element and just install using pipenv. The package gets added to the pipfile and pipfile.lock:
-```sh
-pipenv install django-crispy-forms
-```
-
-## Class-based generic views
-I'm using mostly class-based views in the project.
-For the Projects app, info for this has come from:
-* Django for professionals
-* Very Academy - Learn Django Class-Based View series - https://www.youtube.com/watch?v=GxA2I-n8NR8
-
-Other Resources included:
-For some issues passing context data (breaking if no user is logged in):
-https://stackoverflow.com/questions/54444196/get-context-data-breaking-breaking-django-listview
-https://stackoverflow.com/questions/51632952/get-the-user-id-class-based-view
-https://stackoverflow.com/questions/65685752/getting-django-db-models-query-utils-deferredattribute-object-at-0x7fca8f1d3d50
-
-Also, class-based edit views.
-Resources for DeleteView:
-https://www.codingforentrepreneurs.com/projects/try-django/class-based-views-deleteview
-https://www.geeksforgeeks.org/deleteview-class-based-views-django/
-https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView
-
-## Calculator Page
+##### Calculator Page
 The purpose of the calculator page is to give some context to the figures and emphasise the purpose of the project and the scales involved.
 How it works:
 The user can enter a Euro amount that they spend on transportation fuel weekly. 
@@ -265,24 +187,23 @@ The purpose here is to reinforce the scales involved and to serve as a call to a
 
 To give legitimacy to the calculations and to the project, a further section outlines some background and FAQs.
 
-Note on tech setup:
-The page updates dynamically and asynchronously as the user progresses through it. The HTML is updated according to the inputs and some hard-coded HTML (template literal) in the corresponding JS functions. 
-For the FAQs, the page is updated (no reload) using fetch (similar to Ajax). The API endpoints from which fetch retrieves the data are set up using the Django Rest Framework (DRF).
 
-Additional information on the assumptions used for the calculation and relevant resources are here.
+### Country-specific, dynamic content
+On the home page I am given a sense of the enormity of the numbers and am challenged to act and/or make a donation.
 
+### Educational content
+The site content, though minimal, has some eucational value.
 
-## Stripe
-Stripe integration is based on:
-* Boutique Ado
-* Stripe docs
-* JustDjango tutorial: https://justdjango.com/blog/django-stripe-payments-tutorial and https://www.youtube.com/watch?v=722A27IoQnk
-* testdriven.io tutorial: https://testdriven.io/blog/django-stripe-tutorial/
-* re session object: https://stripe.com/docs/api/checkout/sessions/line_items
-* https://bhoey.com/blog/stripe-checkout-with-django/
+## Features - Registered User
+### Donations
+By registering with the site I can donate and get a sense that my donation is contributing to a home-grown and local solution to a real problem which the site has put in context.
 
-## Git
-Branching and merging: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+### Shop
+I can avail of the shop which may offer certain tree varieties that are hard to get elsewhere.
+I can see my order history.
+
+### Community
+By registering with the site I can feel a sense of community with the project and hopefully it is the first step in becoming an active user at a working project.
 
 ## Development
 in contrast with the my previous milestone projects, this project was developed lcally using VSCode and Docker Compose (as opposed to GitPod).
@@ -402,9 +323,11 @@ Basically, the steps are:
 4. Choose the region.
 5. Make sure the Stack option is set as 'Container'. 
    If it is not possible to set this when setting up the app in the dashboard, you can do so using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install). When you have the Heroku CLI connected, the following command will set the stack:
-   ```
+
+```sh
   heroku stack:set container -a <app name>
-   ```
+```
+
 6. Click *Create App*.
 
 Once this is in place, you can set the required config vars mentioned above.
@@ -501,8 +424,19 @@ The main resources for putting this in place (with some code snippets used) were
 * [Model Queries](https://www.youtube.com/watch?v=WimXjp0ryOo)
 * [self.request.user as filter for class-based view](https://stackoverflow.com/questions/38471260/django-filtering-by-user-id-in-class-based-listview)
 
-Re the CreateView and autopopulating the author field with the logged in user:
+* Re the CreateView and autopopulating the author field with the logged in user:
 https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-with-createview-in-django-returns-null-value
+
+##### Other Resources included:
+For some issues passing context data (breaking if no user is logged in):
+* https://stackoverflow.com/questions/54444196/get-context-data-breaking-breaking-django-listview
+* https://stackoverflow.com/questions/51632952/get-the-user-id-class-based-view
+* https://stackoverflow.com/questions/65685752/getting-django-db-models-query-utils-deferredattribute-object-at-0x7fca8f1d3d50
+
+Also, class-based edit views, resources for DeleteView:
+* https://www.codingforentrepreneurs.com/projects/try-django/class-based-views-deleteview
+* https://www.geeksforgeeks.org/deleteview-class-based-views-django/
+* https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView
 
 ### Donations App
 The donations app and inparticular setting up the webhook, rely heavily on the following resources (including some code):
