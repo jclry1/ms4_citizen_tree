@@ -1,5 +1,6 @@
 # from django.views.generic.detail import DetailView
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import Project, Update
 from django.views.generic import ListView, DetailView
@@ -55,11 +56,6 @@ class AddUpdateView(LoginRequiredMixin,CreateView):
     template_name = 'projects/add_update.html'
     success_url = '../../updates' 
 
-    """ def get_initial(self, *args, **kwargs):
-        initial = super().get_initial(**kwargs)
-        initial ['title'] = 'Title for the update report'
-        #initial ['slug'] = slugify(self.title) """
-
 
 
 # https://stackoverflow.com/questions/55556165/setting-model-user-to-request-user-with-createview-in-django-returns-null-value
@@ -67,6 +63,7 @@ class AddUpdateView(LoginRequiredMixin,CreateView):
         form.instance.author_id = self.request.user.pk
         form.instance.update_slug = slugify(form.instance.title)
         form.instance.project = Project.objects.get(slug = self.kwargs['slug'])
+        messages.success(self.request, 'Your update was added successfully.')
         return super().form_valid(form) 
 
 
