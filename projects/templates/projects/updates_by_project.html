@@ -8,22 +8,9 @@
 
 <div class="container h-100">
     <div class="row h-100">
-        <div class="col-7 col-md-6 my-auto">
-            <h1 class="index-h">
-                Citizen Tree
-            </h1>
-            <h2>{{ heading }}</h2>
-            
-            {% if user.is_authenticated %}
-                <h3>User: {{ username }}</h3>
-                <hr />
-                Hi {{ user.email }}!
-                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
-            {% else %}
-                <p>You are not logged in</p>
-                <a href="{% url 'account_login' %}">Log In</a>
-                <a href="{% url 'account_signup' %}">Sign Up</a>
-            {% endif %}    
+        <div class="page-desc">
+            <h1 class="index-h">Project Updates</h1>
+            <hr>
         </div>
     </div>
 </div>

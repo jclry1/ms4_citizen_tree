@@ -30,6 +30,15 @@
 
 <div class="container">
     <div class="row">
+        <div>
+            {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+        </div>
         <div class="col-12">
             <form method="post" enctype="multipart/form-data"> <!-- https://stackoverflow.com/questions/32423123/django-create-view-image-upload/32429092 -->
                 {% csrf_token %}

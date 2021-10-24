@@ -8,22 +8,9 @@
 
 <div class="container h-100">
     <div class="row h-100">
-        <div class="col-7 col-md-6 my-auto">
-            <h1 class="index-h">
-                Citizen Tree - Project Update
-            </h1>
-            <h2>{{ heading }}</h2>
-            
-            {% if user.is_authenticated %}
-                <h3>User: {{ username }}</h3>
-                <hr />
-                Hi {{ user.email }}!
-                <p><a href="{% url 'account_logout' %}">Log Out</a></p>
-            {% else %}
-                <p>You are not logged in</p>
-                <a href="{% url 'account_login' %}">Log In</a>
-                <a href="{% url 'account_signup' %}">Sign Up</a>
-            {% endif %}    
+        <div class="page-desc">
+            <h1 class="index-h">Project Update</h1>
+            <hr>
         </div>
     </div>
 </div>
@@ -34,10 +21,9 @@
             <img class="card-img-top" src=" {{ report.picture.url }} " alt="Image for the project update or default">
             <div class="card-body">
                 <h5 class="card-title">{{ report.title }}</h5>
-                <p class="card-text">{{ report.short_text }}</p>
+                <p class="card-text">{{ report.date_added }}</p>
                 
                 <p class="card-text"> {{ report.text }}</p>
-                <a href="#" class="btn btn-primary">Donate</a>
                 <a href="{% url 'projects:updates' %}" class="btn btn-primary">Back to All Updates</a>
                 <a href="{% url 'projects:projupdates' report.project %}" class="btn btn-primary">Back to Updates for This Project</a>
                 {% if user.is_authenticated and user.username == report.author.username %}
