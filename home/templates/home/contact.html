@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("user_ddrXfeUvflt7uVEhnrkEJ");
+  })();
+</script>
+<script src="{% static 'js/ms4_mail.js' %}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+{% endblock %}
+
+{% block extra_title %} - Donate{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <!--Contact Form. Main Source: Bootstrap -->
+    <div class="jumbotron donations-block ms4_contact">
+      <div id="contact-form">
+        <form
+          id="ms4_contact_form"
+          onsubmit="return sendMail(this);"
+          class="form-group"
+        >
+          <h2 class="text-center">Contact Us</h2>
+          <h5>Get in touch with Citizen Tree:</h5>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              class="form-control"
+              type="text"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+          <label for="email_1">Email Address</label>
+          <input
+            class="form-control"
+            type="email"
+            id="email_1"
+            name="email_address"
+            required
+          />
+          <br />
+          <label for="message_text">Message</label><br />
+          <textarea
+            class="form-control"
+            id="message_text"
+            name="message_text"
+            maxlength="400"
+            placeholder="Max 400 characters"
+            required
+          ></textarea
+          ><br />
+          <input
+            class="btn btn-secondary ms4-btn"
+            type="submit"
+            value="Send my message"
+            title="Send us your message"
+          />
+        </form>
+      </div>
+    </div>
+      <!--Form submitted modal-->
+  <div
+  class="modal fade"
+  id="formSubmitModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="formSubmitModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formSubmitModalLabel">Message Sent</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You message has been sent. We'll be in touch as soon as we can.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  </div>
+{% endblock %}

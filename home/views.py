@@ -55,3 +55,6 @@ def custom_error_500(request):
 
 def custom_error_403(request, exception):
     return render(request, '403.html', {})
+
+class ContactView(TemplateView):
+    template_name = "home/contact.html"
