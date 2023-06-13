@@ -2,6 +2,7 @@
 Citizen Tree is an online space to foster networks of people interested in growing trees from seed through to woodland. 
 
 <a href="https://ms4-citizen-tree.herokuapp.com/" target="_blank">View the live project here</a>
+Note: Due to the change in Heroku's terms, this site is no longer live.
 
 
 # Table of Contents <!-- omit in toc -->  
